@@ -1,0 +1,12 @@
+{
+  "name": "bioinformatica-interactiva",
+  "version": "1.0.0",
+  "description": "Curso interactivo de estructuras de datos y algoritmos en bioinformática",
+  "scripts": {
+    "start": "http-server -c-1 -p 8080",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

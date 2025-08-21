@@ -1,7 +1,7 @@
 ---
 title: "Módulo 1 – Fundamentos de estructuras de datos y análisis de algoritmos"
 author: "Curso de Introducción a Estructuras de Datos y Algoritmos"
-date: "15 de agosto de 2025"
+date: "21 de agosto de 2025"
 toc: true
 number-sections: true
 ---
@@ -28,7 +28,9 @@ Las instrucciones deben ser lo suficientemente precisas para que un ordenador pu
 
 Su importancia no radica solo en dar una respuesta correcta, sino en hacerlo de manera **eficiente**, aprovechando el tiempo de cómputo y la memoria disponibles.  
 
-Las **estructuras de datos** proporcionan formas de organizar la información para que los algoritmos accedan a ella de manera más eficaz. En este módulo se introducen los conceptos básicos: **tipos de dato abstracto (TDA)**, la **notación Big O**, los principales **paradigmas algorítmicos** y los **vectores**(o arrays) como ejemplo de estructura estática.  
+Las **estructuras de datos** proporcionan formas de organizar la información para que los algoritmos accedan a ella de manera más eficaz.  
+
+En este módulo se introducen los conceptos básicos: **tipos de dato abstracto (TDA)**, la **notación Big O**, los principales **paradigmas algorítmicos** y los **vectores** (o arrays) como ejemplo de estructura estática.  
 
 ---
 
@@ -40,17 +42,22 @@ Un **algoritmo** debe cumplir ciertas propiedades:
 - **Definición precisa**: cada paso está claramente especificado, sin ambigüedad.  
 - **Entrada y salida**: recibe datos de entrada y produce resultados.  
 
-Para representarlos se utilizan **pseudocódigo** y **diagramas de flujo**, que permiten describirlos de manera formal.  
+### 2.1 Representación
 
-**Ejemplo simple**: encontrar el mayor de dos números.  
+Se utilizan **pseudocódigo** y **diagramas de flujo**, que permiten describirlos de manera formal y clara.  
+
+**Ejemplo simple**: encontrar el máximo de *n* números.  
 
 ```text
-Algoritmo MayorDeDos(a, b):
-  si a ≥ b entonces
-    devolver a
-  si no
-    devolver b
+Algoritmo Maximo(lista[1..n]):
+  max ← lista[1]
+  para i desde 2 hasta n hacer
+    si lista[i] > max entonces
+      max ← lista[i]
+  devolver max
 ```
+
+Este algoritmo recorre toda la lista una vez ⇒ **complejidad O(n)**.
 
 ---
 
@@ -68,29 +75,33 @@ El comportamiento varía según el tamaño de *n*:
 * Algoritmos **O(n)** escalan linealmente.
 * Algoritmos **O(n²)** crecen de forma cuadrática, lo que los hace inviables en contextos como la bioinformática.
 
+**Gráfico comparativo de crecimiento**:
+
+![Crecimiento de funciones de complejidad](../images/complejidad.png){ width=70% }
+
 ### 3.2 Peor caso, mejor caso y caso promedio
 
-* **Peor caso**: Ofrece un límite superior del tiempo de ejecución para cualquier entrada válida. Es útil para garantizar que el algoritmo siempre será lo suficientemente rápido. Garantiza rendimiento incluso con datos adversos.
-* **Mejor caso**: Proporciona un límite inferior y refleja la situación más favorable (por ejemplo, datos ya ordenados). A menudo no es representativo de casos reales.
-* **Caso promedio**: Calcula el tiempo de ejecución esperado teniendo en cuenta todas las posibles entradas y sus probabilidades. Es importante cuando se conocen las distribuciones de datos.
+* **Peor caso**: Ofrece un límite superior del tiempo de ejecución para cualquier entrada válida.
+* **Mejor caso**: Refleja la situación más favorable (ej. datos ya ordenados en un algoritmo de ordenación).
+* **Caso promedio**: Calcula el tiempo de ejecución esperado considerando distribuciones de datos.
 
 ### 3.3 Paradigmas algorítmicos
 
 * **Divide y vencerás**: dividir el problema en subproblemas (ej. *merge sort*).
-* **Voraces**: toman decisiones locales óptimas (ej. algoritmos de grafos).
+* **Voraces**: toman decisiones locales óptimas (ej. problema del cambio de monedas con denominaciones canónicas).
 * **Programación dinámica**: reutilizan soluciones parciales (ej. Needleman–Wunsch en alineamiento de secuencias).
 
 ### 3.4 Tabla de complejidad habitual
 
 | Orden          | Descripción        | Ejemplo                            |
 | -------------- | ------------------ | ---------------------------------- |
-| **O(1)**       | Tiempo constante: el número de operaciones no depende del tamaño de la entrada   | Acceder a un elemento de un vector |
-| **O(log n)**   | Tiempo logarítmico: el algoritmo reduce el tamaño del problema a la mitad en cada paso | Búsqueda binaria                   |
-| **O(n)**       | Tiempo lineal: se realiza un número de operaciones proporcional al tamaño de la entrada      | Recorrer una lista                 |
-| **O(n log n)** | Cuasilineal: Proporcional a n*log(n). En la práctica se comporta casi como uno lineal porque el crecimiento logaritmico es despreciable      | *Quicksort*, *Merge sort*          |
-| **O(n²)**      | Cuadrático:  el número de operaciones es proporcional al cuadrado del tamaño de la entrada         | *Bubble sort*                      |
+| **O(1)**       | Tiempo constante   | Acceder a un elemento de un vector |
+| **O(log n)**   | Tiempo logarítmico | Búsqueda binaria                   |
+| **O(n)**       | Tiempo lineal      | Recorrer una lista                 |
+| **O(n log n)** | Cuasilineal        | *Quicksort*, *Merge sort*          |
+| **O(n²)**      | Cuadrático         | *Bubble sort*                      |
 
-⚡ Además de Big O, existen notaciones **Ω** (cota inferior) y **Θ** (cota ajustada), que completan el análisis teórico.
+⚡ Además de Big O, existen notaciones **Ω** (cota inferior) y **Θ** (cota ajustada).
 
 ---
 
@@ -113,20 +124,20 @@ print(f"GC%: {gc:.2%}")
 
 Las estructuras de datos organizan la información según necesidades:
 
-
-| Tipo          | Descripción        | Ejemplo                            |
-| -------------- | ------------------ | ---------------------------------- |
-| **Lineales**   | almacenan elementos de manera secuencial; cada elemento (excepto el primero y el último) tiene un predecesor y un sucesor | vectores, listas, pilas, colas. |
-| **Jerárquicas**   |  Organizan los elementos en niveles de jerarquía. | árboles, heaps |
-| **Redes**   |   | Estructura de datos no lineal que sirve para modelar relaciones entre objetos | grafos |
-| **Estáticas**   |   su tamaño se define en el momento de la creación y no puede variar | tamaño fijo (arrays) |
-| **Dinámicas**   |  pueden crecer o decrecer durante la ejecución. Estas estructuras aprovechan asignación dinámica de memoria para ajustar su tamaño a las necesidades del programa. | listas enlazadas, árboles y grafos. 
-
+| Tipo            | Descripción                                   | Ejemplo                           |
+| --------------- | --------------------------------------------- | --------------------------------- |
+| **Lineales**    | elementos secuenciales con predecesor/sucesor | vectores, listas, pilas, colas    |
+| **Jerárquicas** | elementos en niveles de jerarquía             | árboles, heaps                    |
+| **Grafos**      | relaciones entre objetos sin jerarquía fija   | redes sociales, mapas             |
+| **Estáticas**   | tamaño fijo definido al crearse               | arrays                            |
+| **Dinámicas**   | tamaño ajustable en ejecución                 | listas enlazadas, árboles, grafos |
 
 ### 5.1 Tipo de dato abstracto (TDA)
 
-Un **TDA** se define por **operaciones y reglas** que cumple, no por su implementación.
-Ejemplo: una pila, que siempre ofrece `apilar`, `desapilar`, `consultar`. Puede implementarse con vectores o listas enlazadas.
+Un **TDA** se define por **operaciones y reglas**, no por su implementación.
+
+Ejemplo: una pila, que siempre ofrece `apilar`, `desapilar`, `consultar`.
+Puede implementarse con vectores o con listas enlazadas.
 
 ---
 
@@ -140,9 +151,7 @@ Los **vectores** son arrays unidimensionales de tamaño fijo:
 
 Las **matrices** son arrays bidimensionales. Un array $m \times n$ puede verse como un vector de $m$ filas con $n$ columnas.
 
-![Vector de diez elementos](../images/array.png){ width=80% }
-
-*Figura 1: representación de un vector de diez elementos con sus índices.*
+**Ejemplo**: recorrido fila por fila vs. columna por columna y su impacto en rendimiento (caché).
 
 ---
 
@@ -153,9 +162,9 @@ En este módulo hemos:
 * Definido qué es un algoritmo y cómo medir su eficiencia.
 * Estudiado la notación Big O y otras notaciones complementarias.
 * Reconocido paradigmas algorítmicos clave.
-* Revisado la clasificación de estructuras de datos y profundizado en vectores y matrices.
+* Clasificado las estructuras de datos y profundizado en vectores y matrices.
 
-📌 Comprender estos fundamentos no es un ejercicio académico: es lo que marca la diferencia entre esperar días para un análisis genómico o tener resultados en minutos.
+📌 Comprender estos fundamentos marca la diferencia entre esperar días para un análisis genómico o tener resultados en minutos.
 
 ---
 
@@ -165,15 +174,14 @@ En este módulo hemos:
 2. ¿Por qué la programación dinámica es útil en alineamiento de secuencias?
 3. Explica la diferencia entre un TDA y su implementación.
 4. Si un algoritmo tarda 2 segundos con *n=1000* y es **O(n²)**, ¿cuánto tardará aproximadamente con *n=2000*?
+5. Escribe en pseudocódigo un algoritmo que invierta un vector y analiza su complejidad.
+6. Diseña un algoritmo voraz para dar cambio en monedas de 1, 2, 5, 10 y 20. ¿Es siempre óptimo?
 
 ---
 
 ## Referencias
 
-1. Descripción de la búsqueda binaria y su complejidad $O(\log n)$.
-2. Clasificación de las estructuras de datos: vectores, listas, pilas, colas, árboles, heaps y grafos.
-3. Definición de tipo de dato abstracto (TDA) como modelo matemático definido por operaciones y comportamiento.
-4. Propiedades de los arrays estáticos: memoria contigua, acceso por índice y tamaño fijo.
-5. Complejidad de algoritmos de ordenación: *quicksort* $O(n \log n)$, *merge sort* $O(n \log n)$, *bubble sort* $O(n^2)$.
-
-```
+* Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. *Introduction to Algorithms*. MIT Press.
+* Sedgewick, R., & Wayne, K. *Algorithms*. Addison-Wesley.
+* Goodrich, M. T., & Tamassia, R. *Data Structures and Algorithms in Java*. Wiley.
+* Kleinberg, J., & Tardos, É. *Algorithm Design*. Pearson.

@@ -1,107 +1,171 @@
 ---
-title: "Módulo 3 – Pilas y colas"
+title: "Módulo 3 – Pilas y colas"
 author: "Curso de Introducción a Estructuras de Datos y Algoritmos"
-date: "15 de agosto de 2025"
+date: "21 de agosto de 2025"
 toc: true
 number-sections: true
 ---
 
-# Módulo 3 – Pilas y colas
+# Módulo 3 – Pilas y colas
 
 ## Introducción
 
-Las **pilas** y **colas** son estructuras de datos lineales que imponen restricciones sobre el acceso a sus elementos.  Pueden implementarse mediante vectores o listas enlazadas, pero se definen por el conjunto de operaciones que permiten más que por su representación interna.  Este módulo presenta el funcionamiento de estas estructuras, sus operaciones básicas y algunas aplicaciones.
+Las **pilas** y **colas** son estructuras de datos lineales que imponen restricciones sobre el acceso a sus elementos.  
+Se definen más por las **operaciones permitidas** que por su implementación interna.  
+Pueden construirse sobre vectores o listas enlazadas.  
 
-## 1. Pilas (stacks)
+Este módulo presenta su funcionamiento, operaciones básicas, implementaciones típicas y aplicaciones reales.
 
-Una **pila** es una estructura de tipo LIFO (*Last In, First Out*).  Esto significa que el último elemento en entrar es el primero en salir.  Solo se puede acceder al elemento situado en la parte superior de la pila.  Las dos operaciones principales son:
+---
 
-* **`apilar` (push)**: coloca un elemento en la cima de la pila.
-* **`desapilar` (pop)**: elimina y devuelve el elemento situado en la cima de la pila【735453531594789†L198-L206】.
+## 1. Pilas (stacks)
 
-Otras operaciones útiles son:
+Una **pila** es una estructura de tipo **LIFO** (*Last In, First Out*).  
+El último elemento en entrar es el primero en salir.  
 
-* **`crear`**: inicializa una pila vacía.
-* **`tamaño`**: devuelve el número de elementos almacenados.
-* **`consultar` o `peek`**: devuelve el elemento superior sin retirarlo.
-* **`vacía`**: comprueba si la pila está vacía【735453531594789†L254-L272】.
+### 1.1 Operaciones principales
 
-### Implementación mediante vector
+* **`apilar` (push)**: coloca un elemento en la cima de la pila.  
+* **`desapilar` (pop)**: elimina y devuelve el elemento superior.  
+* **`consultar` (peek)**: devuelve el elemento superior sin retirarlo.  
+* **`vacía`**: comprueba si no hay elementos.  
+* **`tamaño`**: devuelve el número de elementos.  
 
-Una pila puede implementarse con un vector y una variable que indique la posición del elemento superior.  Al apilar, se incrementa este indicador y se almacena el elemento.  Al desapilar, se devuelve el elemento y se decrementa el indicador.  El tamaño máximo debe fijarse al crear la pila o gestionarse mediante redimensionamiento dinámico.
+#### Pseudocódigo de operaciones básicas
 
-### Implementación mediante lista enlazada
+```text
+procedimiento apilar(PILA P, DATO x):
+    P.tope ← P.tope + 1
+    P.elementos[P.tope] ← x
 
-Al utilizar una lista enlazada, cada elemento se inserta o elimina al inicio de la lista.  Así, las operaciones de apilar y desapilar tienen coste \(O(1)\).  La ventaja de este enfoque es que la pila puede crecer dinámicamente sin necesidad de tamaño máximo.
+DATO desapilar(PILA P):
+    si P.tope = 0 entonces error "Pila vacía"
+    x ← P.elementos[P.tope]
+    P.tope ← P.tope - 1
+    devolver x
+```
 
-### Aplicaciones de las pilas
+### 1.2 Implementación mediante vector
 
-* **Gestión de llamadas y recursión**: las llamadas a funciones se almacenan en una pila de activación.  Cuando se invoca una función, se apila la dirección de retorno; al finalizar, se desapila y se reanuda la ejecución.
-* **Evaluación de expresiones**: las pilas se utilizan para convertir expresiones infijas a notación postfija (RPN) y evaluar expresiones aritméticas.
-* **Deshacer operaciones**: muchas aplicaciones (editores de texto, navegadores) utilizan pilas para implementar la función “deshacer/rehacer” almacenando estados previos.
+* Se utiliza un array y un puntero `tope`.
+* Operaciones $O(1)$.
+* Requiere tamaño máximo fijo o redimensionamiento dinámico.
 
-### Ilustración de una pila
+### 1.3 Implementación mediante lista enlazada
 
-La figura 5 muestra una pila con cinco elementos.  Los elementos se apilan desde la base hacia la cima; el puntero `Top` indica el elemento que se devolverá al desapilar.
+* Inserción y eliminación en la cabeza de la lista.
+* Crecimiento dinámico.
+* Operaciones $O(1)$.
+
+### 1.4 Aplicaciones de las pilas
+
+* **Gestión de llamadas y recursión**: pila de activación en compiladores.
+* **Evaluación de expresiones**: conversión infija ↔ postfija (notación polaca inversa).
+* **Deshacer/rehacer**: editores de texto, navegadores.
 
 ![Representación de una pila](../images/stack.png){ width=50% }
 
-*Figura 5: estructura LIFO.*
+*Figura 5: estructura LIFO.*
 
-## 2. Colas (queues)
+---
 
-Una **cola** es una estructura de tipo FIFO (*First In, First Out*), donde el primer elemento en entrar es el primero en salir.  Se realizan operaciones en los extremos:
+## 2. Colas (queues)
 
-* **`encolar` (enqueue)**: inserta un elemento en el extremo trasero de la cola.
-* **`desencolar` (dequeue)**: elimina y devuelve el elemento situado en el extremo delantero【54013116763302†L160-L170】.
+Una **cola** es una estructura de tipo **FIFO** (*First In, First Out*).
+El primer elemento en entrar es el primero en salir.
 
-Otras operaciones comunes son:
+### 2.1 Operaciones principales
 
-* **`crear`**: inicializa una cola vacía.
-* **`frente` o `peek`**: devuelve el valor del primer elemento sin retirarlo.
-* **`vacía`**: comprueba si no hay elementos en la cola【54013116763302†L209-L214】.
+* **`encolar` (enqueue)**: inserta un elemento en el extremo trasero.
+* **`desencolar` (dequeue)**: elimina y devuelve el elemento del extremo delantero.
+* **`frente` (peek)**: consulta el primer elemento.
+* **`vacía`**: comprueba si la cola está vacía.
 
-### Implementación mediante vector
+#### Pseudocódigo de operaciones básicas
 
-Para implementar una cola con un vector se suelen utilizar dos índices: `frente` y `trasero`.  Cada vez que se encola un elemento, se incrementa el índice `trasero` y se coloca el elemento.  Al desencolar, se incrementa el índice `frente`.  Cuando alguno de los índices alcanza el final del vector, se puede reutilizar el espacio utilizando una **cola circular**, en la que los índices se calculan módulo el tamaño del vector.
+```text
+procedimiento encolar(COLA Q, DATO x):
+    Q.trasero ← Q.trasero + 1
+    Q.elementos[Q.trasero] ← x
 
-### Implementación mediante lista enlazada
+DATO desencolar(COLA Q):
+    si Q.frente > Q.trasero entonces error "Cola vacía"
+    x ← Q.elementos[Q.frente]
+    Q.frente ← Q.frente + 1
+    devolver x
+```
 
-En este caso se mantiene un puntero al primer nodo y otro al último.  Para encolar, se crea un nodo y se añade al final actualizando el puntero `trasero`.  Para desencolar, se elimina el primer nodo y se actualiza `frente`.  Las operaciones tienen coste \(O(1)\) y la cola puede crecer y decrecer dinámicamente.
+### 2.2 Implementación mediante vector
 
-### Variantes de colas
+* Se usan dos índices: `frente` y `trasero`.
+* Problema: cuando `trasero` llega al final, hay espacio libre al inicio.
+* Solución: **cola circular**, índices calculados módulo $n$.
 
-* **Cola circular**: se utiliza un vector como buffer circular, en el que los índices se reciclan cuando alcanzan el final.  Permite aprovechar al máximo la memoria sin mover datos.
-* **Cola de prioridad**: los elementos se extraen según su prioridad, no según el orden de llegada.  Suele implementarse con un **heap** (montículo), estudiado en módulos avanzados.
+### 2.3 Implementación mediante lista enlazada
 
-### Aplicaciones de las colas
+* Se mantienen punteros a primer y último nodo.
+* Operaciones $O(1)$ tanto en encolar como desencolar.
+* Crecimiento dinámico.
 
-* **Gestión de trabajos**: en los sistemas operativos, las tareas pendientes de ejecución se almacenan en colas de procesos.
-* **Transmisión de datos**: en redes de comunicación, los paquetes se colocan en colas para ser enviados en orden de llegada.
-* **Simulación de eventos**: muchas simulaciones basadas en eventos utilizan colas para programar la ocurrencia de sucesos en el tiempo.
+### 2.4 Variantes de colas
 
-### Ilustración de una cola
+* **Cola circular**: buffer reutilizable, común en sistemas embebidos.
+* **Cola doble (deque)**: inserción y eliminación en ambos extremos.
+* **Cola de prioridad**: los elementos salen según prioridad; suele usarse un heap.
 
-La figura 6 presenta una cola con cinco elementos.  El extremo izquierdo (`Front`) indica el primer elemento en salir; el extremo derecho (`Rear`) indica dónde se insertará el siguiente elemento.
+### 2.5 Aplicaciones de las colas
+
+* **Planificación de procesos**: sistemas operativos.
+* **Transmisión de datos**: colas de paquetes en routers.
+* **Simulación de eventos**: modelos de líneas de espera.
 
 ![Representación de una cola](../images/queue.png){ width=70% }
 
-*Figura 6: estructura FIFO.*
+*Figura 6: estructura FIFO.*
 
-## 3. Comparación de pilas y colas
+---
 
-| Estructura | Principio | Operaciones principales | Uso típico |
-|-----------|----------|------------------------|-----------|
-| **Pila** | LIFO (último en entrar, primero en salir). | `apilar`, `desapilar`, `consultar`. | Evaluación de expresiones, recursión, deshacer/rehacer. |
-| **Cola** | FIFO (primero en entrar, primero en salir). | `encolar`, `desencolar`, `frente`. | Planificación de procesos, comunicación entre sistemas. |
+## 3. Comparación de pilas y colas
 
-## 4. Conclusiones
+| Estructura | Principio                                  | Operaciones principales            | Complejidad | Uso típico                               |
+| ---------- | ------------------------------------------ | ---------------------------------- | ----------- | ---------------------------------------- |
+| **Pila**   | LIFO (último en entrar, primero en salir)  | `apilar`, `desapilar`, `consultar` | $O(1)$    | Recursión, expresiones, deshacer/rehacer |
+| **Cola**   | FIFO (primero en entrar, primero en salir) | `encolar`, `desencolar`, `frente`  | $O(1)$    | Procesos, comunicaciones, simulaciones   |
 
-Las pilas y colas son estructuras de datos sencillas pero esenciales que restringen el acceso a los elementos a uno o dos extremos.  Su utilidad deriva de esa restricción: las pilas permiten retroceder a estados previos y gestionar llamadas anidadas; las colas facilitan el procesamiento en orden de llegada y la sincronización en sistemas distribuidos.  En los siguientes módulos se abordarán estructuras más complejas como los **árboles** y los **grafos**.
+---
+
+## 4. Casos de uso en bioinformática y computación
+
+* **Pilas**: seguimiento de llamadas recursivas en algoritmos de alineamiento de secuencias.
+* **Colas**: gestión de tareas en pipelines de análisis genómico o procesamiento de datos masivos.
+
+---
+
+## 5. Conclusiones
+
+Las pilas y colas son estructuras sencillas pero fundamentales.
+Su poder reside en las **restricciones de acceso** que imponen, lo que las hace ideales para gestionar flujo de información en orden controlado.
+
+Son la base para estructuras más avanzadas: **colas de prioridad, deques, heaps y grafos**.
+
+---
+
+## 6. Ejercicios de autoevaluación
+
+1. ¿Cuál es la diferencia entre una pila y una cola en cuanto al orden de acceso?
+2. Implementa en pseudocódigo una pila basada en lista enlazada.
+3. Explica cómo funciona una cola circular y por qué mejora el uso de memoria respecto a una cola simple con vector.
+4. Diseña un algoritmo que evalúe una expresión en notación postfija utilizando una pila.
+5. ¿En qué casos sería preferible implementar una cola con lista enlazada en lugar de con un vector?
+6. Analiza qué estructura usarías para:
+   a) un editor de texto con opción de deshacer,
+   b) un sistema de tickets en un banco.
+
+---
 
 ## Referencias
 
-1.  Definición de pila y operaciones `push` y `pop`【735453531594789†L198-L206】.
-2.  Operaciones auxiliares de una pila (`crear`, `tamaño`, `vacía`, `consultar`)【735453531594789†L254-L272】.
-3.  Definición de cola como estructura FIFO y operaciones `encolar` y `desencolar`【54013116763302†L160-L170】.
-4.  Operaciones adicionales de una cola (`vacía`, `frente`)【54013116763302†L209-L214】.
+* Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. *Introduction to Algorithms*. MIT Press.
+* Goodrich, M. T., Tamassia, R., & Goldwasser, M. H. *Data Structures and Algorithms in Python*. Wiley.
+* Weiss, M. A. *Data Structures and Algorithm Analysis*. Pearson.
+* Sedgewick, R., & Wayne, K. *Algorithms*. Addison-Wesley.

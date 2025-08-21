@@ -1,103 +1,177 @@
 ---
-title: "Módulo 5 – Grafos y algoritmos de recorrido"
+title: "Módulo 5 – Grafos y algoritmos de recorrido"
 author: "Curso de Introducción a Estructuras de Datos y Algoritmos"
-date: "15 de agosto de 2025"
+date: "21 de agosto de 2025"
 toc: true
 number-sections: true
 ---
 
-# Módulo 5 – Grafos y algoritmos de recorrido
+# Módulo 5 – Grafos y algoritmos de recorrido
 
 ## Introducción
 
-Los **grafos** son estructuras de datos muy versátiles que permiten modelar relaciones entre objetos.  A diferencia de los árboles, los grafos pueden contener ciclos y no necesariamente tienen una organización jerárquica.  Se utilizan para representar redes de transporte, conexiones de ordenadores, relaciones sociales y muchas otras estructuras complejas.  En este módulo se introduce la teoría básica de grafos y se estudian dos algoritmos fundamentales de recorrido: **breadth‑first search** (BFS) y **depth‑first search** (DFS).
+Los **grafos** son estructuras de datos muy versátiles que permiten modelar relaciones entre objetos.  
+A diferencia de los árboles, los grafos **pueden contener ciclos** y no tienen por qué ser jerárquicos.  
 
-## 1. Conceptos fundamentales
+Se utilizan en:  
+- Redes de transporte.  
+- Internet y redes de ordenadores.  
+- Relaciones sociales.  
+- Bioinformática (redes de genes, proteínas).  
 
-Un **grafo** \(G = (V,E)\) está formado por un conjunto de **vértices** \(V\) y un conjunto de **aristas** \(E\), donde cada arista conecta dos vértices.  Según la naturaleza de las aristas y de los vértices, se clasifican los grafos en:
+En este módulo veremos:  
+1. Definición y representaciones de grafos.  
+2. Algoritmos de recorrido: **BFS** y **DFS**.  
+3. Comparación y aplicaciones prácticas.  
 
-* **No dirigidos**: las aristas no tienen orientación; la conexión entre dos vértices es bidireccional.  Se representa con un par no ordenado \(\{u,v\}\).
-* **Dirigidos (dígrafos)**: cada arista tiene un sentido; se representa con un par ordenado \((u,v)\) y solo se puede recorrer de \(u\) a \(v\).
-* **Ponderados**: se asigna un peso o coste a cada arista (distancia, coste, tiempo, etc.).
+---
 
-### Representaciones de grafos
+## 1. Conceptos fundamentales
 
-* **Matriz de adyacencia**: es una matriz cuadrada \(|V|\times |V|\) en la que la entrada \(a_{ij}\) vale 1 (o el peso correspondiente) si existe una arista de \(i\) a \(j\); en caso contrario, vale 0.  Es adecuada para grafos densos pero consume mucho espacio para grafos dispersos.
-* **Lista de adyacencia**: cada vértice tiene una lista con sus vecinos adyacentes.  Esta representación es eficiente en espacio para grafos dispersos y permite recorrer fácilmente los vecinos de un vértice.
+Un **grafo** $G = (V,E)$ está formado por:  
+- un conjunto de **vértices** $V$ (nodos),  
+- un conjunto de **aristas** $E$ (conexiones).  
 
-### Ilustración de un grafo
+### 1.1 Clasificación de grafos
 
-La figura 8 muestra un grafo no dirigido de seis vértices.  Las aristas unen pares de vértices y el grafo puede tener ciclos.
+- **No dirigidos**: la arista $\{u,v\}$ conecta $u$ y $v$ en ambas direcciones.  
+- **Dirigidos (dígrafos)**: la arista $(u,v)$ conecta $u$ → $v$.  
+- **Ponderados**: cada arista tiene un peso (distancia, coste, tiempo, probabilidad).  
+
+### 1.2 Representaciones de grafos
+
+- **Matriz de adyacencia**:  
+  Matriz $|V|\times |V|$, donde $a_{ij} = 1$ (o el peso) si existe arista de $i$ a $j$.  
+  Útil en grafos densos, coste espacial $O(|V|^2)$.  
+
+- **Lista de adyacencia**:  
+  Cada vértice almacena una lista de sus vecinos.  
+  Útil en grafos dispersos, coste espacial $O(|V|+|E|)$.  
 
 ![Grafo no dirigido](../images/graph.png){ width=75% }
 
-*Figura 8: ejemplo de grafo no dirigido.*
+*Figura 8: ejemplo de grafo no dirigido con seis vértices.*
 
-## 2. Recorrido en anchura (BFS)
+---
 
-El **algoritmo de búsqueda en anchura** (BFS) recorre un grafo visitando primero los vértices más cercanos al origen.  Dado un vértice inicial, BFS explora todos sus vecinos inmediatos antes de avanzar a los vecinos de estos.  En otras palabras, BFS visita los vértices **nivel por nivel**: primero todos los de distancia 1, luego los de distancia 2, y así sucesivamente.  Para lograrlo utiliza una **cola** para almacenar los vértices pendientes de explorar【360779338937104†L142-L151】.  BFS es la base de algoritmos como el de Dijkstra para calcular caminos mínimos.
+## 2. Recorrido en anchura (BFS)
 
-### Pseudocódigo de BFS
+El **BFS** (Breadth-First Search) explora el grafo **nivel por nivel**.  
+Usa una **cola** para procesar primero los vértices más cercanos al origen.  
 
-```
-BFS(Grafo G, vértice origen):
+### 2.1 Pseudocódigo
+
+```text
+BFS(G, origen):
     crear una cola Q
-    marcar origen como visitado y encolarlo en Q
+    marcar origen como visitado
+    encolar(origen, Q)
     mientras Q no esté vacía:
-        v ← desencolar Q
-        procesar v
-        para cada vecino u de v en la lista de adyacencia:
-            si u no está marcado como visitado:
-                marcar u como visitado
-                encolarlo en Q
+        v ← desencolar(Q)
+        procesar(v)
+        para cada vecino u de v:
+            si u no está visitado:
+                marcar u
+                encolar(u, Q)
 ```
 
-El algoritmo visita cada vértice y cada arista a lo sumo una vez, por lo que su complejidad temporal es \(O(|V| + |E|)\) y la complejidad espacial es \(O(|V|)\), correspondientes a la cola y a la marca de vértices visitados.
+### 2.2 Complejidad
 
-### Aplicaciones de BFS
+* Temporal: $O(|V| + |E|)$
+* Espacial: $O(|V|)$ (cola + array de visitados)
 
-* **Cálculo de distancias mínimas** en grafos no ponderados (todos los pesos iguales).
-* **Comprobación de conectividad**: determinar si todos los vértices son alcanzables desde un vértice dado.
-* **Construcción de árboles generadores**: BFS genera un árbol de expansión que contiene los caminos más cortos desde el origen.
+### 2.3 Aplicaciones de BFS
 
-## 3. Recorrido en profundidad (DFS)
+* **Cálculo de distancias mínimas** en grafos no ponderados.
+* **Conectividad**: verificar si un grafo es conexo.
+* **Construcción de árboles generadores por niveles**.
+* **Algoritmos de caminos mínimos** (base del algoritmo de Dijkstra).
 
-El **algoritmo de búsqueda en profundidad** (DFS) explora un grafo adentrándose lo máximo posible en cada rama antes de retroceder.  Parte de un vértice inicial y sigue una arista hasta llegar a un vértice sin vecinos no visitados; entonces retrocede por el camino hasta encontrar un vértice con vecinos no explorados y repite el proceso.  Este comportamiento implica utilizar una **pila** para recordar los vértices que permiten retroceder.  DFS visita cada vértice una sola vez y se implementa de manera recursiva o iterativa【930398398182482†L192-L198】.
+---
 
-### Pseudocódigo de DFS (versión recursiva)
+## 3. Recorrido en profundidad (DFS)
 
-```
-DFS(Grafo G, vértice v):
+El **DFS** (Depth-First Search) explora lo más lejos posible antes de retroceder.
+Se implementa con **recursión** o con una **pila** explícita.
+
+### 3.1 Pseudocódigo (recursivo)
+
+```text
+DFS(G, v):
     marcar v como visitado
-    procesar v
-    para cada vecino u de v en la lista de adyacencia:
-        si u no está marcado como visitado:
+    procesar(v)
+    para cada vecino u de v:
+        si u no está visitado:
             DFS(G, u)
 ```
 
-Al igual que BFS, DFS tiene complejidad temporal \(O(|V| + |E|)\) y complejidad espacial \(O(|V|)\) cuando se usa una pila para almacenar los vértices en la rama actual【930398398182482†L203-L214】.
+### 3.2 Complejidad
 
-### Aplicaciones de DFS
+* Temporal: $O(|V| + |E|)$
+* Espacial: $O(|V|)$ (pila de recursión o estructura auxiliar).
+
+### 3.3 Aplicaciones de DFS
 
 * **Detección de ciclos** en grafos dirigidos y no dirigidos.
-* **Clasificación topológica** en grafos dirigidos acíclicos (DAG), ordenando sus vértices de modo que todas las aristas vayan de izquierda a derecha.
-* **Exploración de laberintos y juegos**: DFS permite recorrer exhaustivamente espacios de estado.
+* **Ordenación topológica** en grafos dirigidos acíclicos (DAG).
+* **Componentes conexas** en grafos no dirigidos.
+* **Exploración de laberintos o juegos** (búsqueda exhaustiva con backtracking).
 
-## 4. Comparación entre BFS y DFS
+---
 
-| Algoritmo | Estrategia | Estructura auxiliar | Camino encontrado |
-|-----------|-----------|---------------------|------------------|
-| **BFS** | Explora por niveles desde el origen. | Cola (FIFO). | Encuentra el camino más corto en grafos no ponderados. |
-| **DFS** | Explora lo más profundo posible antes de retroceder. | Pila (LIFO) o recursión. | No garantiza el camino más corto; útil para explorar todo el grafo. |
+## 4. Comparación entre BFS y DFS
 
-La elección de BFS o DFS depende del problema.  BFS es preferible cuando se buscan caminos mínimos o niveles en grafos no ponderados.  DFS es útil para explorar exhaustivamente y para problemas que requieren retroceso (*backtracking*).
+| Algoritmo | Estrategia             | Estructura auxiliar     | Camino más corto                | Aplicaciones                     |
+| --------- | ---------------------- | ----------------------- | ------------------------------- | -------------------------------- |
+| **BFS**   | Explora por niveles    | Cola (FIFO)             | ✅ En grafos no ponderados       | Caminos mínimos, conectividad    |
+| **DFS**   | Explora en profundidad | Pila (LIFO) o recursión | ❌ No garantiza camino más corto | Ciclos, topológica, backtracking |
 
-## 5. Conclusiones
+---
 
-Los grafos constituyen una herramienta fundamental para representar relaciones complejas.  Las estrategias de recorrido BFS y DFS permiten visitar sus vértices de manera sistemática.  BFS explora el grafo por niveles utilizando una cola y encuentra rutas más cortas en grafos sin pesos; DFS explora en profundidad utilizando una pila o recursión y resulta útil para detección de ciclos y búsqueda exhaustiva.  En el siguiente módulo se estudiarán algoritmos de **búsqueda y ordenación** para gestionar datos de forma eficiente.
+## 5. Aplicaciones en bioinformática y computación
+
+* **BFS**:
+
+  * Encontrar la distancia mínima entre genes en una red de interacción.
+  * Descubrir componentes de expresión génica correlacionada.
+
+* **DFS**:
+
+  * Análisis de dependencias en pipelines de datos.
+  * Clasificación topológica en redes de regulación genética.
+
+---
+
+## 6. Conclusiones
+
+* Los **grafos** modelan relaciones generales (no necesariamente jerárquicas).
+* **BFS** → explora por niveles, encuentra caminos mínimos en grafos no ponderados.
+* **DFS** → explora en profundidad, útil para detección de ciclos y DAG.
+* Ambos son fundamentales en el diseño de algoritmos sobre redes y estructuras complejas.
+
+👉 El siguiente módulo abordará **algoritmos de búsqueda y ordenación**, que nos permitirán procesar datos de manera aún más eficiente.
+
+---
+
+## 7. Ejercicios de autoevaluación
+
+1. Representa mediante **matriz de adyacencia** y **lista de adyacencia** el siguiente grafo:
+   $V = {A,B,C,D}, E = {(A,B),(A,C),(B,D),(C,D)}$.
+2. Aplica BFS al grafo anterior con vértice inicial $A$ y escribe el orden de visita.
+3. Aplica DFS al mismo grafo con inicio en $A$. ¿Cómo cambia el orden respecto a BFS?
+4. ¿Cómo detecta DFS la existencia de un ciclo en un grafo dirigido?
+5. ¿Qué estrategia usarías para:
+   a) encontrar la ruta más corta en un mapa de metro,
+   b) explorar todas las configuraciones posibles en un puzzle?
+6. Explica por qué BFS y DFS tienen complejidad $O(|V|+|E|)$.
+
+---
 
 ## Referencias
 
-1.  Explicación del algoritmo BFS: recorre el grafo nivel por nivel y utiliza una cola para almacenar vértices pendientes【360779338937104†L142-L151】.
-2.  Definición de DFS como algoritmo que explora ramas hasta donde sea posible y necesita una pila para retroceder【930398398182482†L192-L198】.
-3.  Complejidad temporal y espacial de DFS en función del número de vértices y aristas【930398398182482†L203-L214】.
+* Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. *Introduction to Algorithms*. MIT Press.
+* Sedgewick, R., & Wayne, K. *Algorithms*. Addison-Wesley.
+* Gross, J. L., & Yellen, J. *Graph Theory and Its Applications*. Chapman & Hall/CRC.
+* Goodrich, M. T., Tamassia, R., & Goldwasser, M. H. *Data Structures and Algorithms in Java*. Wiley.
+
+```

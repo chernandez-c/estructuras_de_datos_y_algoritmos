@@ -6,6 +6,7 @@
     <title>Curso Interactivo: Estructuras de Datos y Algoritmos en Bioinformática</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -20,6 +21,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#inicio" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                        <a href="#temario" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Temario</a>
                         <a href="#modulo1" class="nav-link px-3 py-2 rounded-md text-sm font-medium">M1: Complejidad</a>
                         <a href="#modulo2" class="nav-link px-3 py-2 rounded-md text-sm font-medium">M2: Estructuras</a>
                         <a href="#modulo3" class="nav-link px-3 py-2 rounded-md text-sm font-medium">M3: Búsqueda</a>
@@ -34,11 +36,49 @@
     </header>
 
     <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
+
         <section id="inicio" class="module-content min-h-screen text-center flex flex-col justify-center">
             <h2 class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl md:text-6xl">Introducción a Estructuras de Datos y Algoritmos</h2>
             <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600">Una guía interactiva para dominar los fundamentos computacionales esenciales en el campo de la bioinformática.</p>
             <p class="mt-4 max-w-3xl mx-auto text-base text-gray-500">Bienvenido/a. En el campo de la bioinformática, manejamos volúmenes de datos extraordinariamente grandes. La capacidad de procesar, buscar y analizar esta información de manera eficiente es una necesidad fundamental. Este curso interactivo te proporcionará los cimientos para entender cómo organizar datos de forma inteligente y diseñar procedimientos eficientes para resolver problemas complejos.</p>
+        </section>
+
+        <section id="temario" class="module-content min-h-screen pt-16 hidden">
+            <h2 class="text-3xl font-bold text-center mb-8">Temario</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 1: Fundamentos de estructuras de datos y análisis de algoritmos</h3>
+                    <button onclick="openModal('tema1Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 2: Listas enlazadas</h3>
+                    <button onclick="openModal('tema2Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 3: Pilas y colas</h3>
+                    <button onclick="openModal('tema3Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 4: Árboles y árboles binarios de búsqueda</h3>
+                    <button onclick="openModal('tema4Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 5: Grafos y algoritmos de recorrido</h3>
+                    <button onclick="openModal('tema5Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 6: Algoritmos de búsqueda</h3>
+                    <button onclick="openModal('tema6Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 7: Algoritmos de ordenación</h3>
+                    <button onclick="openModal('tema7Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+                <div class="module-card p-6">
+                    <h3 class="text-xl font-semibold mb-4">Módulo 8: Algoritmos y estructuras de datos en bioinformática</h3>
+                    <button onclick="openModal('tema8Modal')" class="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">📖 Ver tema</button>
+                </div>
+            </div>
         </section>
 
         <section id="modulo1" class="module-content min-h-screen pt-16 hidden">
@@ -217,6 +257,130 @@
     </main>
 
     <!-- Modals -->
+    <!-- Tema Modals -->
+    <div id="tema1Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema1-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_1_Fundamentos_de_estructuras_de_datos_y_analisis_de_algoritmos.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test1Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema1Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema2Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema2-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_2_Listas_enlazadas.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test2Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema2Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema3Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema3-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_3_Pilas_y_colas.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test3Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema3Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema4Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema4-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_4_arboles_y_arboles_binarios_de_busqueda.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test4Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema4Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema5Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema5-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_5_Grafos_y_algoritmos_de_recorrido.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test5Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema5Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema6Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema6-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_6_Algoritmo_Busqueda.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test6Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema6Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema7Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema7-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_7_Algoritmos_de_ordenacion.md"></div>
+            <div class="mt-6 flex justify-between">
+                <button onclick="openModal('test6Modal')" class="btn bg-green-500 text-white px-4 py-2 rounded-lg">Test</button>
+                <button onclick="closeModal('tema7Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="tema8Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="tema8-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/temas/modulo_8_Bioinformatica.md"></div>
+            <p class="text-sm text-gray-500 mt-4">Test de autoevaluación no disponible.</p>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('tema8Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Modals -->
+    <div id="test1Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="test1-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/tests/test1.md"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('test1Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="test2Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="test2-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/tests/test2.md"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('test2Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="test3Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="test3-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/tests/test3.md"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('test3Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="test4Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="test4-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/tests/test4.md"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('test4Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="test5Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="test5-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/tests/test5.md"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('test5Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="test6Modal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-3xl mx-auto mt-20">
+            <div id="test6-content" class="overflow-y-auto max-h-[70vh]" data-md="materiales_markdown/tests/test6.md"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('test6Modal')" class="btn bg-gray-300 px-4 py-2 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <div id="quiz1Modal" class="modal">
         <div class="modal-content bg-white p-6 rounded-lg shadow-xl max-w-2xl mx-auto mt-20">
             <h3 class="text-xl font-bold mb-4">Test Módulo 1</h3>
@@ -286,6 +450,7 @@
     <script src="assets/js/visualizations/bstVisualizer.js"></script>
     <script src="assets/js/visualizations/graphVisualizer.js"></script>
     <script src="assets/js/ui.js"></script>
+    <script src="assets/js/markdownLoader.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>

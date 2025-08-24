@@ -10,9 +10,4 @@ window.addEventListener('DOMContentLoaded', () => {
         showModule(window.location.hash || '#inicio');
     });
     showModule(window.location.hash || '#inicio');
-    Object.keys(quizData).forEach(generateQuiz);
-    initComplexityChart();
-    initSearchComparison();
-    resetSort();
-    initGraph();
 });

@@ -1,0 +1,16 @@
+<div class="module-card p-6">
+  <h3 class="text-xl font-semibold mb-4 text-center">Visualizador de Algoritmos de Ordenación</h3>
+  <p class="text-center text-gray-600 mb-4">Observa cómo diferentes algoritmos ordenan un conjunto de datos. Los algoritmos <code>O(n log n)</code> son mucho más eficientes que los <code>O(n²)</code> para listas grandes.</p>
+  <div class="flex justify-center items-center space-x-4 mb-4">
+    <select id="sort-algorithm-selector" class="p-2 border rounded-lg">
+      <option value="bubbleSort">Bubble Sort (O(n²))</option>
+      <option value="selectionSort">Selection Sort (O(n²))</option>
+      <option value="insertionSort">Insertion Sort (O(n²))</option>
+      <option value="mergeSort">Merge Sort (O(n log n))</option>
+      <option value="quickSort">Quick Sort (O(n log n))</option>
+    </select>
+    <button onclick="runSort()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Ordenar</button>
+    <button onclick="resetSort()" class="btn bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">Reiniciar</button>
+  </div>
+  <div id="sort-container" class="h-64 w-full bg-gray-100 rounded-lg flex items-end justify-center p-2 border"></div>
+</div>

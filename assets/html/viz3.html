@@ -1,0 +1,18 @@
+<div class="module-card p-6">
+  <h3 class="text-xl font-semibold mb-4 text-center">Comparador de Búsqueda: Lineal vs. Binaria</h3>
+  <p class="text-center text-gray-600 mb-4">La búsqueda binaria requiere datos ordenados, pero es exponencialmente más rápida. Observa la diferencia en el número de pasos.</p>
+  <div class="flex justify-center items-center space-x-4 mb-4">
+    <input type="number" id="searchValue" placeholder="Buscar valor (1-100)" class="p-2 border rounded-lg">
+    <button onclick="startSearchComparison()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Buscar</button>
+  </div>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div>
+      <h4 class="font-semibold text-center">Búsqueda Lineal <span id="linear-steps" class="text-sm font-normal text-gray-500"></span></h4>
+      <div id="linear-search-array" class="flex flex-wrap justify-center p-2 bg-gray-100 rounded-lg"></div>
+    </div>
+    <div>
+      <h4 class="font-semibold text-center">Búsqueda Binaria <span id="binary-steps" class="text-sm font-normal text-gray-500"></span></h4>
+      <div id="binary-search-array" class="flex flex-wrap justify-center p-2 bg-gray-100 rounded-lg"></div>
+    </div>
+  </div>
+</div>

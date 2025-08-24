@@ -1,0 +1,20 @@
+<div class="grid md:grid-cols-2 gap-8">
+  <div class="module-card p-6">
+    <h3 class="text-xl font-semibold mb-4 text-center">Pila (Stack - LIFO)</h3>
+    <p class="text-sm text-center text-gray-500 mb-4">El último en entrar es el primero en salir. Útil para revertir secuencias de ADN.</p>
+    <div class="h-64 bg-gray-100 rounded-lg flex flex-col-reverse items-center p-2 border" id="stack-container"></div>
+    <div class="flex justify-center space-x-2 mt-4">
+      <button onclick="stackPush()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Push</button>
+      <button onclick="stackPop()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">Pop</button>
+    </div>
+  </div>
+  <div class="module-card p-6">
+    <h3 class="text-xl font-semibold mb-4 text-center">Cola (Queue - FIFO)</h3>
+    <p class="text-sm text-center text-gray-500 mb-4">El primero en entrar es el primero en salir. Ideal para procesar lecturas de secuenciación.</p>
+    <div class="h-64 bg-gray-100 rounded-lg flex items-center p-2 border" id="queue-container"></div>
+    <div class="flex justify-center space-x-2 mt-4">
+      <button onclick="queueEnqueue()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Enqueue</button>
+      <button onclick="queueDequeue()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">Dequeue</button>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     '4': { file: 'assets/html/viz5.html', scripts: ['assets/js/visualizations/bstVisualizer.js'], init: () => bstClear() },
     '5': { file: 'assets/html/viz6.html', scripts: ['assets/js/visualizations/graphVisualizer.js'], init: () => initGraph() },
     '6': { file: 'assets/html/viz3.html', scripts: ['assets/js/visualizations/searchComparison.js'], init: () => initSearchComparison() },
-    '7': { file: 'assets/html/viz4.html', scripts: ['assets/js/visualizations/sortingVisualizer.js'], init: () => resetSort() }
+    '7': { file: 'assets/html/viz4.html', scripts: ['assets/js/visualizations/sortingVisualizer.js'], init: () => resetSort() },
+    '8': { file: 'assets/html/viz8.html', scripts: ['assets/js/visualizations/bioinfoExample.js'], init: () => initBioExample() }
   };
   const cfg = config[mod];
   if (!cfg) {

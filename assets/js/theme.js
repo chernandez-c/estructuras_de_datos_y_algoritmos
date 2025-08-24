@@ -4,7 +4,8 @@
     if (!btn) return;
     btn.textContent = isDark ? '☀️' : '🌙';
   }
-  document.addEventListener('DOMContentLoaded', function() {
+
+  function init() {
     var btn = document.getElementById('theme-toggle');
     if (!btn) return;
     setIcon(document.documentElement.classList.contains('dark'));
@@ -13,5 +14,11 @@
       localStorage.theme = isDark ? 'dark' : 'light';
       setIcon(isDark);
     });
-  });
+  }
+
+  if (document.readyState !== 'loading') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
 })();

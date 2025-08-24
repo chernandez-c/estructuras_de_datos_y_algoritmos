@@ -13,6 +13,12 @@
     const isDark = theme === 'dark';
     root.classList.toggle('dark', isDark);
     body.classList.toggle('dark', isDark);
+    const mdLink = document.getElementById('markdown-style');
+    if (mdLink) {
+      mdLink.href = isDark
+        ? 'https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-dark.min.css'
+        : 'https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css';
+    }
     updateIcon(isDark);
     // Force style update
     void root.offsetWidth;

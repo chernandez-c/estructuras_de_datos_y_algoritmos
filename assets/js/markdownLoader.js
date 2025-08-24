@@ -4,7 +4,7 @@ async function loadMarkdownInto(el, path) {
     const text = await res.text();
     const content = text.replace(/^---[\s\S]*?---/, '');
     el.innerHTML = marked.parse(content);
-    el.classList.add('markdown-body', 'dark:bg-gray-900', 'dark:text-gray-100');
+    el.classList.add('markdown-body', 'bg-white', 'text-gray-800', 'dark:bg-gray-900', 'dark:text-gray-100');
   } catch (err) {
     el.innerHTML = '<p class="text-red-500">Error cargando el contenido.</p>';
   }

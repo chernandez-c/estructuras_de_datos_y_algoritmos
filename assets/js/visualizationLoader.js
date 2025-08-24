@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('viz-container');
   const config = {
     '1': { file: 'assets/html/viz1.html', scripts: ['https://cdn.jsdelivr.net/npm/chart.js', 'assets/js/visualizations/complexityChart.js'], init: () => initComplexityChart() },
-    '2': { file: 'assets/html/viz2.html', scripts: ['assets/js/visualizations/linearStructures.js'] },
-    '3': { file: 'assets/html/viz3.html', scripts: ['assets/js/visualizations/searchComparison.js'], init: () => initSearchComparison() },
-    '4': { file: 'assets/html/viz4.html', scripts: ['assets/js/visualizations/sortingVisualizer.js'], init: () => resetSort() },
-    '5': { file: 'assets/html/viz5.html', scripts: ['assets/js/visualizations/bstVisualizer.js'], init: () => bstClear() },
-    '6': { file: 'assets/html/viz6.html', scripts: ['assets/js/visualizations/graphVisualizer.js'], init: () => initGraph() }
+    '3': { file: 'assets/html/viz2.html', scripts: ['assets/js/visualizations/linearStructures.js'] },
+    '4': { file: 'assets/html/viz5.html', scripts: ['assets/js/visualizations/bstVisualizer.js'], init: () => bstClear() },
+    '5': { file: 'assets/html/viz6.html', scripts: ['assets/js/visualizations/graphVisualizer.js'], init: () => initGraph() },
+    '6': { file: 'assets/html/viz3.html', scripts: ['assets/js/visualizations/searchComparison.js'], init: () => initSearchComparison() },
+    '7': { file: 'assets/html/viz4.html', scripts: ['assets/js/visualizations/sortingVisualizer.js'], init: () => resetSort() }
   };
   const cfg = config[mod];
   if (!cfg) {

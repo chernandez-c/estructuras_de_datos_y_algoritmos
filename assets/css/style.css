@@ -1,5 +1,12 @@
 body {
     font-family: 'Inter', sans-serif;
+    background-color: #f9fafb; /* gray-50 */
+    color: #374151; /* gray-700 */
+}
+
+.dark body {
+    background-color: #111827; /* gray-900 */
+    color: #f3f4f6; /* gray-100 */
 }
 .nav-link {
     transition: all 0.3s ease;
@@ -11,6 +18,15 @@ body {
     border-radius: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb; /* gray-200 */
+    color: #374151; /* gray-700 */
+}
+
+.dark .module-card {
+    background-color: #1f2937; /* gray-800 */
+    border-color: #374151; /* gray-700 */
+    color: #f3f4f6; /* gray-100 */
 }
 .module-card:hover {
     transform: translateY(-5px);

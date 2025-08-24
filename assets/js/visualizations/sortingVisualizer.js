@@ -5,7 +5,13 @@ function resetSort() {
     renderSortArray();
 }
 function renderSortArray() {
-    sortContainer.innerHTML = sortArray.map(val => `<div class="sort-bar" style="height: ${val}%"></div>`).join('');
+    sortContainer.innerHTML = '';
+    sortArray.forEach(val => {
+        const bar = document.createElement('div');
+        bar.className = 'sort-bar';
+        bar.style.height = `${val}%`;
+        sortContainer.appendChild(bar);
+    });
 }
 async function runSort() {
     const algo = document.getElementById('sort-algorithm-selector').value;

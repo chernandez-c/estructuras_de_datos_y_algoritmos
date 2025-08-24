@@ -47,7 +47,10 @@ function showModule(hash) {
         else module.classList.add('hidden');
     });
     navLinks.forEach(link => {
-        if (link.getAttribute('href') === hash) link.classList.add('active');
-        else link.classList.remove('active');
+        if (link.getAttribute('href') === hash) {
+            link.classList.add('active', 'text-blue-500', 'dark:text-blue-400', 'border-blue-500', 'dark:border-blue-400');
+        } else {
+            link.classList.remove('active', 'text-blue-500', 'dark:text-blue-400', 'border-blue-500', 'dark:border-blue-400');
+        }
     });
 }

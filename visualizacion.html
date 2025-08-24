@@ -4,15 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ejemplo interactivo</title>
+  <script>
+    if (localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+    tailwind.config = { darkMode: 'class' };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="antialiased">
+<body class="antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+  <button id="theme-toggle" class="fixed top-4 right-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 p-2 rounded-md">🌙</button>
   <main class="container mx-auto p-4 sm:p-6 lg:p-8">
     <div class="mb-4"><a href="index.html" class="text-blue-500 underline">← Volver</a></div>
     <div id="viz-container"></div>
   </main>
   <script src="assets/js/visualizationLoader.js"></script>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

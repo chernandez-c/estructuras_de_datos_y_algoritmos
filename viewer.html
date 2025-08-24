@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css">
+</head>
+<body class="antialiased">
+  <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+    <div class="mb-4"><a href="index.html" class="text-blue-500 underline">← Volver</a></div>
+    <div id="content" class="markdown-body"></div>
+  </main>
+  <script src="assets/js/markdownLoader.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+    const container = document.getElementById('content');
+    if (file) {
+      loadMarkdownInto(container, `materiales_markdown/${file}`);
+    } else {
+      container.innerHTML = '<p class="text-red-500">Archivo no especificado.</p>';
+    }
+  </script>
+</body>
+</html>

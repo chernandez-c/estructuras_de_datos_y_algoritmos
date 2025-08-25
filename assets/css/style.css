@@ -1,12 +1,5 @@
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f9fafb; /* gray-50 */
-    color: #374151; /* gray-700 */
-}
-
-.dark body {
-    background-color: #111827; /* gray-900 */
-    color: #f3f4f6; /* gray-100 */
 }
 .nav-link {
     transition: all 0.3s ease;

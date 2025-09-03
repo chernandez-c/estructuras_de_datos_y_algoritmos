@@ -8,36 +8,48 @@ number-sections: true
 
 # Módulo 2 – Listas enlazadas
 
+---
+
 ## Introducción
 
-El vector estudiado en el módulo anterior es una estructura simple y eficiente para acceder aleatoriamente a elementos mediante índices.  
-Sin embargo, presenta una desventaja importante: su tamaño es **estático** y no puede adaptarse a cambios dinámicos en la cantidad de datos.  
+En el módulo anterior vimos que los **vectores (arrays)** son estructuras de datos muy útiles cuando queremos **acceder rápidamente a un elemento cualquiera** mediante su índice. Esta eficiencia, sin embargo, viene con un precio: su tamaño es **fijo**.
+Si declaramos un vector de tamaño 10, ni podemos ampliarlo mágicamente a 100, ni reducirlo a 5 sin crear otro en memoria.
 
-Para superar esta limitación se utilizan **listas enlazadas**, estructuras dinámicas en las que cada elemento (o *nodo*) contiene información y referencias a otros nodos.  
-Una lista enlazada permite **insertar y eliminar elementos en cualquier posición sin necesidad de desplazar el resto de elementos**, lo que reduce el coste de estas operaciones respecto a un vector.
+📌 **Problema motivador**: imagina que gestionas un programa de edición genética en el que las bases de ADN se van insertando o eliminando de forma dinámica. Con arrays, cada modificación implica desplazar miles de posiciones en memoria. Con listas enlazadas, basta con ajustar un par de punteros.
+
+Para superar las limitaciones de los vectores aparecen las **listas enlazadas**.
+Una lista enlazada es una estructura dinámica en la que cada elemento (o **nodo**) contiene:
+
+* La información (dato).
+* Una referencia (puntero o enlace) hacia el siguiente nodo.
+
+De esta manera, el tamaño de la lista se **adapta en tiempo de ejecución**: podemos añadir y quitar nodos sin necesidad de reservar o liberar grandes bloques contiguos de memoria.
 
 ---
 
 ## 1. Estructura de una lista enlazada simple
 
-Una **lista enlazada simple** está formada por nodos.  
-Cada nodo contiene dos campos:  
-- un **campo de datos**, que almacena la información,  
-- un **campo de enlace**, que almacena la dirección del siguiente nodo.  
+Una **lista enlazada simple** está formada por nodos conectados uno tras otro. Cada nodo tiene dos campos:
 
-El primer nodo de la lista se denomina **cabeza** (*head*), y el campo de enlace del último nodo es nulo (`null`).
+1. **Dato**: la información que queremos almacenar (números, cadenas, estructuras).
+2. **Enlace**: un puntero que indica la dirección del siguiente nodo.
+
+El primer nodo se denomina **cabeza** (*head*), y el último nodo apunta a `null`, señalando el final de la lista.
 
 ![Lista enlazada simple](../images/linked_list.png){ width=80% }
 
 *Figura 2: lista enlazada simple de cinco nodos.*
 
-### 1.1 Operaciones básicas
+### 1.1 Operaciones básicas y coste
 
-* **Inserción al inicio**: coste $O(1)$, no requiere recorrer la lista.  
-* **Inserción al final**: coste $O(n)$, hay que recorrer hasta el último nodo.  
-* **Inserción intermedia**: coste $O(n)$ en general, pues requiere recorrer hasta la posición deseada.  
-* **Eliminación**: depende de si es la cabeza ($O(1)$) o intermedia ($O(n)$ porque hay que conocer el predecesor).  
-* **Búsqueda**: siempre $O(n)$, recorrido secuencial.
+* **Inserción al inicio** → $O(1)$
+  Basta con redirigir el puntero de la cabeza.
+* **Inserción al final** → $O(n)$
+  Necesitamos recorrer toda la lista hasta el último nodo.
+* **Inserción intermedia** → $O(n)$
+  Hay que llegar a la posición deseada.
+* **Eliminación** → $O(1)$ si es la cabeza; $O(n)$ si está en medio (hay que conocer el nodo anterior).
+* **Búsqueda** → $O(n)$, porque no existe acceso aleatorio.
 
 #### Pseudocódigo de inserción al inicio
 
@@ -48,7 +60,7 @@ NODO insertarInicio(LISTA L, DATO x):
     L.cabeza ← nuevo
 ```
 
-#### Pseudocódigo de búsqueda lineal
+#### Pseudocódigo de búsqueda
 
 ```text
 NODO buscar(LISTA L, DATO x):
@@ -60,83 +72,94 @@ NODO buscar(LISTA L, DATO x):
     devolver null
 ```
 
+📌 Nota filosófica: la lista enlazada simple nos recuerda que **a veces el camino importa más que la meta**. Para llegar al nodo 5, no podemos saltar, debemos recorrer la lista paso a paso, como quien lee una novela página a página.
+
 ---
 
 ## 2. Listas doblemente enlazadas
 
-Las **listas doblemente enlazadas** extienden la lista simple añadiendo un segundo enlace que apunta al nodo anterior.
-Cada nodo contiene tres campos: datos, enlace al siguiente y enlace al anterior.
+Una mejora importante es la **lista doblemente enlazada**.
+Aquí cada nodo guarda tres campos:
 
-Este diseño facilita:
+* El **dato**.
+* Un **puntero al siguiente**.
+* Un **puntero al anterior**.
 
-* El recorrido en ambos sentidos.
-* La eliminación de un nodo sin necesidad de conocer el predecesor explícitamente.
+Esto permite recorrer la lista en **ambos sentidos** y facilita operaciones como eliminar un nodo sin necesidad de conocer a su predecesor.
 
 ![Lista doblemente enlazada](../images/doubly_linked_list.png){ width=80% }
 
 *Figura 3: lista doblemente enlazada.*
 
-⚡ Inconveniente: requieren más memoria por nodo (un puntero adicional).
+⚡ Inconveniente: se necesita más memoria por nodo y más trabajo al insertar (hay que actualizar dos punteros en vez de uno).
+
+📜 **Anécdota histórica**: las primeras implementaciones de editores de texto en los años 70 (como *EMACS*) usaban listas doblemente enlazadas para representar líneas de texto, porque resultaba natural moverse hacia adelante y atrás en el documento.
 
 ---
 
 ## 3. Listas circulares
 
-En una **lista circular** el enlace del último nodo apunta de nuevo al primer nodo, de modo que **no existe un nodo con enlace nulo**.
+En una **lista circular**, el último nodo no apunta a `null` sino de nuevo al primero. De esta forma, el recorrido nunca se detiene: no existe un “final”.
 
-* La cabeza puede ser cualquier nodo.
-* Suele mantenerse un puntero al último nodo para facilitar las inserciones al inicio y al final.
+Características:
+
+* La **cabeza** puede ser cualquier nodo.
+* Mantener un puntero al último nodo permite insertar al inicio y al final en tiempo constante.
 
 ![Lista circular](../images/circular_linked_list.png){ width=65% }
 
 *Figura 4: lista enlazada circular.*
 
-**Aplicaciones típicas**:
+### Aplicaciones típicas
 
-* Planificadores de sistemas operativos (round-robin).
-* Listas de reproducción de música.
-* Juegos en los que los turnos son cíclicos.
+* **Planificadores de CPU** (algoritmo round-robin).
+* **Listas de reproducción de música** que vuelven al inicio.
+* **Juegos de mesa** donde los turnos son cíclicos.
 
-También existen variantes **doblemente circulares**: permiten avanzar y retroceder indefinidamente.
+También existen **listas doblemente circulares**, que permiten navegar hacia adelante y atrás sin límites.
 
 ---
 
 ## 4. Comparación con arrays
 
-| Característica              | Lista enlazada                                           | Vector (array)                          |
-| --------------------------- | -------------------------------------------------------- | --------------------------------------- |
-| **Crecimiento**             | Dinámico, tamaño ajustable en tiempo de ejecución.       | Estático, tamaño fijo.                  |
-| **Acceso aleatorio**        | No, recorrido secuencial $O(n)$.                       | Sí, acceso $O(1)$ mediante índices.   |
-| **Inserción/eliminación**   | $O(1)$ si se conoce el nodo; $O(n)$ en el peor caso. | $O(n)$ (desplazamiento de elementos). |
-| **Uso de memoria**          | Requiere punteros adicionales.                           | Memoria contigua, más compacta.         |
-| **Localidad de referencia** | Baja: nodos dispersos en memoria.                        | Alta: acceso más eficiente en caché.    |
+| Característica              | Lista enlazada                                               | Vector (array)                          |
+| --------------------------- | ------------------------------------------------------------ | --------------------------------------- |
+| **Crecimiento**             | Dinámico, tamaño ajustable en tiempo de ejecución.           | Estático, tamaño fijo.                  |
+| **Acceso aleatorio**        | No, recorrido secuencial $O(n)$.                           | Sí, acceso $O(1)$ mediante índices.   |
+| **Inserción/eliminación**   | $O(1)$ si se conoce el nodo; $O(n)$ si hay que recorrer. | $O(n)$ (desplazamiento de elementos). |
+| **Uso de memoria**          | Requiere punteros adicionales.                               | Más compacta y contigua.                |
+| **Localidad de referencia** | Baja: nodos dispersos en memoria.                            | Alta: aprovecha mejor la caché.         |
 
-**Conclusión**:
+**Conclusión práctica**:
 
-* Listas enlazadas son preferibles si hay muchas inserciones/eliminaciones.
-* Arrays son preferibles si se requiere acceso aleatorio frecuente y mejor aprovechamiento de memoria caché.
+* Usa **listas enlazadas** si habrá muchas inserciones y eliminaciones.
+* Usa **arrays** si necesitas acceso rápido por índice y mejor rendimiento en caché.
+
+📌 Filosofía: la elección de la estructura de datos depende del **patrón de uso**, no de una “mejor” universal.
 
 ---
 
 ## 5. Casos de uso en bioinformática y computación
 
-* **Gestión dinámica de secuencias de ADN** cuando se insertan o eliminan bases frecuentemente.
-* **Representación de colas de procesos** en un sistema operativo.
-* **Simulación de estructuras moleculares dinámicas**, donde los elementos se crean y destruyen constantemente.
+* **Gestión dinámica de secuencias**: en ediciones de ADN, cuando se insertan o eliminan bases constantemente.
+* **Colas de procesos**: en sistemas operativos, donde los procesos entran y salen de forma continua.
+* **Modelado molecular dinámico**: los átomos o enlaces pueden crearse o desaparecer según la simulación.
+* **Editores de texto**: representan cada línea como un nodo enlazado.
+* **Sistemas de música/juegos**: listas circulares para reproducción o turnos cíclicos.
+
+📜 **Curiosidad**: Unix implementaba en algunos shells listas circulares para gestionar el historial de comandos, haciendo que se “reciclaran” automáticamente.
 
 ---
 
 ## 6. Conclusiones
 
-Las listas enlazadas son estructuras dinámicas que resuelven las limitaciones de tamaño fijo de los vectores.
-La posibilidad de insertar y eliminar nodos sin desplazar el resto de elementos las hace muy flexibles.
+Las listas enlazadas **resuelven las limitaciones de tamaño fijo** de los arrays.
 
-Existen variantes como:
+* Son flexibles: crecen y decrecen dinámicamente.
+* Permiten inserciones y eliminaciones sin desplazar elementos.
+* Existen variantes (doble, circular) que se adaptan a diferentes necesidades.
 
-* **Listas doblemente enlazadas**, que permiten recorrer en ambas direcciones.
-* **Listas circulares**, que eliminan el concepto de "fin" y son útiles en procesos cíclicos.
-
-👉 En el siguiente módulo se estudiarán **pilas** y **colas**, dos tipos de listas restringidas en los que el acceso se realiza solo por los extremos.
+👉 Filosóficamente, podríamos decir que los arrays representan la **estabilidad** (todo en su sitio, contiguo, fijo), mientras que las listas enlazadas representan la **adaptación** (cambian sobre la marcha, sacrificando eficiencia en el acceso).
 
 ---
 
@@ -146,8 +169,9 @@ Existen variantes como:
 2. Explica por qué una lista doblemente enlazada facilita la eliminación de un nodo conocido.
 3. Implementa en pseudocódigo la inserción al final de una lista enlazada simple. ¿Cuál es su complejidad?
 4. Diseña un ejemplo donde una lista circular sea más eficiente que un array.
-5. ¿Por qué las listas enlazadas tienen peor aprovechamiento de la caché de procesador que los arrays?
-6. Analiza qué estructura usarías en un sistema que necesita almacenar y procesar continuamente colas de trabajos entrantes.
+5. ¿Por qué las listas enlazadas tienen peor aprovechamiento de la caché que los arrays?
+6. Analiza qué estructura usarías para un sistema que procesa continuamente colas de trabajos.
+7. (Avanzado) ¿Podrías implementar una lista enlazada en un lenguaje sin punteros explícitos (ej. Python)? ¿Cómo?
 
 ---
 
@@ -157,3 +181,4 @@ Existen variantes como:
 * Goodrich, M. T., Tamassia, R., & Goldwasser, M. H. *Data Structures and Algorithms in Python*. Wiley.
 * Weiss, M. A. *Data Structures and Algorithm Analysis*. Pearson.
 * Sedgewick, R. & Wayne, K. *Algorithms*. Addison-Wesley.
+* Knuth, D. *The Art of Computer Programming, Vol. 1: Fundamental Algorithms*. Addison-Wesley.

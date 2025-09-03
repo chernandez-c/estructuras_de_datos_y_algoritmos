@@ -1,37 +1,40 @@
----
-title: "Módulo 3 – Pilas y colas"
-author: "Curso de Introducción a Estructuras de Datos y Algoritmos"
-date: "21 de agosto de 2025"
-toc: true
-number-sections: true
----
-
 # Módulo 3 – Pilas y colas
+
+---
 
 ## Introducción
 
-Las **pilas** y **colas** son estructuras de datos lineales que imponen restricciones sobre el acceso a sus elementos.  
-Se definen más por las **operaciones permitidas** que por su implementación interna.  
-Pueden construirse sobre vectores o listas enlazadas.  
+Las **pilas** y **colas** son estructuras de datos lineales muy particulares porque, a diferencia de arrays o listas enlazadas, **no permiten acceder libremente a cualquier elemento en cualquier momento**.
+En lugar de ello, **imponen una disciplina de acceso**: un orden específico en que los datos entran y salen.
 
-Este módulo presenta su funcionamiento, operaciones básicas, implementaciones típicas y aplicaciones reales.
+* En las **pilas**: el último en entrar es el primero en salir (*Last In, First Out*, LIFO).
+* En las **colas**: el primero en entrar es el primero en salir (*First In, First Out*, FIFO).
+
+Esto puede parecer una restricción incómoda, pero en realidad es lo que les da su poder: al controlar el orden de acceso, estas estructuras simplifican enormemente el diseño de algoritmos y sistemas.
+
+Ambas pueden implementarse sobre **vectores** o **listas enlazadas**, pero lo esencial es que se definen por **qué operaciones permiten** y no por cómo se implementan.
+
+📜 **Anécdota histórica**: en los primeros lenguajes como Fortran o Lisp, las pilas fueron fundamentales para manejar las llamadas a funciones y la recursión. Sin pilas, muchos lenguajes de programación modernos serían inviables.
 
 ---
 
 ## 1. Pilas (stacks)
 
-Una **pila** es una estructura de tipo **LIFO** (*Last In, First Out*).  
-El último elemento en entrar es el primero en salir.  
+Una **pila** es como una pila de platos en la cocina: colocas un plato encima del otro, y cuando necesitas uno, tomas siempre el de arriba.
+
+Este modelo **LIFO** es intuitivo y extremadamente útil.
+
+---
 
 ### 1.1 Operaciones principales
 
-* **`apilar` (push)**: coloca un elemento en la cima de la pila.  
-* **`desapilar` (pop)**: elimina y devuelve el elemento superior.  
-* **`consultar` (peek)**: devuelve el elemento superior sin retirarlo.  
-* **`vacía`**: comprueba si no hay elementos.  
-* **`tamaño`**: devuelve el número de elementos.  
+* **`apilar` (push)**: coloca un elemento en la cima.
+* **`desapilar` (pop)**: retira y devuelve el elemento superior.
+* **`consultar` (peek/top)**: permite ver el elemento en la cima sin eliminarlo.
+* **`vacía`**: indica si la pila está vacía.
+* **`tamaño`**: devuelve el número de elementos.
 
-#### Pseudocódigo de operaciones básicas
+#### Pseudocódigo básico
 
 ```text
 procedimiento apilar(PILA P, DATO x):
@@ -45,43 +48,57 @@ DATO desapilar(PILA P):
     devolver x
 ```
 
-### 1.2 Implementación mediante vector
+---
 
-* Se utiliza un array y un puntero `tope`.
-* Operaciones $O(1)$.
-* Requiere tamaño máximo fijo o redimensionamiento dinámico.
+### 1.2 Implementaciones
 
-### 1.3 Implementación mediante lista enlazada
+**Con vector**:
 
-* Inserción y eliminación en la cabeza de la lista.
+* Se usa un array y un puntero `tope`.
+* Operaciones en **O(1)**.
+* Limitación: tamaño máximo fijo (a menos que usemos arrays dinámicos como en Java o Python).
+
+**Con lista enlazada**:
+
+* Se insertan y eliminan nodos al inicio.
 * Crecimiento dinámico.
-* Operaciones $O(1)$.
+* Operaciones también en **O(1)**.
 
-### 1.4 Aplicaciones de las pilas
+👉 Filosofía: elegir implementación depende del equilibrio entre **simplicidad** (arrays) y **flexibilidad** (listas enlazadas).
 
-* **Gestión de llamadas y recursión**: pila de activación en compiladores.
-* **Evaluación de expresiones**: conversión infija ↔ postfija (notación polaca inversa).
-* **Deshacer/rehacer**: editores de texto, navegadores.
+---
+
+### 1.3 Aplicaciones de las pilas
+
+* **Gestión de llamadas a funciones**: cada vez que una función se invoca, se guarda su estado en la **pila de activación**. Cuando termina, se desapila y se retoma el control.
+* **Evaluación de expresiones**: las pilas permiten transformar expresiones de notación infija a postfija (notación polaca inversa). Esto inspiró incluso calculadoras físicas (HP utilizó notación polaca inversa en los 70).
+* **Operaciones de deshacer/rehacer**: en editores de texto, cada acción se apila, y al pulsar “Ctrl+Z” se desapila para revertir el estado.
+* **Recorridos en grafos y árboles**: algoritmos de **búsqueda en profundidad (DFS)** utilizan pilas explícitas o implícitas en recursión.
 
 ![Representación de una pila](../images/stack.png){ width=50% }
 
 *Figura 5: estructura LIFO.*
 
+📌 *Filosofía*: la pila nos enseña que **la historia reciente es la más importante**: lo último que hicimos es lo primero que podemos deshacer.
+
 ---
 
 ## 2. Colas (queues)
 
-Una **cola** es una estructura de tipo **FIFO** (*First In, First Out*).
-El primer elemento en entrar es el primero en salir.
+Una **cola** es como esperar turno en una taquilla o en un banco: el primero que llega es el primero que se atiende.
+
+El modelo **FIFO** refleja procesos donde el orden de llegada determina el orden de salida.
+
+---
 
 ### 2.1 Operaciones principales
 
-* **`encolar` (enqueue)**: inserta un elemento en el extremo trasero.
-* **`desencolar` (dequeue)**: elimina y devuelve el elemento del extremo delantero.
-* **`frente` (peek)**: consulta el primer elemento.
-* **`vacía`**: comprueba si la cola está vacía.
+* **`encolar` (enqueue)**: inserta un elemento al final.
+* **`desencolar` (dequeue)**: elimina y devuelve el primero.
+* **`frente` (peek/front)**: consulta el primer elemento sin retirarlo.
+* **`vacía`**: indica si la cola está vacía.
 
-#### Pseudocódigo de operaciones básicas
+#### Pseudocódigo básico
 
 ```text
 procedimiento encolar(COLA Q, DATO x):
@@ -95,29 +112,40 @@ DATO desencolar(COLA Q):
     devolver x
 ```
 
-### 2.2 Implementación mediante vector
+---
+
+### 2.2 Implementaciones
+
+**Con vector**:
 
 * Se usan dos índices: `frente` y `trasero`.
-* Problema: cuando `trasero` llega al final, hay espacio libre al inicio.
-* Solución: **cola circular**, índices calculados módulo $n$.
+* Problema: al llegar al final del array puede quedar espacio libre al inicio.
+* Solución: **cola circular** → índices calculados módulo $n$.
 
-### 2.3 Implementación mediante lista enlazada
+**Con lista enlazada**:
 
-* Se mantienen punteros a primer y último nodo.
-* Operaciones $O(1)$ tanto en encolar como desencolar.
+* Se mantienen punteros a la cabeza y a la cola.
+* Operaciones en **O(1)** tanto en encolar como desencolar.
 * Crecimiento dinámico.
 
-### 2.4 Variantes de colas
+---
 
-* **Cola circular**: buffer reutilizable, común en sistemas embebidos.
-* **Cola doble (deque)**: inserción y eliminación en ambos extremos.
-* **Cola de prioridad**: los elementos salen según prioridad; suele usarse un heap.
+### 2.3 Variantes de colas
 
-### 2.5 Aplicaciones de las colas
+* **Cola circular**: muy usada en buffers de sistemas embebidos (ej. recibir datos por un puerto serie).
+* **Deque (cola doble)**: permite insertar y eliminar en ambos extremos. Útil en algoritmos como *sliding window*.
+* **Cola de prioridad**: cada elemento tiene prioridad, y se atiende el más importante primero (se suele implementar con heaps).
 
-* **Planificación de procesos**: sistemas operativos.
-* **Transmisión de datos**: colas de paquetes en routers.
-* **Simulación de eventos**: modelos de líneas de espera.
+📜 **Anécdota**: los primeros sistemas de impresión compartida (años 60) introdujeron el término **spooling** (de *simultaneous peripheral operations on-line*), que usaba colas para almacenar trabajos de impresión en orden.
+
+---
+
+### 2.4 Aplicaciones de las colas
+
+* **Planificación de procesos**: los sistemas operativos encolan procesos para darles CPU según su turno.
+* **Routers de red**: almacenan paquetes en colas FIFO hasta que la línea está libre.
+* **Simulación de líneas de espera**: estudios de eficiencia en supermercados, hospitales o tráfico urbano.
+* **Pipelines de bioinformática**: colas de tareas para procesar grandes volúmenes de datos secuenciales (ej. secuencias de ADN).
 
 ![Representación de una cola](../images/queue.png){ width=70% }
 
@@ -127,39 +155,60 @@ DATO desencolar(COLA Q):
 
 ## 3. Comparación de pilas y colas
 
-| Estructura | Principio                                  | Operaciones principales            | Complejidad | Uso típico                               |
-| ---------- | ------------------------------------------ | ---------------------------------- | ----------- | ---------------------------------------- |
-| **Pila**   | LIFO (último en entrar, primero en salir)  | `apilar`, `desapilar`, `consultar` | $O(1)$    | Recursión, expresiones, deshacer/rehacer |
-| **Cola**   | FIFO (primero en entrar, primero en salir) | `encolar`, `desencolar`, `frente`  | $O(1)$    | Procesos, comunicaciones, simulaciones   |
+| Estructura | Principio                          | Operaciones                        | Complejidad | Uso típico                    |
+| ---------- | ---------------------------------- | ---------------------------------- | ----------- | ----------------------------- |
+| **Pila**   | LIFO (último entra, primero sale)  | `apilar`, `desapilar`, `consultar` | $O(1)$    | Recursión, deshacer, DFS      |
+| **Cola**   | FIFO (primero entra, primero sale) | `encolar`, `desencolar`, `frente`  | $O(1)$    | Procesos, comunicaciones, BFS |
+
+📌 Ambas son simples, pero su **disciplina de acceso** las convierte en cimientos de algoritmos muy complejos.
 
 ---
 
 ## 4. Casos de uso en bioinformática y computación
 
-* **Pilas**: seguimiento de llamadas recursivas en algoritmos de alineamiento de secuencias.
-* **Colas**: gestión de tareas en pipelines de análisis genómico o procesamiento de datos masivos.
+* **Pilas**:
+
+  * Alineamiento de secuencias recursivo → seguimiento de llamadas en la pila.
+  * Algoritmos DFS en grafos de interacción genética.
+  * Retroceso (*backtracking*) en predicción de estructuras de ARN.
+
+* **Colas**:
+
+  * Pipelines de procesamiento de datos genómicos.
+  * Algoritmos BFS en redes biológicas o de proteínas.
+  * Simulación de colas de espera en hospitales (modelos epidemiológicos).
+
+👉 Aquí vemos cómo una idea simple (orden de acceso) se convierte en pieza clave de sistemas biológicos, tecnológicos y sociales.
 
 ---
 
 ## 5. Conclusiones
 
-Las pilas y colas son estructuras sencillas pero fundamentales.
-Su poder reside en las **restricciones de acceso** que imponen, lo que las hace ideales para gestionar flujo de información en orden controlado.
+Las pilas y colas son estructuras sencillas, pero **fundamentales**:
 
-Son la base para estructuras más avanzadas: **colas de prioridad, deques, heaps y grafos**.
+* **Pilas**: gestionan lo inmediato, lo último que pasó.
+* **Colas**: gestionan lo justo, el orden de llegada.
+
+Filosóficamente, representan dos visiones del tiempo:
+
+* La pila se centra en el **presente más reciente**.
+* La cola en la **historia acumulada**.
+
+Además, son la base de estructuras más avanzadas como **colas de prioridad, deques, heaps, árboles y grafos**.
 
 ---
 
 ## 6. Ejercicios de autoevaluación
 
-1. ¿Cuál es la diferencia entre una pila y una cola en cuanto al orden de acceso?
+1. ¿Cuál es la diferencia conceptual entre una pila y una cola en cuanto al orden de acceso?
 2. Implementa en pseudocódigo una pila basada en lista enlazada.
-3. Explica cómo funciona una cola circular y por qué mejora el uso de memoria respecto a una cola simple con vector.
-4. Diseña un algoritmo que evalúe una expresión en notación postfija utilizando una pila.
-5. ¿En qué casos sería preferible implementar una cola con lista enlazada en lugar de con un vector?
-6. Analiza qué estructura usarías para:
-   a) un editor de texto con opción de deshacer,
-   b) un sistema de tickets en un banco.
+3. Explica cómo funciona una cola circular y por qué es más eficiente que una cola simple basada en array.
+4. Diseña un algoritmo que evalúe una expresión en notación postfija usando una pila.
+5. ¿Cuándo preferirías implementar una cola con lista enlazada en lugar de un vector?
+6. Elige estructura para cada caso:
+   a) Editor de texto con opción de deshacer.
+   b) Sistema de tickets en un banco.
+   c) Router de red que gestiona paquetes en tiempo real.
 
 ---
 
@@ -169,3 +218,4 @@ Son la base para estructuras más avanzadas: **colas de prioridad, deques, heaps
 * Goodrich, M. T., Tamassia, R., & Goldwasser, M. H. *Data Structures and Algorithms in Python*. Wiley.
 * Weiss, M. A. *Data Structures and Algorithm Analysis*. Pearson.
 * Sedgewick, R., & Wayne, K. *Algorithms*. Addison-Wesley.
+* Knuth, D. *The Art of Computer Programming, Vol. 1: Fundamental Algorithms*. Addison-Wesley.

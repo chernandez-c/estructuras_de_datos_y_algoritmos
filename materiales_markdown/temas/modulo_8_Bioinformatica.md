@@ -1,7 +1,7 @@
 ---
 title: "Módulo 8 – Algoritmos y estructuras de datos en bioinformática"
 author: "Curso de Introducción a Estructuras de Datos y Algoritmos"
-date: "24 de agosto de 2025"
+date: "4 de septiembre de 2025"
 toc: true
 number-sections: true
 ---

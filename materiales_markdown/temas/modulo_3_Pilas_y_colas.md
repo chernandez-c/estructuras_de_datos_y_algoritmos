@@ -1,3 +1,12 @@
+---
+title: "Módulo 3 – Pilas y colas"
+author: "Curso de Introducción a Estructuras de Datos y Algoritmos"
+date: "21 de agosto de 2025"
+toc: true
+number-sections: true
+---
+
+
 # Módulo 3 – Pilas y colas
 
 ---

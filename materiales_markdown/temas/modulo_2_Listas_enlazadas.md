@@ -182,3 +182,5 @@ Las listas enlazadas **resuelven las limitaciones de tamaño fijo** de los array
 * Weiss, M. A. *Data Structures and Algorithm Analysis*. Pearson.
 * Sedgewick, R. & Wayne, K. *Algorithms*. Addison-Wesley.
 * Knuth, D. *The Art of Computer Programming, Vol. 1: Fundamental Algorithms*. Addison-Wesley.
+
+---

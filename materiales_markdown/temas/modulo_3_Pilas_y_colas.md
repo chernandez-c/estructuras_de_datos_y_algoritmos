@@ -6,42 +6,39 @@ toc: true
 number-sections: true
 ---
 
+# Módulo 3 – Pilas y Colas: Gestionando el Orden en la Complejidad
 
-# Módulo 3 – Pilas y colas
+## 0. Motivación: El Poder de las Restricciones 💡
 
----
+Antes de sumergirnos en la implementación, es crucial preguntarse: ¿por qué querríamos limitar nuestro acceso a los datos? En un mundo donde las listas y los arrays nos dan la libertad de acceder a cualquier elemento por su índice (`array[i]`), las pilas y colas parecen un paso atrás.
 
-## Introducción
+La respuesta reside en una poderosa filosofía de diseño de software: **la restricción como herramienta para la simplicidad y la seguridad**.
 
-Las **pilas** y **colas** son estructuras de datos lineales muy particulares porque, a diferencia de arrays o listas enlazadas, **no permiten acceder libremente a cualquier elemento en cualquier momento**.
-En lugar de ello, **imponen una disciplina de acceso**: un orden específico en que los datos entran y salen.
+1.  **Reducción de la Complejidad Cognitiva**: Al limitar las operaciones a `push/pop` o `enqueue/dequeue`, el programador no tiene que pensar en todos los posibles estados de la estructura. El comportamiento es predecible y fácil de razonar. Esto es como las marchas de un coche: en lugar de controlar la rotación del motor directamente, usamos una abstracción (primera, segunda, etc.) que simplifica la conducción.
+2.  **Prevención de Errores**: Imponer un orden de acceso estricto (LIFO o FIFO) evita errores comunes, como modificar un elemento en medio de una colección mientras se está procesando o acceder a datos en el orden incorrecto en un sistema concurrente.
+3.  **Modelado del Mundo Real**: Muchas procesos del mundo real son inherentemente LIFO o FIFO. Las pilas y colas no son invenciones abstractas, sino **modelos matemáticos de procesos reales**:
+      * La pila de llamadas de un programa refleja cómo las tareas se anidan y resuelven.
+      * Una cola de impresión refleja el principio de justicia de "el primero que llega, es el primero en ser servido".
 
-* En las **pilas**: el último en entrar es el primero en salir (*Last In, First Out*, LIFO).
-* En las **colas**: el primero en entrar es el primero en salir (*First In, First Out*, FIFO).
+Al adoptar estas restricciones, ganamos claridad, robustez y algoritmos que son un reflejo fiel de los problemas que intentan solucionar.
 
-Esto puede parecer una restricción incómoda, pero en realidad es lo que les da su poder: al controlar el orden de acceso, estas estructuras simplifican enormemente el diseño de algoritmos y sistemas.
+-----
 
-Ambas pueden implementarse sobre **vectores** o **listas enlazadas**, pero lo esencial es que se definen por **qué operaciones permiten** y no por cómo se implementan.
+## 1. Pilas (Stacks): La Memoria del Presente Reciente
 
-📜 **Anécdota histórica**: en los primeros lenguajes como Fortran o Lisp, las pilas fueron fundamentales para manejar las llamadas a funciones y la recursión. Sin pilas, muchos lenguajes de programación modernos serían inviables.
+Una **pila** es una estructura de datos que opera bajo el principio **LIFO (Last-In, First-Out)**. Su analogía más famosa es una pila de platos: solo puedes interactuar con el plato que está en la cima. Esta estructura es fundamental para gestionar procesos que tienen una naturaleza jerárquica o recursiva, donde la tarea más reciente debe ser la primera en resolverse.
 
----
+### 1.1 Operaciones Principales y Casos Límite
 
-## 1. Pilas (stacks)
+Las operaciones definen la "personalidad" de la pila. Es crucial entender no solo lo que hacen, sino también sus condiciones de error.
 
-Una **pila** es como una pila de platos en la cocina: colocas un plato encima del otro, y cuando necesitas uno, tomas siempre el de arriba.
-
-Este modelo **LIFO** es intuitivo y extremadamente útil.
-
----
-
-### 1.1 Operaciones principales
-
-* **`apilar` (push)**: coloca un elemento en la cima.
-* **`desapilar` (pop)**: retira y devuelve el elemento superior.
-* **`consultar` (peek/top)**: permite ver el elemento en la cima sin eliminarlo.
-* **`vacía`**: indica si la pila está vacía.
-* **`tamaño`**: devuelve el número de elementos.
+  * **`apilar` (push)**: Añade un elemento a la cima de la pila.
+      * **Caso Límite**: Si la pila está implementada con un array de tamaño fijo y ya está llena, se produce un error de **desbordamiento de pila (Stack Overflow)**. Este es uno de los errores más famosos de la programación.
+  * **`desapilar` (pop)**: Elimina el elemento de la cima y lo devuelve.
+      * **Caso Límite**: Si se intenta desapilar un elemento de una pila vacía, se produce un error de **subdesbordamiento (Stack Underflow)**. El programa debe gestionar esta situación para evitar un comportamiento indefinido.
+  * **`consultar` (peek/top)**: Devuelve el elemento de la cima sin modificar la pila. Es una operación de solo lectura.
+  * **`vacía` (isEmpty)**: Booleano que indica si la pila no contiene elementos.
+  * **`tamaño` (size)**: Devuelve el número de elementos actualmente en la pila.
 
 #### Pseudocódigo básico
 
@@ -57,32 +54,45 @@ DATO desapilar(PILA P):
     devolver x
 ```
 
----
+### 1.2. Análisis Detallado de Implementaciones
 
-### 1.2 Implementaciones
+La elección de la implementación subyacente (array o lista enlazada) tiene implicaciones en el rendimiento y el uso de memoria.
 
-**Con vector**:
+| Característica          | Implementación con Vector (Array)                              | Implementación con Lista Enlazada                                 |
+| ----------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Rendimiento**         | $O(1)$ amortizado. Las operaciones son muy rápidas.          | $O(1)$ garantizado. Siempre es una operación constante.         |
+| **Uso de Memoria**      | Puede desperdiciar memoria si se reserva más de la necesaria.  | Más eficiente: solo usa la memoria que necesita.                  |
+| **Overhead de Memoria** | Mínimo (solo el array y un índice `tope`).                     | Mayor: cada elemento necesita un puntero adicional (`siguiente`). |
+| **Localidad de Caché**  | **Excelente**. Los elementos están contiguos en memoria.       | **Pobre**. Los nodos pueden estar dispersos por la memoria.       |
+| **Flexibilidad**        | Tamaño fijo (a menos que se use un array dinámico, con coste). | Dinámica y flexible por naturaleza.                               |
 
-* Se usa un array y un puntero `tope`.
-* Operaciones en **O(1)**.
-* Limitación: tamaño máximo fijo (a menos que usemos arrays dinámicos como en Java o Python).
+**Conclusión Filosófica**: La implementación con **vector** es preferible cuando el tamaño máximo es conocido o predecible y el rendimiento es crítico (gracias a la caché). La **lista enlazada** es ideal para situaciones donde el tamaño es impredecible y la flexibilidad es la máxima prioridad.
 
-**Con lista enlazada**:
+### 1.3. Caso de Estudio a Fondo: La Pila de Llamadas (Call Stack)
 
-* Se insertan y eliminan nodos al inicio.
-* Crecimiento dinámico.
-* Operaciones también en **O(1)**.
+Quizás la aplicación más importante de las pilas es la **gestión de la pila de llamadas a funciones** en casi todos los lenguajes de programación modernos. Sin ella, la recursión y la propia estructura de nuestros programas serían imposibles.
 
-👉 Filosofía: elegir implementación depende del equilibrio entre **simplicidad** (arrays) y **flexibilidad** (listas enlazadas).
+**¿Cómo funciona?**
 
----
+1. **Programa Principal**: El sistema operativo crea un "marco de pila" (stack frame) para la función `main()`. Este marco contiene sus variables locales y la dirección de retorno.
+2. **Llamada a Función**: Cuando `main()` llama a `funcionA()`, se crea un nuevo marco para `funcionA` y se apila **encima** del de `main()`.
+3. **Llamadas Anidadas**: Si `funcionA()` llama a `funcionB()`, se apila un nuevo marco para `funcionB` en la cima.
+4. **Retorno**: Cuando `funcionB()` termina, su marco se **desapila**. El control vuelve a `funcionA()`, que ahora está de nuevo en la cima.
+5. **Fin**: El proceso continúa hasta que todas las funciones han retornado y la pila vuelve a estar vacía (solo con `main`, que al terminar devuelve el control al SO).
 
-### 1.3 Aplicaciones de las pilas
+**Diagrama conceptual:**
 
-* **Gestión de llamadas a funciones**: cada vez que una función se invoca, se guarda su estado en la **pila de activación**. Cuando termina, se desapila y se retoma el control.
-* **Evaluación de expresiones**: las pilas permiten transformar expresiones de notación infija a postfija (notación polaca inversa). Esto inspiró incluso calculadoras físicas (HP utilizó notación polaca inversa en los 70).
-* **Operaciones de deshacer/rehacer**: en editores de texto, cada acción se apila, y al pulsar “Ctrl+Z” se desapila para revertir el estado.
-* **Recorridos en grafos y árboles**: algoritmos de **búsqueda en profundidad (DFS)** utilizan pilas explícitas o implícitas en recursión.
+```
+      Pila:
+    | Marco funcionB | <-- Cima (en ejecución)
+    |----------------|
+    | Marco funcionA |
+    |----------------|
+    | Marco main()   |
+    +----------------+
+```
+
+Este mecanismo es la razón por la que una recursión infinita causa un error de **Stack Overflow**: cada llamada recursiva apila un nuevo marco hasta que se agota la memoria asignada a la pila.
 
 ![Representación de una pila](../images/stack.png){ width=50% }
 
@@ -92,20 +102,16 @@ DATO desapilar(PILA P):
 
 ---
 
-## 2. Colas (queues)
+## 2. Colas (Queues): La Justicia del Orden de Llegada
 
-Una **cola** es como esperar turno en una taquilla o en un banco: el primero que llega es el primero que se atiende.
+Una **cola** implementa el principio **FIFO (First-In, First-Out)**. Es el modelo de la fila de un supermercado: la primera persona en llegar es la primera en ser atendida. Este principio de justicia y orden secuencial es clave para sistemas que gestionan recursos compartidos o procesan tareas en el orden en que fueron solicitadas.
 
-El modelo **FIFO** refleja procesos donde el orden de llegada determina el orden de salida.
+### 2.1 Operaciones Principales
 
----
-
-### 2.1 Operaciones principales
-
-* **`encolar` (enqueue)**: inserta un elemento al final.
-* **`desencolar` (dequeue)**: elimina y devuelve el primero.
-* **`frente` (peek/front)**: consulta el primer elemento sin retirarlo.
-* **`vacía`**: indica si la cola está vacía.
+* **`encolar` (enqueue)**: Añade un elemento al **final** de la cola.
+* **`desencolar` (dequeue)**: Elimina el elemento del **principio** de la cola y lo devuelve.
+* **`frente` (front/peek)**: Consulta el primer elemento sin retirarlo.
+* **`vacía` (isEmpty)**: Indica si la cola está vacía.
 
 #### Pseudocódigo básico
 
@@ -121,40 +127,42 @@ DATO desencolar(COLA Q):
     devolver x
 ```
 
----
+### 2.2 Implementaciones y el Desafío de la Cola Circular
 
-### 2.2 Implementaciones
+**El Problema de la Implementación con Vector Simple:**
 
-**Con vector**:
+Si usamos un vector con dos punteros, `frente` y `trasero`, nos encontramos con un problema. A medida que encolamos y desencolamos, ambos punteros avanzan. Eventualmente, `trasero` llegará al final del array, y no podremos añadir más elementos, **incluso si hay espacio libre al principio** (dejado por los elementos desencolados).
 
-* Se usan dos índices: `frente` y `trasero`.
-* Problema: al llegar al final del array puede quedar espacio libre al inicio.
-* Solución: **cola circular** → índices calculados módulo $n$.
+**La Solución Elegante: La Cola Circular**
 
-**Con lista enlazada**:
+La cola circular resuelve esto tratando el array como si fuera un círculo. Cuando un puntero llega al final, simplemente "da la vuelta" y continúa desde el principio.
 
-* Se mantienen punteros a la cabeza y a la cola.
-* Operaciones en **O(1)** tanto en encolar como desencolar.
-* Crecimiento dinámico.
+Esto se logra con la **aritmética modular**. Para un array de tamaño $N$:
 
----
+* Para avanzar el puntero `trasero`: `trasero = (trasero + 1) % N`
+* Para avanzar el puntero `frente`: `frente = (frente + 1) % N`
 
-### 2.3 Variantes de colas
+Este diseño es increíblemente eficiente y es el estándar para implementar buffers de tamaño fijo en sistemas operativos, redes y hardware.
 
-* **Cola circular**: muy usada en buffers de sistemas embebidos (ej. recibir datos por un puerto serie).
-* **Deque (cola doble)**: permite insertar y eliminar en ambos extremos. Útil en algoritmos como *sliding window*.
-* **Cola de prioridad**: cada elemento tiene prioridad, y se atiende el más importante primero (se suele implementar con heaps).
+### 2.3 Variantes de Colas
 
-📜 **Anécdota**: los primeros sistemas de impresión compartida (años 60) introdujeron el término **spooling** (de *simultaneous peripheral operations on-line*), que usaba colas para almacenar trabajos de impresión en orden.
+* **Cola Circular**: Como se vio, es una optimización para implementaciones con arrays. Es la base de los *ring buffers*.
+* **Deque (Cola Doble)**: Del inglés *Double-Ended Queue*. Es una estructura híbrida que permite **encolar y desencolar por ambos extremos**. Es una navaja suiza de las estructuras lineales, útil en algoritmos de ventanas deslizantes (*sliding window*) o para construir otros algoritmos más complejos.
+* **Cola de Prioridad**: Rompe la regla FIFO. Cada elemento tiene una **prioridad** asociada. Al desencolar, siempre se extrae el elemento con la máxima prioridad, sin importar cuándo llegó. No se implementa con arrays o listas, sino con estructuras más complejas como los **heaps (montículos)**. Son esenciales en algoritmos como el de Dijkstra (para encontrar el camino más corto en un grafo) o en la planificación de procesos de un SO donde algunas tareas son más urgentes que otras.
 
----
+### 2.4 Caso de Estudio a Fondo: El Planificador de Procesos del Sistema Operativo
 
-### 2.4 Aplicaciones de las colas
+Los sistemas operativos modernos son multitarea, lo que significa que pueden ejecutar múltiples procesos (casi) simultáneamente. ¿Cómo decide la CPU a qué proceso prestarle atención en cada momento? La respuesta más simple es una **cola de procesos listos (Ready Queue)**.
 
-* **Planificación de procesos**: los sistemas operativos encolan procesos para darles CPU según su turno.
-* **Routers de red**: almacenan paquetes en colas FIFO hasta que la línea está libre.
-* **Simulación de líneas de espera**: estudios de eficiencia en supermercados, hospitales o tráfico urbano.
-* **Pipelines de bioinformática**: colas de tareas para procesar grandes volúmenes de datos secuenciales (ej. secuencias de ADN).
+1. **Llegada de Procesos**: Cuando un programa se lanza (ej., abres un navegador), el SO crea un Proceso y lo **encola** en la cola de procesos listos.
+2. **Planificación (Scheduling)**: El **planificador** de la CPU es un componente del SO que toma el primer proceso de la cola (`desencolar`).
+3. **Ejecución**: La CPU ejecuta ese proceso durante un breve intervalo de tiempo llamado *quantum*.
+4. **Re-encolado o Finalización**:
+
+   * Si el proceso no ha terminado al final de su *quantum*, es interrumpido y **vuelve a ser encolado** al final de la fila para esperar su próximo turno (esto se conoce como *Round-Robin*).
+   * Si el proceso termina o necesita esperar por una operación (ej., leer un archivo), se retira de la cola.
+
+Este sistema basado en colas garantiza la **equidad (fairness)**: cada proceso tiene la oportunidad de ejecutarse, evitando que un solo proceso monopolice la CPU.
 
 ![Representación de una cola](../images/queue.png){ width=70% }
 
@@ -162,62 +170,40 @@ DATO desencolar(COLA Q):
 
 ---
 
-## 3. Comparación de pilas y colas
+## 3. Contexto Histórico y Orígenes Conceptuales 📜
 
-| Estructura | Principio                          | Operaciones                        | Complejidad | Uso típico                    |
-| ---------- | ---------------------------------- | ---------------------------------- | ----------- | ----------------------------- |
-| **Pila**   | LIFO (último entra, primero sale)  | `apilar`, `desapilar`, `consultar` | $O(1)$    | Recursión, deshacer, DFS      |
-| **Cola**   | FIFO (primero entra, primero sale) | `encolar`, `desencolar`, `frente`  | $O(1)$    | Procesos, comunicaciones, BFS |
+Las pilas y colas no nacieron con la informática moderna; son conceptos que los matemáticos y lógicos ya utilizaban.
 
-📌 Ambas son simples, pero su **disciplina de acceso** las convierte en cimientos de algoritmos muy complejos.
-
----
-
-## 4. Casos de uso en bioinformática y computación
-
-* **Pilas**:
-
-  * Alineamiento de secuencias recursivo → seguimiento de llamadas en la pila.
-  * Algoritmos DFS en grafos de interacción genética.
-  * Retroceso (*backtracking*) en predicción de estructuras de ARN.
-
-* **Colas**:
-
-  * Pipelines de procesamiento de datos genómicos.
-  * Algoritmos BFS en redes biológicas o de proteínas.
-  * Simulación de colas de espera en hospitales (modelos epidemiológicos).
-
-👉 Aquí vemos cómo una idea simple (orden de acceso) se convierte en pieza clave de sistemas biológicos, tecnológicos y sociales.
+* **Notación Polaca Inversa (RPN)**: En la década de 1920, el lógico polaco Jan Łukasiewicz desarrolló una notación matemática que no requería paréntesis. Esta notación (ej. `3 4 +` en lugar de `3 + 4`) es trivial de evaluar con una pila y fue la base de las famosas calculadoras científicas de **Hewlett-Packard (HP)** en los años 70, que se ganaron una legión de fans por su eficiencia.
+* **Primeros Lenguajes**: Alan Turing ya teorizó sobre una "pila" para llamadas a subrutinas en sus diseños de máquinas. Los primeros lenguajes de alto nivel como **Lisp y Fortran** implementaron pilas para gestionar la recursión y las llamadas a funciones, sentando las bases de cómo funcionan los lenguajes hoy en día.
+* **Spooling y Sistemas Operativos**: El concepto de cola se formalizó en los sistemas operativos de los años 60. El término **spooling** (*Simultaneous Peripheral Operations On-Line*) se acuñó para describir el sistema que usaba colas para gestionar trabajos de impresión en un disco intermedio, liberando a la CPU para otras tareas. Este fue uno de los primeros ejemplos de procesamiento asíncrono, una idea fundamental en la computación moderna.
 
 ---
 
-## 5. Conclusiones
+## 4. Conclusiones: Más Allá de la Implementación
 
-Las pilas y colas son estructuras sencillas, pero **fundamentales**:
+Las pilas y colas son mucho más que simples formas de organizar datos. Son **abstracciones fundamentales** que nos enseñan a pensar sobre el flujo del tiempo y el orden en los algoritmos.
 
-* **Pilas**: gestionan lo inmediato, lo último que pasó.
-* **Colas**: gestionan lo justo, el orden de llegada.
+* **Pila**: Gobierna la **profundidad**, la recursión y el retroceso (*backtracking*). Es la estructura de "ir por un camino, y si no funciona, volver sobre tus pasos".
+* **Cola**: Gobierna la **amplitud**, el reparto justo de recursos y el procesamiento secuencial. Es la estructura de "atender a todos en orden, nivel por nivel".
 
-Filosóficamente, representan dos visiones del tiempo:
-
-* La pila se centra en el **presente más reciente**.
-* La cola en la **historia acumulada**.
-
-Además, son la base de estructuras más avanzadas como **colas de prioridad, deques, heaps, árboles y grafos**.
+Comprender su disciplina de acceso es el primer paso para dominar algoritmos más complejos de grafos (DFS usa una pila, BFS usa una cola), sistemas concurrentes y diseño de sistemas operativos. Representan dos formas primordiales de gestionar tareas: una que prioriza lo último y otra que respeta el orden histórico.
 
 ---
 
-## 6. Ejercicios de autoevaluación
+## 5. Ejercicios Ampliados
 
-1. ¿Cuál es la diferencia conceptual entre una pila y una cola en cuanto al orden de acceso?
-2. Implementa en pseudocódigo una pila basada en lista enlazada.
-3. Explica cómo funciona una cola circular y por qué es más eficiente que una cola simple basada en array.
-4. Diseña un algoritmo que evalúe una expresión en notación postfija usando una pila.
-5. ¿Cuándo preferirías implementar una cola con lista enlazada en lugar de un vector?
-6. Elige estructura para cada caso:
-   a) Editor de texto con opción de deshacer.
-   b) Sistema de tickets en un banco.
-   c) Router de red que gestiona paquetes en tiempo real.
+#### Ejercicios Teóricos y de Diseño
+
+1. Dibuja el estado de una pila y una cola después de la siguiente secuencia de operaciones: `push(A)`, `enqueue(B)`, `push(C)`, `dequeue()`, `pop()`, `enqueue(D)`.
+2. Explica por qué una cola de prioridad no puede ser implementada eficientemente con una simple lista enlazada si se quiere mantener un rendimiento óptimo en las operaciones.
+3. Diseña un algoritmo que utilice dos colas para simular el comportamiento de una pila. Analiza la complejidad de tus operaciones `push` y `pop`.
+
+#### Ejercicios Prácticos de Programación
+
+4. **Verificador de Paréntesis**: Escribe una función que reciba una cadena con paréntesis `()`, corchetes `[]` y llaves `{}` y determine si están balanceados. (Pista: usa una pila).
+5. **Simulador de Hot-Potato**: Implementa el juego de la "patata caliente". Un grupo de niños se pasa una patata. Cada N pases, el niño que la tiene es eliminado. El último que queda, gana. (Pista: una cola circular es perfecta para esto).
+6. **Implementa una Deque**: Crea una clase `Deque` utilizando una lista doblemente enlazada como estructura subyacente, con operaciones `addFirst`, `addLast`, `removeFirst`, `removeLast`.
 
 ---
 

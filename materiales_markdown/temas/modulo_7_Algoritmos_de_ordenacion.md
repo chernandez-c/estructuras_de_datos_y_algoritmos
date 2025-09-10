@@ -8,13 +8,13 @@ number-sections: true
 
 # Módulo 7 – Algoritmos de Ordenación: Imponiendo el Orden en el Caos
 
-## 0. Motivación: El Orden como Prerrequisito de la Eficiencia 🏛️
+## 0. Motivación: El Orden como Prerrequisito de la Eficiencia
 
 En un mundo saturado de datos, la información en su estado crudo es a menudo caótica e inmanejable. La **ordenación** es el proceso fundamental mediante el cual transformamos este caos en una estructura inteligible. Es, quizás, la tarea más realizada en computación, no como un fin en sí misma, sino como un paso crucial que habilita operaciones más complejas y eficientes.
 
 La filosofía detrás de la ordenación es simple: **invertir trabajo ahora para ahorrar mucho más trabajo después**.
 
-  * **Búsqueda eficiente**: Como ya vimos, sin orden, encontrar un elemento requiere una búsqueda lineal ($O(n)$). Con orden, la búsqueda binaria lo encuentra en tiempo logarítmico ($O(\\log n)$). Esta es la diferencia entre encontrar un libro en una biblioteca desorganizada frente a una catalogada por el sistema decimal Dewey.
+  * **Búsqueda eficiente**: Como ya vimos, sin orden, encontrar un elemento requiere una búsqueda lineal ($O(n)$). Con orden, la búsqueda binaria lo encuentra en tiempo logarítmico ($O(\log n)$).   Esta es la diferencia entre encontrar un libro en una biblioteca desorganizada frente a una catalogada por el sistema decimal Dewey.
   * **Análisis de datos**: ¿Cuál es el valor mediano de un conjunto? ¿Cuáles son los elementos duplicados? ¿Qué valores están en el percentil 99? Estas preguntas son triviales de responder sobre datos ordenados, pero computacionalmente costosas sobre datos desordenados.
   * **Fundamento algorítmico**: Muchos algoritmos avanzados presuponen que los datos de entrada están ordenados. Desde encontrar los dos puntos más cercanos en un plano hasta la compresión de datos, la ordenación es el primer paso indispensable.
 
@@ -99,7 +99,7 @@ procedimiento selectionSort(lista):
 
 Estos algoritmos utilizan estrategias más sofisticadas, típicamente basadas en el paradigma **"Divide y Vencerás"**, para lograr una eficiencia muy superior. Son el estándar de oro para la ordenación de propósito general.
 
-### **2.1 Merge Sort (Ordenación por Mezcla)**
+### 2.1 Merge Sort (Ordenación por Mezcla)
 
   * **Filosofía**: La organización recursiva. La idea es que es trivial ordenar una lista de un solo elemento. Merge Sort divide recursivamente la lista a la mitad hasta que solo quedan sublistas de un elemento. Luego, combina (fusiona o "merge") esas sublistas de manera ordenada hasta reconstruir la lista completa.
   * **El paso clave**: La función `fusionar(izquierda, derecha)` es el corazón del algoritmo. Toma dos sublistas ya ordenadas y las combina en una nueva lista ordenada en tiempo lineal $O(n)$.
@@ -135,7 +135,7 @@ procedimiento fusionar(izquierda, derecha):
     3.  **Recursión**: Se aplica Quicksort recursivamente a las dos sublistas (la de los menores y la de los mayores).
   * **El paso clave**: La eficiencia de Quicksort depende críticamente de la elección del pivote. Un buen pivote divide la lista en dos mitades de tamaño similar. Un mal pivote (el menor o mayor elemento) puede degradar el rendimiento a $O(n^2)$.
 
-#### Pseudocódigo (Conceptual)**
+#### Pseudocódigo (Conceptual)
 
 ```text
 función quickSort(lista):
@@ -163,7 +163,7 @@ función quickSort(lista):
 | **Merge Sort** | $O(n \\log n)$| $O(n \\log n)$| $O(n)$ | ✅ | Muy fiable. Ideal para ordenación externa. |
 | **Quicksort** | $O(n \\log n)$| $O(n^2)$ | $O(\\log n)$ | ❌ | Generalmente el más rápido en la práctica. |
 
-**¿Qué algoritmo elegir?** 🤔
+**¿Qué algoritmo elegir?** 
 
   * Para **listas pequeñas** (ej. \< 20 elementos), **Insertion Sort** suele ser el más rápido.
   * Para una **garantía de rendimiento** y si la **estabilidad** es importante, **Merge Sort** es la elección segura.

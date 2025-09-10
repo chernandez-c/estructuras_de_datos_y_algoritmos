@@ -72,7 +72,7 @@ NODO buscar(LISTA L, DATO x):
     devolver null
 ```
 
-📌 Nota filosófica: la lista enlazada simple nos recuerda que **a veces el camino importa más que la meta**. Para llegar al nodo 5, no podemos saltar, debemos recorrer la lista paso a paso, como quien lee una novela página a página.
+La lista enlazada simple nos recuerda que **a veces el camino importa más que la meta**. Para llegar al nodo 5, no podemos saltar, debemos recorrer la lista paso a paso, como quien lee una novela página a página.
 
 ---
 
@@ -147,7 +147,7 @@ También existen **listas doblemente circulares**, que permiten navegar hacia ad
 * **Editores de texto**: representan cada línea como un nodo enlazado.
 * **Sistemas de música/juegos**: listas circulares para reproducción o turnos cíclicos.
 
-📜 **Curiosidad**: Unix implementaba en algunos shells listas circulares para gestionar el historial de comandos, haciendo que se “reciclaran” automáticamente.
+**Curiosidad**: Unix implementaba en algunos shells listas circulares para gestionar el historial de comandos, haciendo que se “reciclaran” automáticamente.
 
 ---
 

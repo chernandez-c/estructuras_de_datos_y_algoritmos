@@ -59,7 +59,7 @@ Un mismo conjunto de datos puede volverse fácil o difícil de manejar según c�
 * Si guardas los contactos de tu móvil en una simple lista desordenada, encontrar a alguien concreto requerirá recorrer todos los nombres uno por uno.
 * En cambio, si los organizas en un árbol balanceado o en una tabla hash, la búsqueda se convierte en una operación casi instantánea.
 
-👉 Dicho de otro modo: **los algoritmos son los procesos, y las estructuras de datos son el soporte donde esos procesos se ejecutan de manera eficiente**.
+Dicho de otro modo: **los algoritmos son los procesos, y las estructuras de datos son el soporte donde esos procesos se ejecutan de manera eficiente**.
 
 ---
 
@@ -85,9 +85,6 @@ Dominar estos fundamentos no es un fin en sí mismo, sino un **punto de partida*
 📌 **Idea clave**: Comprender algoritmos y estructuras de datos es aprender a pensar cómo resolver problemas de manera sistemática y óptima. Es adquirir una caja de herramientas que podrás aplicar en cualquier disciplina científica, tecnológica o incluso en la vida cotidiana.
 
 ---
-Perfecto 🙌 Te preparo una versión **ampliada** de esa segunda parte (del **Concepto de algoritmo** hasta las **Referencias**), con explicaciones más motivadas, ejemplos de contexto real y más matices didácticos. Mantengo el estilo **Markdown** y la estructura que ya tienes.
-
----
 
 ## 2. Concepto y representación de algoritmos
 
@@ -100,7 +97,7 @@ Un **algoritmo** es mucho más que un conjunto de instrucciones: es la **esencia
 
 * **Entrada y salida**: todo algoritmo parte de unos datos de entrada y produce resultados de salida. Sin entrada, el algoritmo carece de sentido; sin salida, no resuelve nada.
 
-👉 Estas propiedades permiten diferenciar los algoritmos de otros procedimientos informales, como consejos, hábitos o descripciones vagas.
+Estas propiedades permiten diferenciar los algoritmos de otros procedimientos informales, como consejos, hábitos o descripciones vagas.
 
 ---
 
@@ -283,7 +280,7 @@ En esta parte hemos:
 * Aprendido a medir su eficiencia con Big O y otras notaciones.
 * Exploramos paradigmas algorítmicos y su relevancia en problemas reales.
 * Introducimos la clasificación de estructuras de datos y el concepto de TDA.
-* Profundizamos en vectores y matrices como estructuras estáticas fundamentales.
+* Introducimos vectores y matrices como estructuras estáticas fundamentales.
 
 📌 Entender estos conceptos es adquirir el lenguaje básico con el que se construyen todos los sistemas informáticos modernos.
 

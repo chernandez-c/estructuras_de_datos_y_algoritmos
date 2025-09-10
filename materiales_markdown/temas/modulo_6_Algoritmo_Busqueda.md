@@ -116,7 +116,7 @@ Las tablas hash intentan **calcular la posición** de un elemento de forma direc
 ### Componentes y Análisis
 
 * **Función Hash**: Debe ser determinista, rápida y distribuir las claves de forma **uniforme** sobre los índices para minimizar colisiones.
-* **Gestión de Colisiones**: Dado que $h(k\_1) = h(k\_2)$ para $k\_1 \neq k\_2$ es posible, se usan estrategias como el **encadenamiento separado** o el **direccionamiento abierto**.
+* **Gestión de Colisiones**: Dado que $h(k_1) = h(k_2)$ para $k_1 \neq k_2$ es posible, se usan estrategias como el **encadenamiento separado** o el **direccionamiento abierto**.
 * **Complejidad**:
 
   * **Caso Promedio**: Si el **factor de carga** ($\alpha = n/m$) se mantiene constante, la complejidad es **$O(1)$ amortizado**.

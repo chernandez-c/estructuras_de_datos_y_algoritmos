@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 4 – Árboles: Estructurando la Jerarquía
 
-## 0. Motivación: De lo Lineal a lo Jerárquico 🌳
+## 0. Motivación: De lo Lineal a lo Jerárquico
 
 En los módulos anteriores, exploramos estructuras de datos **lineales** como listas, pilas y colas. Son como perlas en un hilo: cada elemento tiene un "siguiente" y, a veces, un "anterior". Este modelo es perfecto para secuencias, pero el mundo real rara vez es tan simple.
 
@@ -60,7 +60,7 @@ No todos los árboles binarios son iguales. Su forma (o *topología*) tiene un g
   * **Árbol Binario Perfecto**: Un árbol lleno donde todas las hojas están en el mismo nivel. Representa la máxima "densidad" de nodos para una altura dada. Un árbol perfecto de altura $h$ tiene exactamente $2^{h+1} - 1$ nodos.
   * **Árbol Degenerado o Sesgado**: Cada nodo padre tiene un solo hijo. Se comporta exactamente como una **lista enlazada**, perdiendo todas las ventajas de un árbol. Es el peor caso para un árbol de búsqueda.
 
-### 2.2 El Propósito de los Recorridos 🧭
+### 2.2 El Propósito de los Recorridos
 
 Recorrer un árbol significa visitar cada uno de sus nodos en un orden específico. Este orden no es arbitrario; cada tipo de recorrido tiene un propósito fundamental. Dado este árbol de ejemplo:
 
@@ -138,14 +138,47 @@ La magia de $O(\log n)$ solo funciona si la altura del árbol ($h$) es cercana a
 
 El resultado es un **árbol degenerado**: una larga cadena de hijos derechos. La altura del árbol se convierte en $n$, y la búsqueda se degrada a una búsqueda lineal con complejidad $O(n)$, perdiendo toda su ventaja.
 
+
 ### 4.1 La Solución: Árboles Autobalanceados
 
-Para resolver este problema, se inventaron los árboles binarios de búsqueda **autobalanceados**. Estas estructuras de datos detectan cuándo una inserción o eliminación desequilibra el árbol y realizan automáticamente operaciones de "reparación" para restaurar el equilibrio.
+Para resolver el problema del crecimiento desmesurado de la altura en los **árboles binarios de búsqueda (ABB)**, se inventaron los **árboles autobalanceados**.
+La idea central es sencilla: tras cada operación de inserción o eliminación, el árbol **verifica si alguna rama ha quedado demasiado “pesada”** en comparación con la otra, y en caso afirmativo **aplica transformaciones locales** para restaurar un equilibrio razonable.
+Estas transformaciones se conocen como **rotaciones** (simples o dobles), y permiten reestructurar el árbol sin perder el orden de los elementos.
 
-  * **Árboles AVL**: Son los "perfeccionistas". Se aseguran de que para cada nodo, la diferencia de altura entre su subárbol izquierdo y derecho sea como máximo 1. Lo logran mediante **rotaciones**. Son más rápidos en búsqueda (porque están muy equilibrados) pero más lentos en inserción/eliminación (porque necesitan rebalancear más a menudo).
-  * **Árboles Rojo-Negro**: Son los "pragmáticos". Relajan un poco las reglas de equilibrio usando propiedades de color (cada nodo es rojo o negro). Garantizan que el camino más largo de la raíz a una hoja no sea más del doble de largo que el camino más corto. Esto asegura una altura de $O(\log n)$. Son los más utilizados en la práctica (ej. en `std::map` de C++ y `TreeMap` de Java) porque ofrecen un excelente compromiso entre rendimiento de búsqueda y de modificación.
+#### Árboles AVL
 
------
+* **Condición de equilibrio**: en todo nodo, la altura de los subárboles izquierdo y derecho difiere como máximo en 1.
+* **Mantenimiento**: cada nodo suele almacenar su altura o un *factor de equilibrio* (altura izquierda – altura derecha).
+* **Corrección**:
+
+  * Si tras una inserción/eliminación el factor de equilibrio sale de {-1, 0, +1}, se aplica una rotación.
+  * Hay cuatro casos clásicos: **rotación simple a la derecha (LL)**, **rotación simple a la izquierda (RR)**, **rotación doble izquierda-derecha (LR)** y **rotación doble derecha-izquierda (RL)**.
+* **Ventaja**: búsquedas extremadamente rápidas, ya que la altura del árbol es casi óptima.
+* **Desventaja**: inserciones y eliminaciones más costosas porque requieren recalcular alturas y, a menudo, rotar.
+* **Uso típico**: sistemas en los que la **lectura/búsqueda** es muchísimo más frecuente que las modificaciones (por ejemplo, índices de bases de datos muy consultados).
+
+#### Árboles Rojo-Negro
+
+* **Idea central**: cada nodo tiene un color (rojo o negro) y se cumplen unas propiedades de color que limitan cuánto puede desequilibrarse el árbol.
+* **Propiedades clave**:
+
+  1. La raíz siempre es negra.
+  2. Ningún nodo rojo puede tener un hijo rojo.
+  3. Todo camino desde un nodo hasta una hoja nula contiene el mismo número de nodos negros.
+* **Altura garantizada**: se demuestra que el camino más largo no puede ser más del doble que el más corto ⇒ altura $O(\log n)$.
+* **Corrección**: cuando una operación viola las propiedades de color, se arregla con una combinación de **cambios de color** y **rotaciones**.
+* **Ventaja**: menos rotaciones en promedio que los AVL ⇒ operaciones de inserción y borrado más rápidas.
+* **Desventaja**: búsquedas ligeramente más lentas que en AVL, porque el equilibrio no es tan perfecto.
+* **Uso típico**: estructuras estándar de bibliotecas (como `std::map`, `std::set` en C++, o `TreeMap` en Java) y sistemas donde se necesita un buen equilibrio entre inserciones y búsquedas.
+
+#### Resumen
+
+Ambos árboles usan el mismo “truco”: **rotaciones locales** para mantener el árbol con altura logarítmica.
+
+La diferencia está en el grado de perfeccionismo:
+* AVL = equilibrio estricto, ideal si buscas rapidez de acceso.
+* Rojo-Negro = equilibrio flexible, ideal en entornos con muchas modificaciones.
+
 
 ## 5. Caso de Estudio: Árboles de Expresión Aritmética
 
@@ -170,7 +203,31 @@ La expresión `(5 + 3) * (12 - 4)` puede ser representada por el siguiente árbo
   * **Recorrido Inorden**: `5 + 3 * 12 - 4` (Notación Infija - necesita paréntesis para ser correcta).
   * **Recorrido Postorden**: `5 3 + 12 4 - *` (Notación Postfija o RPN).
 
-Para **evaluar la expresión**, ¡simplemente realizamos un recorrido postorden! Cuando visitamos un nodo operador, aplicamos la operación a los resultados de haber visitado sus hijos izquierdo y derecho.
+Para **evaluar la expresión**, realizamos un recorrido postorden. Cuando visitamos un nodo operador, aplicamos la operación a los resultados de haber visitado sus hijos izquierdo y derecho.
+
+---
+
+### Uso en calculadoras y contexto histórico
+
+En las **calculadoras clásicas de los años 60–70**, el gran problema era **cómo evaluar expresiones complejas con recursos muy limitados**: poca memoria, procesadores lentos y sin capacidad de manejar paréntesis ni reglas complicadas de precedencia de operadores.
+
+Hasta entonces, las calculadoras de mesa (y muchas electrónicas primitivas) funcionaban casi como sumadoras: metías un número, dabas a `+`, luego otro número, y así sucesivamente. Resolver algo como `(5 + 3) * (12 - 4)` requería hacerlo “a mano” en varios pasos, porque la máquina no sabía **respetar prioridades ni agrupar operaciones**.
+
+El hito llegó cuando se introdujo el uso de **árboles de expresión → notación postfija (RPN, Reverse Polish Notation)**:
+
+1. En lugar de tener que analizar paréntesis y precedencias, todo se reducía a **una lista lineal de instrucciones fáciles de ejecutar con una pila**.
+2. Las calculadoras HP (como la mítica HP-35 en 1972) se apoyaron en este sistema: tú introducías números y operaciones en RPN, y la máquina los evaluaba directamente con una pila interna.
+3. Esto eliminaba la necesidad de un analizador complejo, ahorraba memoria y chips, y además permitía al usuario **encadenar cálculos mucho más complejos** sin volverse loco con paréntesis.
+
+---
+
+**Por qué fue un hito**:
+
+* Permitió que calculadoras relativamente “baratas” y con hardware limitado pudieran resolver expresiones complejas.
+* Introdujo un modelo (RPN basado en árboles de expresión) que luego se generalizó en lenguajes de programación, compiladores y procesadores.
+* Dio a HP y a otras marcas pioneras una ventaja brutal en el mercado, porque sus máquinas podían hacer “matemáticas serias” en el bolsillo.
+
+En resumen: el uso de árboles de expresión y su traducción a notación postfija **transformó una limitación tecnológica en una solución elegante** que marcó la diferencia entre una calculadora que solo sumaba y una que ya parecía un pequeño ordenador.
 
 -----
 

@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 3 – Pilas y Colas: Gestionando el Orden en la Complejidad
 
-## 0. Motivación: El Poder de las Restricciones 💡
+## 0. Motivación: El Poder de las Restricciones
 
 Antes de sumergirnos en la implementación, es crucial preguntarse: ¿por qué querríamos limitar nuestro acceso a los datos? En un mundo donde las listas y los arrays nos dan la libertad de acceder a cualquier elemento por su índice (`array[i]`), las pilas y colas parecen un paso atrás.
 
@@ -170,7 +170,7 @@ Este sistema basado en colas garantiza la **equidad (fairness)**: cada proceso t
 
 ---
 
-## 3. Contexto Histórico y Orígenes Conceptuales 📜
+## 3. Contexto Histórico y Orígenes Conceptuales
 
 Las pilas y colas no nacieron con la informática moderna; son conceptos que los matemáticos y lógicos ya utilizaban.
 
@@ -214,3 +214,5 @@ Comprender su disciplina de acceso es el primer paso para dominar algoritmos má
 * Weiss, M. A. *Data Structures and Algorithm Analysis*. Pearson.
 * Sedgewick, R., & Wayne, K. *Algorithms*. Addison-Wesley.
 * Knuth, D. *The Art of Computer Programming, Vol. 1: Fundamental Algorithms*. Addison-Wesley.
+
+---

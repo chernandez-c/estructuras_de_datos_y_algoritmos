@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 5 – Grafos: Modelando un Mundo Conectado
 
-## 0. Motivación: La Estructura de Datos Universal 🌐
+## 0. Motivación: La Estructura de Datos Universal
 
 Hasta ahora, hemos visto estructuras con reglas claras: las listas son secuenciales, los árboles son jerárquicos. Pero, ¿cómo modelamos un sistema donde las conexiones son libres y complejas?
 * En una **red social**, tú estás conectado a tus amigos, pero tus amigos también están conectados entre sí, formando una red intrincada.
@@ -36,15 +36,14 @@ Un **grafo** $G = (V, E)$ es un par compuesto por un conjunto de **vértices** (
 
 Elegir cómo almacenar un grafo en memoria es la primera decisión crucial, con un gran impacto en el rendimiento.
 
-| Característica | Matriz de Adyacencia ($O(|V|^2)$) | Lista de Adyacencia ($O(|V|+|E|)$) |
+| Característica | Matriz de Adyacencia ($O(\|V\|^2)$) | Lista de Adyacencia ($O(\|V\|+\|E\|)$) |
 | :--- | :--- | :--- |
 | **Uso de Memoria** | Alto y fijo. Ineficiente para grafos dispersos. | Proporcional al número de aristas. Ideal para grafos dispersos. |
-| **Añadir Vértice** | Costoso ($O(|V|^2)$), requiere reconstruir la matriz. | Fácil ($O(1)$). |
+| **Añadir Vértice** | Costoso ($O(\|V\|^2)$), requiere reconstruir la matriz. | Fácil ($O(1)$). |
 | **Añadir Arista** | Muy rápido ($O(1)$). | Rápido ($O(1)$). |
 | **Verificar si existe $\{u,v\}$** | Muy rápido ($O(1)$), acceso directo a la celda `M[u][v]`. | Lento ($O(k)$ donde $k$ es el grado del vértice $u$). |
-| **Iterar sobre vecinos de $u$** | Lento ($O(|V|)$), hay que recorrer toda la fila. | Óptimo ($O(k)$ donde $k$ es el grado de $u$). |
+| **Iterar sobre vecinos de $u$** | Lento ($O(\|V\|)$), hay que recorrer toda la fila. | Óptimo ($O(k)$ donde $k$ es el grado de $u$). |
 | **Ideal para** | Grafos **densos** y problemas donde la verificación de aristas es constante. | Grafos **dispersos** (la mayoría de los casos reales). |
-
 
 
 ### 1.3 Orígenes Históricos: Los Puentes de Königsberg
@@ -111,8 +110,6 @@ El **DFS (Depth-First Search)** explora el grafo de una manera completamente dis
 Este comportamiento se logra naturalmente con **recursión** (usando la pila de llamadas del sistema) o con una **pila (LIFO)** explícita.
 
 ### 3.1 DFS Paso a Paso: Un Ejemplo Guiado
-
-*(Sección nueva para contrastar con BFS)*
 
 Usando el mismo grafo y partiendo de **A**, un posible recorrido DFS recursivo sería:
 

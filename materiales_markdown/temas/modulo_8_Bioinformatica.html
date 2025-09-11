@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
+  <title>Módulo 8 – Algoritmos y estructuras de datos en bioinformática</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Módulo 8 – Algoritmos y estructuras de datos en
+bioinformática</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y
+Algoritmos</p>
+<p class="date">4 de septiembre de 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1
+id="módulo-8-algoritmos-y-estructuras-de-datos-el-corazón-computacional-de-la-bioinformática">Módulo
+8 – Algoritmos y Estructuras de Datos: El Corazón Computacional de la
+Bioinformática</h1>
+<h2 id="motivación-de-la-biología-a-los-terabytes">0. Motivación: De la
+Biología a los Terabytes 🧬💻</h2>
+<p>La biología del siglo XXI ha experimentado una transformación
+radical. Hemos pasado de estudiar organismos uno a uno a secuenciar
+genomas completos en cuestión de horas. Esta revolución ha generado un
+<strong>diluvio de datos</strong> de una escala sin precedentes. El
+genoma humano, por ejemplo, es una secuencia de 3.200 millones de
+caracteres. Un solo experimento de expresión génica puede generar una
+matriz con cientos de miles de puntos de datos.</p>
+<p><strong>La Filosofía Central</strong>: En este nuevo paradigma, los
+datos biológicos son demasiado vastos para la intuición humana. Un
+biólogo no puede “leer” un genoma para encontrar un gen, de la misma
+manera que un bibliotecario no puede leer todos los libros de una
+biblioteca para encontrar una frase. La <strong>bioinformática</strong>
+nace de esta necesidad: es la disciplina que desarrolla los métodos
+computacionales para almacenar, organizar, analizar e interpretar esta
+inmensa cantidad de información.</p>
+<p>Este módulo es la culminación de todo el curso. Aquí veremos cómo los
+conceptos que hemos estudiado —desde la humilde búsqueda lineal hasta
+los complejos recorridos de grafos— no son meros ejercicios teóricos,
+sino las <strong>herramientas indispensables</strong> que permiten hacer
+descubrimientos científicos. Sin algoritmos eficientes, la genómica
+moderna, la medicina personalizada y el diseño de fármacos serían,
+sencillamente, imposibles.</p>
+<hr />
+<h2
+id="procesamiento-de-secuencias-biológicas-el-lenguaje-de-la-vida">1.
+Procesamiento de Secuencias Biológicas: El Lenguaje de la Vida</h2>
+<p>La tarea más fundamental en bioinformática es el análisis de
+secuencias de ADN, ARN y proteínas. La eficiencia aquí no es un lujo, es
+una necesidad.</p>
+<h3 id="búsqueda-de-patrones-motivos">1.1 Búsqueda de Patrones
+(Motivos)</h3>
+<ul>
+<li><strong>Problema Real</strong>: No se trata solo de encontrar una
+subsecuencia. Buscamos “señales” con significado biológico.
+<ul>
+<li><strong>Ejemplo 1</strong>: Localizar todas las ocurrencias del
+codón de inicio <code>ATG</code> para predecir dónde comienzan los
+genes.</li>
+<li><strong>Ejemplo 2</strong>: Encontrar secuencias cortas y
+específicas (ej. <code>TATAAT</code>, la “caja TATA”) donde las
+proteínas reguladoras se unen al ADN para iniciar la transcripción.</li>
+<li><strong>Ejemplo 3</strong>: Identificar repeticiones de
+microsatélites (ej. <code>CAGCAGCAG...</code>), cuya expansión está
+asociada a enfermedades como la de Huntington.</li>
+</ul></li>
+<li><strong>Estrategias y Estructuras</strong>:
+<ul>
+<li><strong>Tablas Hash de <em>k-mers</em></strong>:
+<ul>
+<li><strong>Idea</strong>: En lugar de escanear el genoma de 3.000
+millones de bases cada vez que buscamos un patrón, lo pre-procesamos una
+sola vez. Se desliza una ventana de tamaño fijo <em>k</em> (ej. k=25) a
+lo largo de todo el genoma y se almacena cada <em>k-mer</em> y su(s)
+posición(es) en una tabla hash.</li>
+<li><strong>Caso Práctico</strong>: Para encontrar dónde se une una
+proteína que reconoce la secuencia <code>GATTACA</code>, en lugar de un
+escaneo de <span class="math inline"><em>O</em>(<em>n</em>)</span>,
+simplemente calculamos el hash de <code>GATTACA</code> y consultamos la
+tabla en tiempo <strong><span
+class="math inline"><em>O</em>(1)</span></strong> para obtener una lista
+de todas sus localizaciones. ¡La diferencia entre horas de cómputo y una
+fracción de segundo!</li>
+</ul></li>
+<li><strong>Árboles de Sufijos y Tries</strong>:
+<ul>
+<li><strong>Filosofía</strong>: Son la solución “definitiva” para la
+búsqueda de patrones. Un árbol de sufijos es una estructura de datos que
+contiene <strong>todos los sufijos</strong> de una cadena de una manera
+comprimida.</li>
+<li><strong>Analogía</strong>: Imagina tener un índice de un libro que
+no solo te dice en qué página aparece cada palabra, sino también cada
+frase, cada párrafo y cada combinación de letras posible. Eso es un
+árbol de sufijos para una secuencia. Permite responder preguntas
+complejas como “¿cuál es la subsecuencia más larga que se repite en este
+genoma?” en tiempo proporcional a la longitud del patrón, no del
+genoma.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="comparación-de-secuencias-alineamiento">1.2 Comparación de
+Secuencias (Alineamiento)</h3>
+<ul>
+<li><p><strong>Problema Real</strong>: ¿Cómo cuantificamos la similitud
+entre dos genes? Esto es crucial para inferir funciones (si un gen
+desconocido es 80% similar a un gen conocido, probablemente tengan
+funciones parecidas) o para trazar relaciones evolutivas.</p></li>
+<li><p><strong>Algoritmos basados en Programación Dinámica</strong>:</p>
+<ul>
+<li><strong>La Idea</strong>: El alineamiento se visualiza como
+encontrar el “mejor camino” a través de una matriz donde un eje es la
+secuencia A y el otro la secuencia B. Cada celda <span
+class="math inline">(<em>i</em>,<em>j</em>)</span> de la matriz almacena
+la puntuación del mejor alineamiento posible entre el prefijo <span
+class="math inline"><em>A</em>[1..<em>i</em>]</span> y <span
+class="math inline"><em>B</em>[1..<em>j</em>]</span>.</li>
+<li><strong>Analogía</strong>: Es como un juego de mesa donde puedes
+moverte en diagonal (match/mismatch), hacia abajo (gap en A) o a la
+derecha (gap en B). Cada movimiento tiene una puntuación. La
+programación dinámica garantiza que, para calcular la puntuación de una
+celda, ya hemos calculado las puntuaciones óptimas de las celdas de las
+que depende, evitando volver a calcular nada.</li>
+<li><strong>Needleman-Wunsch vs. Smith-Waterman</strong>: El primero
+encuentra el mejor alineamiento <strong>global</strong> (de principio a
+fin), ideal para comparar dos genes que se cree que están relacionados
+en toda su longitud. El segundo encuentra la mejor región de similitud
+<strong>local</strong>, perfecto para descubrir dominios funcionales
+compartidos dentro de proteínas más grandes.</li>
+</ul></li>
+<li><p><strong>Heurísticas como BLAST</strong>:</p>
+<ul>
+<li><strong>Motivación</strong>: Un alineamiento con programación
+dinámica entre dos genomas es computacionalmente inviable. BLAST
+(<em>Basic Local Alignment Search Tool</em>) es una heurística ingeniosa
+que cambia la pregunta de “¿cuál es el mejor alineamiento?” a “¿existen
+regiones de alta similitud?”.</li>
+<li><strong>Funcionamiento</strong>: BLAST utiliza <strong>hashing de
+k-mers</strong> para encontrar “semillas” (matches exactos muy cortos)
+entre las dos secuencias. Luego, intenta extender estas semillas en
+ambas direcciones para construir un alineamiento local más largo y
+significativo. Es un compromiso brillante: sacrifica la garantía de
+optimalidad por una velocidad miles de veces mayor.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="ordenación-poniendo-en-fila-los-datos-biológicos">2. Ordenación:
+Poniendo en Fila los Datos Biológicos</h2>
+<p>La ordenación es un paso de pre-procesamiento omnipresente. *
+<strong>Caso Práctico 1: Análisis de datos de secuenciación
+(NGS)</strong>. Un experimento produce cientos de millones de lecturas
+de ADN cortas (<em>reads</em>). Antes de mapearlas contra un genoma de
+referencia, es útil ordenarlas. ¿Por qué? Un lote de lecturas ordenadas
+lexicográficamente puede ser procesado de forma más eficiente por los
+algoritmos de mapeo debido a una mejor localidad de caché y patrones de
+acceso a memoria. * <strong>Caso Práctico 2: Análisis de expresión
+génica</strong>. Se tiene una matriz donde las filas son genes y las
+columnas son pacientes. Ordenar los genes por su nivel de expresión
+promedio permite identificar rápidamente los genes más y menos activos
+en una condición particular (ej. un tipo de cáncer).</p>
+<ul>
+<li><strong>Algoritmos aplicados</strong>:
+<ul>
+<li><strong>Merge Sort Externo</strong>: Cuando el archivo de lecturas
+de NGS ocupa 100 GB y solo tienes 16 GB de RAM, es imposible cargarlo
+todo en memoria. Merge Sort es el algoritmo natural aquí: lee un trozo
+del archivo que quepa en memoria, lo ordena con Quicksort, lo escribe en
+un archivo temporal. Repite esto hasta procesar todo el archivo.
+Finalmente, fusiona todos los archivos temporales ordenados en un único
+archivo final ordenado.</li>
+<li><strong>Radix Sort</strong>: Para ordenar secuencias de ADN, Radix
+Sort puede ser mucho más rápido que Quicksort. ¿Por qué? Porque el
+“alfabeto” es muy pequeño ({A, C, G, T}). Radix Sort ordena las
+secuencias basándose en el último carácter, luego el penúltimo, y así
+sucesivamente. Su complejidad <span
+class="math inline"><em>O</em>(<em>d</em>⋅<em>n</em>)</span> (donde d es
+la longitud de la secuencia) supera a <span
+class="math inline"><em>O</em>(<em>n</em>log<em>n</em>)</span> en este
+contexto específico.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="grafos-la-estructura-de-las-redes-biológicas">3. Grafos: La
+Estructura de las Redes Biológicas</h2>
+<p>La biología está llena de redes, y los grafos son el lenguaje natural
+para describirlas.</p>
+<ul>
+<li><strong>Redes de Interacción Proteína-Proteína (PPI)</strong>:
+<ul>
+<li><strong>Modelo</strong>: Los nodos son proteínas, las aristas
+indican que dos proteínas interactúan físicamente.</li>
+<li><strong>Análisis</strong>: Se pueden aplicar algoritmos de grafos
+para encontrar “módulos” o clústeres de proteínas densamente conectadas,
+que a menudo corresponden a complejos moleculares con una función
+biológica común. Un <strong>DFS</strong> puede encontrar todos los
+miembros de una ruta de señalización.</li>
+<li><strong>Caso Práctico</strong>: Descubrir que una proteína asociada
+a una enfermedad es un “hub” (un nodo con muchas conexiones) en la red
+puede identificarla como una diana terapéutica prometedora.</li>
+</ul></li>
+<li><strong>Grafos de Ensamblado de Genomas</strong>:
+<ul>
+<li><strong>El Problema</strong>: Reconstruir un libro de 3.000 millones
+de letras a partir de millones de fragmentos de 150 letras que se
+solapan.</li>
+<li><strong>La Solución (Grafos de Bruijn)</strong>: En lugar de tratar
+cada fragmento como un nodo (lo que sería muy complejo), los nodos son
+todos los <em>k-mers</em> (ej. subsecuencias de 30 letras) presentes en
+los fragmentos. Se dibuja una arista dirigida desde el k-mer A al k-mer
+B si se solapan en k-1 letras.</li>
+<li><strong>La Magia</strong>: El problema biológico de “reconstruir la
+secuencia” se transforma en el problema clásico de la teoría de grafos
+de “encontrar un camino Euleriano” (un camino que visita cada arista
+exactamente una vez). ¡Un problema aparentemente intratable se convierte
+en uno bien estudiado!</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="árboles-jerarquías-en-evolución-y-datos">4. Árboles: Jerarquías
+en Evolución y Datos</h2>
+<ul>
+<li><strong>Árboles Filogenéticos</strong>:
+<ul>
+<li><strong>Modelo</strong>: Representan la historia evolutiva. Las
+hojas son las especies actuales y los nodos internos son los ancestros
+comunes. La longitud de las ramas puede representar el tiempo evolutivo
+o la cantidad de cambio genético.</li>
+<li><strong>Construcción</strong>: Se parte de una matriz de distancias
+(ej. calculada alineando un gen entre todas las especies). Algoritmos
+como <strong>UPGMA</strong> (un método de clustering jerárquico) agrupan
+iterativamente las dos especies más cercanas, creando un nuevo nodo
+ancestro, hasta que se forma el árbol completo.</li>
+</ul></li>
+<li><strong>BST y sus variantes en Bases de Datos</strong>:
+<ul>
+<li><strong>Caso Práctico</strong>: Bases de datos como Ensembl o
+GenBank almacenan información sobre millones de genes. Cuando un
+investigador busca “el gen BRCA1 en humanos”, el sistema no puede
+permitirse una búsqueda lineal. Internamente, utiliza estructuras de
+datos avanzadas como los <strong>Árboles B+</strong> (una variante de
+BST optimizada para disco) para indexar los datos por nombre de gen,
+especie, posición cromosómica, etc., permitiendo recuperaciones casi
+instantáneas.</li>
+</ul></li>
+</ul>
+<hr />
+<h2
+id="conclusiones-finales-la-caja-de-herramientas-del-bioinformático">5.
+Conclusiones Finales: La Caja de Herramientas del Bioinformático</h2>
+<p>Este módulo demuestra que la bioinformática no es simplemente
+“aplicar programas a datos biológicos”. Es el campo donde la teoría de
+la computación se encuentra con los desafíos más fundamentales de la
+biología.</p>
+<ul>
+<li><strong>La Eficiencia es Descubrimiento</strong>: La diferencia
+entre un algoritmo <span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span> y uno
+<span class="math inline"><em>O</em>(<em>n</em>log<em>n</em>)</span>
+puede ser la diferencia entre un análisis que tarda un siglo y uno que
+tarda un día. Un algoritmo más rápido puede permitir explorar hipótesis
+que antes eran inabordables.</li>
+<li><strong>La Abstracción es Poder</strong>: La capacidad de ver un
+problema de ensamblado de genomas como un camino en un grafo, o un
+problema de búsqueda de patrones como una consulta a una tabla hash, es
+la habilidad central de un bioinformático.</li>
+<li><strong>No hay “Bala de Plata”</strong>: No existe un único
+algoritmo o estructura de datos que resuelva todo. La elección correcta
+depende críticamente de la escala de los datos, la pregunta biológica y
+las limitaciones de hardware. Un buen bioinformático conoce su caja de
+herramientas y sabe cuándo usar un martillo (Quicksort), un
+destornillador (BFS) o una llave inglesa de precisión (un árbol de
+sufijos).</li>
+</ul>
+<hr />
+<h2 id="ejercicios-de-autoevaluación">6. Ejercicios de
+autoevaluación</h2>
+<ol type="1">
+<li>Diseña un pseudocódigo para buscar un motivo de longitud 3 en una
+secuencia de ADN usando <strong>tablas hash de k-mers</strong> (apóyate
+en el Módulo 6).<br />
+</li>
+<li>¿Qué ventajas tiene <strong>radix sort</strong> sobre quicksort para
+ordenar secuencias de nucleótidos? (revisa Módulo 7).<br />
+</li>
+<li>Explica cómo un <strong>grafo de Bruijn</strong> ayuda en el
+ensamblado de genomas (conecta con Módulo 5).<br />
+</li>
+<li>Construye un pequeño <strong>árbol filogenético</strong> a partir de
+tres secuencias ficticias.<br />
+</li>
+<li>El alineamiento de dos secuencias de 1 millón de bases con
+Needleman–Wunsch es inviable (<span
+class="math inline"><em>O</em>(<em>n</em><sup>2</sup>)</span>). ¿Qué
+estrategias alternativas existen?</li>
+</ol>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Jones, N. C., &amp; Pevzner, P. A. <em>An Introduction to
+Bioinformatics Algorithms</em>. MIT Press.<br />
+</li>
+<li>Durbin, R., Eddy, S., Krogh, A., &amp; Mitchison, G. <em>Biological
+Sequence Analysis</em>. Cambridge University Press.<br />
+</li>
+<li>Compeau, P., &amp; Pevzner, P. <em>Bioinformatics Algorithms: An
+Active Learning Approach</em>. Active Learning Publishers.</li>
+</ul>
+<hr />
+</body>
+</html>

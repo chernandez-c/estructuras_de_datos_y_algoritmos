@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
+  <title>Módulo 4 – Árboles y árboles binarios de búsqueda</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Módulo 4 – Árboles y árboles binarios de búsqueda</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y
+Algoritmos</p>
+<p class="date">21 de agosto de 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="módulo-4-árboles-estructurando-la-jerarquía">Módulo 4 – Árboles:
+Estructurando la Jerarquía</h1>
+<h2 id="motivación-de-lo-lineal-a-lo-jerárquico">0. Motivación: De lo
+Lineal a lo Jerárquico</h2>
+<p>En los módulos anteriores, exploramos estructuras de datos
+<strong>lineales</strong> como listas, pilas y colas. Son como perlas en
+un hilo: cada elemento tiene un “siguiente” y, a veces, un “anterior”.
+Este modelo es perfecto para secuencias, pero el mundo real rara vez es
+tan simple.</p>
+<p>Pensemos en:</p>
+<ul>
+<li>Un <strong>organigrama de empresa</strong>: un director tiene varios
+gerentes a su cargo, y cada gerente tiene sus propios equipos.</li>
+<li>Un <strong>sistema de archivos</strong>: una carpeta contiene otras
+carpetas y archivos.</li>
+<li>La <strong>taxonomía biológica</strong>: Reino, Filo, Clase,
+Orden…</li>
+</ul>
+<p>Intentar modelar estas relaciones con una lista sería torpe y
+antinatural. Perderíamos la información esencial de la
+<strong>jerarquía</strong>. Aquí es donde los <strong>árboles</strong>
+entran en juego. No son solo una estructura de datos más, sino un salto
+conceptual que nos permite representar la <strong>profundidad, la
+anidación y las relaciones padre-hijo</strong> que definen los sistemas
+complejos.</p>
+<p>Los árboles nos ofrecen un lenguaje para organizar la información de
+una manera que refleja su estructura inherente, permitiendo operaciones
+increíblemente eficientes que serían imposibles en un modelo lineal.</p>
+<hr />
+<h2 id="conceptos-fundamentales-de-los-árboles">1. Conceptos
+Fundamentales de los Árboles</h2>
+<p>Un <strong>árbol</strong> es una colección de <strong>nodos</strong>
+conectados por <strong>aristas</strong> de forma jerárquica. A
+diferencia de los grafos (que veremos más adelante), un árbol no puede
+contener ciclos y siempre hay un único camino entre dos nodos
+cualesquiera.</p>
+<h3 id="anatomía-de-un-árbol">Anatomía de un Árbol</h3>
+<p>Para hablar de árboles, necesitamos un vocabulario común.</p>
+<ul>
+<li><strong>Raíz (Root)</strong>: El nodo origen de todo, el único que
+no tiene padre. Es el ancestro común de todos los demás nodos.</li>
+<li><strong>Nodo (Node)</strong>: Cada uno de los elementos del árbol.
+Contiene un dato y punteros a sus hijos.</li>
+<li><strong>Arista (Edge)</strong>: La conexión entre un nodo padre y un
+nodo hijo.</li>
+<li><strong>Hijo (Child)</strong>: Un nodo que desciende directamente de
+otro.</li>
+<li><strong>Padre (Parent)</strong>: El nodo del que desciende
+directamente otro.</li>
+<li><strong>Hoja (Leaf)</strong>: Un nodo que no tiene hijos. Son los
+“finales” del árbol.</li>
+<li><strong>Nodo Interno</strong>: Cualquier nodo que no es ni raíz ni
+hoja (aunque a veces se incluye la raíz si tiene hijos).</li>
+<li><strong>Profundidad (Depth)</strong>: La longitud del camino (número
+de aristas) desde la raíz hasta un nodo específico. La profundidad de la
+raíz es 0.</li>
+<li><strong>Altura (Height)</strong>: La longitud del camino más largo
+desde un nodo hasta su hoja más lejana. La <strong>altura del
+árbol</strong> es la altura de su nodo raíz.</li>
+<li><strong>Subárbol (Subtree)</strong>: Un nodo y todos sus
+descendientes forman un subárbol, que es un árbol válido en sí
+mismo.</li>
+</ul>
+<hr />
+<h2 id="el-árbol-binario-una-simplificación-poderosa">2. El Árbol
+Binario: Una Simplificación Poderosa</h2>
+<p>Aunque un nodo en un árbol general puede tener cualquier número de
+hijos, una de las variantes más estudiadas y utilizadas es el
+<strong>árbol binario</strong>, donde cada nodo tiene, como máximo,
+<strong>dos hijos</strong>: un hijo izquierdo y un hijo derecho.</p>
+<p>Esta restricción no es una limitación, sino una especialización que
+simplifica enormemente los algoritmos y permite estructuras de datos muy
+eficientes.</p>
+<h3 id="tipos-de-árboles-binarios">2.1 Tipos de Árboles Binarios</h3>
+<p>No todos los árboles binarios son iguales. Su forma (o
+<em>topología</em>) tiene un gran impacto en su eficiencia.</p>
+<ul>
+<li><strong>Árbol Binario Lleno</strong>: Cada nodo tiene 0 o 2 hijos.
+No hay nodos con un solo hijo.</li>
+<li><strong>Árbol Binario Completo</strong>: Todos los niveles están
+completamente llenos, excepto posiblemente el último, que se llena de
+izquierda a derecha. Esta estructura es ideal para ser almacenada en un
+array de forma compacta.</li>
+<li><strong>Árbol Binario Perfecto</strong>: Un árbol lleno donde todas
+las hojas están en el mismo nivel. Representa la máxima “densidad” de
+nodos para una altura dada. Un árbol perfecto de altura <span
+class="math inline"><em>h</em></span> tiene exactamente <span
+class="math inline">2<sup><em>h</em> + 1</sup> − 1</span> nodos.</li>
+<li><strong>Árbol Degenerado o Sesgado</strong>: Cada nodo padre tiene
+un solo hijo. Se comporta exactamente como una <strong>lista
+enlazada</strong>, perdiendo todas las ventajas de un árbol. Es el peor
+caso para un árbol de búsqueda.</li>
+</ul>
+<h3 id="el-propósito-de-los-recorridos">2.2 El Propósito de los
+Recorridos</h3>
+<p>Recorrer un árbol significa visitar cada uno de sus nodos en un orden
+específico. Este orden no es arbitrario; cada tipo de recorrido tiene un
+propósito fundamental. Dado este árbol de ejemplo:</p>
+<pre><code>      A
+     / \
+    B   C
+   / \   \
+  D   E   F</code></pre>
+<ol type="1">
+<li><p><strong>Preorden (Raíz -&gt; Izquierda -&gt; Derecha)</strong>:
+<code>A, B, D, E, C, F</code></p>
+<ul>
+<li><strong>Propósito</strong>: Se usa para <strong>copiar o serializar
+un árbol</strong>. Al procesar la raíz primero, podemos recrear la
+estructura de forma unívoca. También se utiliza en árboles de expresión
+para obtener la notación prefija (Notación Polaca).</li>
+</ul></li>
+<li><p><strong>Inorden (Izquierda -&gt; Raíz -&gt; Derecha)</strong>:
+<code>D, B, E, A, C, F</code></p>
+<ul>
+<li><strong>Propósito</strong>: Es la joya de la corona en los
+<strong>Árboles Binarios de Búsqueda (BST)</strong>. Un recorrido
+inorden de un BST siempre devuelve sus elementos <strong>en orden
+ascendente</strong>. Es la forma más natural de “aplanar” un BST en una
+secuencia ordenada.</li>
+</ul></li>
+<li><p><strong>Postorden (Izquierda -&gt; Derecha -&gt; Raíz)</strong>:
+<code>D, E, B, F, C, A</code></p>
+<ul>
+<li><strong>Propósito</strong>: Su uso principal es para
+<strong>eliminar un árbol de la memoria</strong>. Se asegura de que los
+hijos de un nodo sean eliminados antes que el propio nodo, evitando
+dejar punteros huérfanos. También se usa para evaluar árboles de
+expresión (notación postfija o RPN).</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="árboles-binarios-de-búsqueda-bst">3. Árboles Binarios de
+Búsqueda (BST)</h2>
+<p>Un BST impone una regla fundamental sobre un árbol binario: la
+<strong>propiedad de orden del BST</strong>.</p>
+<blockquote>
+<p>Para cualquier nodo <code>N</code>:</p>
+<ul>
+<li>Todos los valores en el subárbol izquierdo de <code>N</code> deben
+ser <strong>menores</strong> que el valor de <code>N</code>.</li>
+<li>Todos los valores en el subárbol derecho de <code>N</code> deben ser
+<strong>mayores</strong> que el valor de <code>N</code>.</li>
+</ul>
+</blockquote>
+<h3 id="la-gran-idea-dividir-para-conquistar">3.1 La Gran Idea: Dividir
+para Conquistar</h3>
+<p>Esta simple regla es la que le da al BST su poder. Cada vez que
+comparamos una clave con un nodo, podemos <strong>descartar la mitad del
+árbol restante</strong>. Si la clave que buscamos es menor que el nodo
+actual, sabemos con certeza que <em>no</em> puede estar en el subárbol
+derecho, y viceversa.</p>
+<p>Este es el mismo principio de la <strong>búsqueda binaria</strong> en
+un array ordenado, pero aplicado a una estructura de datos dinámica que
+permite inserciones y eliminaciones eficientes. Mientras el árbol esté
+razonablemente <strong>balanceado</strong>, las operaciones principales
+(búsqueda, inserción, eliminación) tienen una complejidad temporal de
+<span class="math inline"><em>O</em>(log<em>n</em>)</span>.</p>
+<h3 id="operaciones-detalladas">3.2 Operaciones Detalladas</h3>
+<h4 id="inserción-y-búsqueda">Inserción y Búsqueda</h4>
+<p>Las operaciones de búsqueda e inserción son recursivas y elegantes.
+Se desciende por el árbol, tomando una decisión en cada nivel (ir a la
+izquierda o a la derecha) hasta que se encuentra el elemento o se llega
+a un punto nulo (<code>null</code>), donde se insertaría el nuevo
+nodo.</p>
+<h4 id="análisis-detallado-de-la-eliminación">Análisis Detallado de la
+Eliminación</h4>
+<p>La eliminación es la operación más compleja porque debemos preservar
+la propiedad del BST después de quitar un nodo.</p>
+<ol type="1">
+<li><p><strong>Caso 1: El nodo a eliminar es una hoja</strong>.</p>
+<ul>
+<li><strong>Solución</strong>: Es el caso más simple. Simplemente se
+elimina el nodo y se actualiza el puntero del padre a
+<code>null</code>.</li>
+</ul></li>
+<li><p><strong>Caso 2: El nodo a eliminar tiene un solo
+hijo</strong>.</p>
+<ul>
+<li><strong>Solución</strong>: Se “salta” el nodo. El padre del nodo
+eliminado pasa a apuntar directamente al único hijo de este.</li>
+</ul></li>
+<li><p><strong>Caso 3: El nodo a eliminar tiene dos hijos</strong>.</p>
+<ul>
+<li><strong>El Problema</strong>: No podemos simplemente eliminarlo, ya
+que dejaríamos dos subárboles “huérfanos”.</li>
+<li><strong>La Solución Elegante</strong>:
+<ol type="a">
+<li>No eliminamos el nodo físicamente. En su lugar, buscamos un
+sustituto que mantenga la propiedad del BST.</li>
+<li>Este sustituto puede ser:</li>
+</ol>
+<ul>
+<li>El <strong>sucesor inorden</strong>: El nodo más pequeño en el
+subárbol derecho.</li>
+<li>O el <strong>predecesor inorden</strong>: El nodo más grande en el
+subárbol izquierdo.</li>
+</ul>
+<ol start="3" type="a">
+<li>Copiamos el valor del sucesor (o predecesor) al nodo que queremos
+“eliminar”.</li>
+<li>Ahora, el problema se reduce a eliminar el nodo sucesor (o
+predecesor) de su ubicación original, lo cual es garantizado que será un
+caso más simple (Caso 1 o Caso 2).</li>
+</ol></li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="el-talón-de-aquiles-de-los-bst-el-desequilibrio">4. El Talón de
+Aquiles de los BST: El Desequilibrio</h2>
+<p>La magia de <span
+class="math inline"><em>O</em>(log<em>n</em>)</span> solo funciona si la
+altura del árbol (<span class="math inline"><em>h</em></span>) es
+cercana a <span class="math inline">log <em>n</em></span>. ¿Qué pasa si
+insertamos elementos ya ordenados (ej. 10, 20, 30, 40, 50) en un
+BST?</p>
+<p>El resultado es un <strong>árbol degenerado</strong>: una larga
+cadena de hijos derechos. La altura del árbol se convierte en <span
+class="math inline"><em>n</em></span>, y la búsqueda se degrada a una
+búsqueda lineal con complejidad <span
+class="math inline"><em>O</em>(<em>n</em>)</span>, perdiendo toda su
+ventaja.</p>
+<h3 id="la-solución-árboles-autobalanceados">4.1 La Solución: Árboles
+Autobalanceados</h3>
+<p>Para resolver el problema del crecimiento desmesurado de la altura en
+los <strong>árboles binarios de búsqueda (ABB)</strong>, se inventaron
+los <strong>árboles autobalanceados</strong>. La idea central es
+sencilla: tras cada operación de inserción o eliminación, el árbol
+<strong>verifica si alguna rama ha quedado demasiado “pesada”</strong>
+en comparación con la otra, y en caso afirmativo <strong>aplica
+transformaciones locales</strong> para restaurar un equilibrio
+razonable. Estas transformaciones se conocen como
+<strong>rotaciones</strong> (simples o dobles), y permiten reestructurar
+el árbol sin perder el orden de los elementos.</p>
+<h4 id="árboles-avl">Árboles AVL</h4>
+<ul>
+<li><p><strong>Condición de equilibrio</strong>: en todo nodo, la altura
+de los subárboles izquierdo y derecho difiere como máximo en 1.</p></li>
+<li><p><strong>Mantenimiento</strong>: cada nodo suele almacenar su
+altura o un <em>factor de equilibrio</em> (altura izquierda – altura
+derecha).</p></li>
+<li><p><strong>Corrección</strong>:</p>
+<ul>
+<li>Si tras una inserción/eliminación el factor de equilibrio sale de
+{-1, 0, +1}, se aplica una rotación.</li>
+<li>Hay cuatro casos clásicos: <strong>rotación simple a la derecha
+(LL)</strong>, <strong>rotación simple a la izquierda (RR)</strong>,
+<strong>rotación doble izquierda-derecha (LR)</strong> y
+<strong>rotación doble derecha-izquierda (RL)</strong>.</li>
+</ul></li>
+<li><p><strong>Ventaja</strong>: búsquedas extremadamente rápidas, ya
+que la altura del árbol es casi óptima.</p></li>
+<li><p><strong>Desventaja</strong>: inserciones y eliminaciones más
+costosas porque requieren recalcular alturas y, a menudo,
+rotar.</p></li>
+<li><p><strong>Uso típico</strong>: sistemas en los que la
+<strong>lectura/búsqueda</strong> es muchísimo más frecuente que las
+modificaciones (por ejemplo, índices de bases de datos muy
+consultados).</p></li>
+</ul>
+<h4 id="árboles-rojo-negro">Árboles Rojo-Negro</h4>
+<ul>
+<li><p><strong>Idea central</strong>: cada nodo tiene un color (rojo o
+negro) y se cumplen unas propiedades de color que limitan cuánto puede
+desequilibrarse el árbol.</p></li>
+<li><p><strong>Propiedades clave</strong>:</p>
+<ol type="1">
+<li>La raíz siempre es negra.</li>
+<li>Ningún nodo rojo puede tener un hijo rojo.</li>
+<li>Todo camino desde un nodo hasta una hoja nula contiene el mismo
+número de nodos negros.</li>
+</ol></li>
+<li><p><strong>Altura garantizada</strong>: se demuestra que el camino
+más largo no puede ser más del doble que el más corto ⇒ altura <span
+class="math inline"><em>O</em>(log<em>n</em>)</span>.</p></li>
+<li><p><strong>Corrección</strong>: cuando una operación viola las
+propiedades de color, se arregla con una combinación de <strong>cambios
+de color</strong> y <strong>rotaciones</strong>.</p></li>
+<li><p><strong>Ventaja</strong>: menos rotaciones en promedio que los
+AVL ⇒ operaciones de inserción y borrado más rápidas.</p></li>
+<li><p><strong>Desventaja</strong>: búsquedas ligeramente más lentas que
+en AVL, porque el equilibrio no es tan perfecto.</p></li>
+<li><p><strong>Uso típico</strong>: estructuras estándar de bibliotecas
+(como <code>std::map</code>, <code>std::set</code> en C++, o
+<code>TreeMap</code> en Java) y sistemas donde se necesita un buen
+equilibrio entre inserciones y búsquedas.</p></li>
+</ul>
+<h4 id="resumen">Resumen</h4>
+<p>Ambos árboles usan el mismo “truco”: <strong>rotaciones
+locales</strong> para mantener el árbol con altura logarítmica.</p>
+<p>La diferencia está en el grado de perfeccionismo: * AVL = equilibrio
+estricto, ideal si buscas rapidez de acceso. * Rojo-Negro = equilibrio
+flexible, ideal en entornos con muchas modificaciones.</p>
+<h2 id="caso-de-estudio-árboles-de-expresión-aritmética">5. Caso de
+Estudio: Árboles de Expresión Aritmética</h2>
+<p>Una aplicación clásica de los árboles binarios es la representación
+de expresiones matemáticas.</p>
+<p>La expresión <code>(5 + 3) * (12 - 4)</code> puede ser representada
+por el siguiente árbol:</p>
+<pre><code>      *
+     / \
+    +   -
+   / \ / \
+  5  3 12 4</code></pre>
+<ul>
+<li>Los <strong>nodos internos</strong> son operadores (<code>*</code>,
+<code>+</code>, <code>-</code>).</li>
+<li>Las <strong>hojas</strong> son los operandos (los números).</li>
+</ul>
+<p>¿Qué ocurre si recorremos este árbol?</p>
+<ul>
+<li><strong>Recorrido Preorden</strong>: <code>* + 5 3 - 12 4</code>
+(Notación Prefija).</li>
+<li><strong>Recorrido Inorden</strong>: <code>5 + 3 * 12 - 4</code>
+(Notación Infija - necesita paréntesis para ser correcta).</li>
+<li><strong>Recorrido Postorden</strong>: <code>5 3 + 12 4 - *</code>
+(Notación Postfija o RPN).</li>
+</ul>
+<p>Para <strong>evaluar la expresión</strong>, realizamos un recorrido
+postorden. Cuando visitamos un nodo operador, aplicamos la operación a
+los resultados de haber visitado sus hijos izquierdo y derecho.</p>
+<hr />
+<h3 id="uso-en-calculadoras-y-contexto-histórico">Uso en calculadoras y
+contexto histórico</h3>
+<p>En las <strong>calculadoras clásicas de los años 60–70</strong>, el
+gran problema era <strong>cómo evaluar expresiones complejas con
+recursos muy limitados</strong>: poca memoria, procesadores lentos y sin
+capacidad de manejar paréntesis ni reglas complicadas de precedencia de
+operadores.</p>
+<p>Hasta entonces, las calculadoras de mesa (y muchas electrónicas
+primitivas) funcionaban casi como sumadoras: metías un número, dabas a
+<code>+</code>, luego otro número, y así sucesivamente. Resolver algo
+como <code>(5 + 3) * (12 - 4)</code> requería hacerlo “a mano” en varios
+pasos, porque la máquina no sabía <strong>respetar prioridades ni
+agrupar operaciones</strong>.</p>
+<p>El hito llegó cuando se introdujo el uso de <strong>árboles de
+expresión → notación postfija (RPN, Reverse Polish
+Notation)</strong>:</p>
+<ol type="1">
+<li>En lugar de tener que analizar paréntesis y precedencias, todo se
+reducía a <strong>una lista lineal de instrucciones fáciles de ejecutar
+con una pila</strong>.</li>
+<li>Las calculadoras HP (como la mítica HP-35 en 1972) se apoyaron en
+este sistema: tú introducías números y operaciones en RPN, y la máquina
+los evaluaba directamente con una pila interna.</li>
+<li>Esto eliminaba la necesidad de un analizador complejo, ahorraba
+memoria y chips, y además permitía al usuario <strong>encadenar cálculos
+mucho más complejos</strong> sin volverse loco con paréntesis.</li>
+</ol>
+<hr />
+<p><strong>Por qué fue un hito</strong>:</p>
+<ul>
+<li>Permitió que calculadoras relativamente “baratas” y con hardware
+limitado pudieran resolver expresiones complejas.</li>
+<li>Introdujo un modelo (RPN basado en árboles de expresión) que luego
+se generalizó en lenguajes de programación, compiladores y
+procesadores.</li>
+<li>Dio a HP y a otras marcas pioneras una ventaja brutal en el mercado,
+porque sus máquinas podían hacer “matemáticas serias” en el
+bolsillo.</li>
+</ul>
+<p>En resumen: el uso de árboles de expresión y su traducción a notación
+postfija <strong>transformó una limitación tecnológica en una solución
+elegante</strong> que marcó la diferencia entre una calculadora que solo
+sumaba y una que ya parecía un pequeño ordenador.</p>
+<hr />
+<h2 id="más-allá-de-los-binarios-un-vistazo-al-ecosistema-de-árboles">6.
+Más Allá de los Binarios: Un Vistazo al Ecosistema de Árboles</h2>
+<p>Aunque los BST son fundamentales, no son el final del camino.
+Dependiendo del problema, se usan otras variantes:</p>
+<ul>
+<li><strong>Árboles B / B+</strong>: Son árboles de búsqueda no binarios
+(un nodo puede tener muchos hijos). Son la base de datos de los
+<strong>índices de las bases de datos</strong> y los <strong>sistemas de
+archivos</strong>. Minimizan las lecturas de disco al ser anchos y poco
+profundos.</li>
+<li><strong>Tries (Árboles de Prefijos)</strong>: Estructuras
+especializadas para almacenar y buscar cadenas de texto. Son la base de
+las funciones de <strong>autocompletado</strong> de los buscadores y
+editores de texto.</li>
+<li><strong>Heaps (Montículos)</strong>: Son árboles binarios con una
+propiedad de orden diferente (el padre siempre es mayor/menor que sus
+hijos), usados para implementar <strong>colas de
+prioridad</strong>.</li>
+</ul>
+<hr />
+<h2 id="ejercicios-ampliados">7. Ejercicios Ampliados</h2>
+<h4 id="ejercicios-teóricos-y-de-diseño">Ejercicios Teóricos y de
+Diseño</h4>
+<ol type="1">
+<li>Dibuja el BST resultante de insertar los números
+<code>50, 25, 75, 10, 30, 60, 80, 5, 15, 65, 85</code>. ¿Cuál es la
+altura del árbol?</li>
+<li>Sobre el árbol anterior, muestra los pasos para eliminar el nodo
+<code>25</code>. Luego, muestra los pasos para eliminar el nodo
+<code>50</code>.</li>
+<li>¿Por qué un recorrido inorden en un BST produce una secuencia
+ordenada? Explica cómo la propiedad del BST lo garantiza.</li>
+<li>Describe una situación en la que un árbol Rojo-Negro sería
+preferible a un árbol AVL, y viceversa.</li>
+<li>Implementa en pseudocódigo la función <code>findMin()</code> y
+<code>findMax()</code> en un BST de forma iterativa y recursiva.</li>
+</ol>
+<h4 id="ejercicios-prácticos-de-programación">Ejercicios Prácticos de
+Programación</h4>
+<ol start="6" type="1">
+<li>Escribe una función que determine si un árbol binario dado es un BST
+válido.</li>
+<li>Implementa una función que convierta un array ordenado en un BST
+perfectamente balanceado.</li>
+<li>Escribe un programa que construya un árbol de expresión a partir de
+una cadena en notación postfija y luego lo evalúe.</li>
+</ol>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
+<em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Weiss, M. A. <em>Data Structures and Algorithm Analysis</em>.
+Pearson.</li>
+<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data
+Structures and Algorithms in Java</em>. Wiley.</li>
+<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>.
+Addison-Wesley.</li>
+</ul>
+</body>
+</html>

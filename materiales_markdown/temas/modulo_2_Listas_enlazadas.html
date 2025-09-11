@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
+  <title>Módulo 2 – Listas enlazadas</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://unpkg.com/katex@0.16.11/distkatex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://unpkg.com/katex@0.16.11/distkatex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Módulo 2 – Listas enlazadas</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y
+Algoritmos</p>
+<p class="date">21 de agosto de 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="módulo-2--listas-enlazadas">Módulo 2 – Listas enlazadas</h1>
+<hr />
+<h2 id="introducción">Introducción</h2>
+<p>En el módulo anterior vimos que los <strong>vectores
+(arrays)</strong> son estructuras de datos muy útiles cuando queremos
+<strong>acceder rápidamente a un elemento cualquiera</strong> mediante
+su índice. Esta eficiencia, sin embargo, viene con un precio: su tamaño
+es <strong>fijo</strong>. Si declaramos un vector de tamaño 10, ni
+podemos ampliarlo mágicamente a 100, ni reducirlo a 5 sin crear otro en
+memoria.</p>
+<p>📌 <strong>Problema motivador</strong>: imagina que gestionas un
+programa de edición genética en el que las bases de ADN se van
+insertando o eliminando de forma dinámica. Con arrays, cada modificación
+implica desplazar miles de posiciones en memoria. Con listas enlazadas,
+basta con ajustar un par de punteros.</p>
+<p>Para superar las limitaciones de los vectores aparecen las
+<strong>listas enlazadas</strong>. Una lista enlazada es una estructura
+dinámica en la que cada elemento (o <strong>nodo</strong>) contiene:</p>
+<ul>
+<li>La información (dato).</li>
+<li>Una referencia (puntero o enlace) hacia el siguiente nodo.</li>
+</ul>
+<p>De esta manera, el tamaño de la lista se <strong>adapta en tiempo de
+ejecución</strong>: podemos añadir y quitar nodos sin necesidad de
+reservar o liberar grandes bloques contiguos de memoria.</p>
+<hr />
+<h2 id="1-estructura-de-una-lista-enlazada-simple">1. Estructura de una
+lista enlazada simple</h2>
+<p>Una <strong>lista enlazada simple</strong> está formada por nodos
+conectados uno tras otro. Cada nodo tiene dos campos:</p>
+<ol type="1">
+<li><strong>Dato</strong>: la información que queremos almacenar
+(números, cadenas, estructuras).</li>
+<li><strong>Enlace</strong>: un puntero que indica la dirección del
+siguiente nodo.</li>
+</ol>
+<p>El primer nodo se denomina <strong>cabeza</strong> (<em>head</em>), y
+el último nodo apunta a <code>null</code>, señalando el final de la
+lista.</p>
+<p><img src="../images/linked_list.png" alt="Lista enlazada simple" />{
+width=80% }</p>
+<p><em>Figura 2: lista enlazada simple de cinco nodos.</em></p>
+<h3 id="11-operaciones-básicas-y-coste">1.1 Operaciones básicas y
+coste</h3>
+<ul>
+<li><strong>Inserción al inicio</strong> → <span
+class="math inline">O(1)</span> Basta con redirigir el puntero de la
+cabeza.</li>
+<li><strong>Inserción al final</strong> → <span
+class="math inline">O(n)</span> Necesitamos recorrer toda la lista hasta
+el último nodo.</li>
+<li><strong>Inserción intermedia</strong> → <span
+class="math inline">O(n)</span> Hay que llegar a la posición
+deseada.</li>
+<li><strong>Eliminación</strong> → <span class="math inline">O(1)</span>
+si es la cabeza; <span class="math inline">O(n)</span> si está en medio
+(hay que conocer el nodo anterior).</li>
+<li><strong>Búsqueda</strong> → <span class="math inline">O(n)</span>,
+porque no existe acceso aleatorio.</li>
+</ul>
+<h4 id="pseudocódigo-de-inserción-al-inicio">Pseudocódigo de inserción
+al inicio</h4>
+<pre class="text"><code>NODO insertarInicio(LISTA L, DATO x):
+    nuevo ← crearNodo(x)
+    nuevo.siguiente ← L.cabeza
+    L.cabeza ← nuevo</code></pre>
+<h4 id="pseudocódigo-de-búsqueda">Pseudocódigo de búsqueda</h4>
+<pre class="text"><code>NODO buscar(LISTA L, DATO x):
+    actual ← L.cabeza
+    mientras actual ≠ null hacer
+        si actual.dato = x entonces
+            devolver actual
+        actual ← actual.siguiente
+    devolver null</code></pre>
+<p>La lista enlazada simple nos recuerda que <strong>a veces el camino
+importa más que la meta</strong>. Para llegar al nodo 5, no podemos
+saltar, debemos recorrer la lista paso a paso, como quien lee una novela
+página a página.</p>
+<hr />
+<h2 id="2-listas-doblemente-enlazadas">2. Listas doblemente
+enlazadas</h2>
+<p>Una mejora importante es la <strong>lista doblemente
+enlazada</strong>. Aquí cada nodo guarda tres campos:</p>
+<ul>
+<li>El <strong>dato</strong>.</li>
+<li>Un <strong>puntero al siguiente</strong>.</li>
+<li>Un <strong>puntero al anterior</strong>.</li>
+</ul>
+<p>Esto permite recorrer la lista en <strong>ambos sentidos</strong> y
+facilita operaciones como eliminar un nodo sin necesidad de conocer a su
+predecesor.</p>
+<p><img src="../images/doubly_linked_list.png"
+alt="Lista doblemente enlazada" />{ width=80% }</p>
+<p><em>Figura 3: lista doblemente enlazada.</em></p>
+<p>⚡ Inconveniente: se necesita más memoria por nodo y más trabajo al
+insertar (hay que actualizar dos punteros en vez de uno).</p>
+<p>📜 <strong>Anécdota histórica</strong>: las primeras implementaciones
+de editores de texto en los años 70 (como <em>EMACS</em>) usaban listas
+doblemente enlazadas para representar líneas de texto, porque resultaba
+natural moverse hacia adelante y atrás en el documento.</p>
+<hr />
+<h2 id="3-listas-circulares">3. Listas circulares</h2>
+<p>En una <strong>lista circular</strong>, el último nodo no apunta a
+<code>null</code> sino de nuevo al primero. De esta forma, el recorrido
+nunca se detiene: no existe un “final”.</p>
+<p>Características:</p>
+<ul>
+<li>La <strong>cabeza</strong> puede ser cualquier nodo.</li>
+<li>Mantener un puntero al último nodo permite insertar al inicio y al
+final en tiempo constante.</li>
+</ul>
+<p><img src="../images/circular_linked_list.png"
+alt="Lista circular" />{ width=65% }</p>
+<p><em>Figura 4: lista enlazada circular.</em></p>
+<h3 id="aplicaciones-típicas">Aplicaciones típicas</h3>
+<ul>
+<li><strong>Planificadores de CPU</strong> (algoritmo round-robin).</li>
+<li><strong>Listas de reproducción de música</strong> que vuelven al
+inicio.</li>
+<li><strong>Juegos de mesa</strong> donde los turnos son cíclicos.</li>
+</ul>
+<p>También existen <strong>listas doblemente circulares</strong>, que
+permiten navegar hacia adelante y atrás sin límites.</p>
+<hr />
+<h2 id="4-comparación-con-arrays">4. Comparación con arrays</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Lista enlazada</th>
+<th>Vector (array)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Crecimiento</strong></td>
+<td>Dinámico, tamaño ajustable en tiempo de ejecución.</td>
+<td>Estático, tamaño fijo.</td>
+</tr>
+<tr class="even">
+<td><strong>Acceso aleatorio</strong></td>
+<td>No, recorrido secuencial <span class="math inline">O(n)</span>.</td>
+<td>Sí, acceso <span class="math inline">O(1)</span> mediante
+índices.</td>
+</tr>
+<tr class="odd">
+<td><strong>Inserción/eliminación</strong></td>
+<td><span class="math inline">O(1)</span> si se conoce el nodo; <span
+class="math inline">O(n)</span> si hay que recorrer.</td>
+<td><span class="math inline">O(n)</span> (desplazamiento de
+elementos).</td>
+</tr>
+<tr class="even">
+<td><strong>Uso de memoria</strong></td>
+<td>Requiere punteros adicionales.</td>
+<td>Más compacta y contigua.</td>
+</tr>
+<tr class="odd">
+<td><strong>Localidad de referencia</strong></td>
+<td>Baja: nodos dispersos en memoria.</td>
+<td>Alta: aprovecha mejor la caché.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión práctica</strong>:</p>
+<ul>
+<li>Usa <strong>listas enlazadas</strong> si habrá muchas inserciones y
+eliminaciones.</li>
+<li>Usa <strong>arrays</strong> si necesitas acceso rápido por índice y
+mejor rendimiento en caché.</li>
+</ul>
+<p>📌 Filosofía: la elección de la estructura de datos depende del
+<strong>patrón de uso</strong>, no de una “mejor” universal.</p>
+<hr />
+<h2 id="5-casos-de-uso-en-bioinformática-y-computación">5. Casos de uso
+en bioinformática y computación</h2>
+<ul>
+<li><strong>Gestión dinámica de secuencias</strong>: en ediciones de
+ADN, cuando se insertan o eliminan bases constantemente.</li>
+<li><strong>Colas de procesos</strong>: en sistemas operativos, donde
+los procesos entran y salen de forma continua.</li>
+<li><strong>Modelado molecular dinámico</strong>: los átomos o enlaces
+pueden crearse o desaparecer según la simulación.</li>
+<li><strong>Editores de texto</strong>: representan cada línea como un
+nodo enlazado.</li>
+<li><strong>Sistemas de música/juegos</strong>: listas circulares para
+reproducción o turnos cíclicos.</li>
+</ul>
+<p><strong>Curiosidad</strong>: Unix implementaba en algunos shells
+listas circulares para gestionar el historial de comandos, haciendo que
+se “reciclaran” automáticamente.</p>
+<hr />
+<h2 id="6-conclusiones">6. Conclusiones</h2>
+<p>Las listas enlazadas <strong>resuelven las limitaciones de tamaño
+fijo</strong> de los arrays.</p>
+<ul>
+<li>Son flexibles: crecen y decrecen dinámicamente.</li>
+<li>Permiten inserciones y eliminaciones sin desplazar elementos.</li>
+<li>Existen variantes (doble, circular) que se adaptan a diferentes
+necesidades.</li>
+</ul>
+<p>👉 Filosóficamente, podríamos decir que los arrays representan la
+<strong>estabilidad</strong> (todo en su sitio, contiguo, fijo),
+mientras que las listas enlazadas representan la
+<strong>adaptación</strong> (cambian sobre la marcha, sacrificando
+eficiencia en el acceso).</p>
+<hr />
+<h2 id="7-ejercicios-de-autoevaluación">7. Ejercicios de
+autoevaluación</h2>
+<ol type="1">
+<li>¿Cuál es el coste temporal de acceder al elemento <span
+class="math inline">i</span> en una lista enlazada simple?</li>
+<li>Explica por qué una lista doblemente enlazada facilita la
+eliminación de un nodo conocido.</li>
+<li>Implementa en pseudocódigo la inserción al final de una lista
+enlazada simple. ¿Cuál es su complejidad?</li>
+<li>Diseña un ejemplo donde una lista circular sea más eficiente que un
+array.</li>
+<li>¿Por qué las listas enlazadas tienen peor aprovechamiento de la
+caché que los arrays?</li>
+<li>Analiza qué estructura usarías para un sistema que procesa
+continuamente colas de trabajos.</li>
+<li>(Avanzado) ¿Podrías implementar una lista enlazada en un lenguaje
+sin punteros explícitos (ej. Python)? ¿Cómo?</li>
+</ol>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
+<em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data
+Structures and Algorithms in Python</em>. Wiley.</li>
+<li>Weiss, M. A. <em>Data Structures and Algorithm Analysis</em>.
+Pearson.</li>
+<li>Sedgewick, R. &amp; Wayne, K. <em>Algorithms</em>.
+Addison-Wesley.</li>
+<li>Knuth, D. <em>The Art of Computer Programming, Vol. 1: Fundamental
+Algorithms</em>. Addison-Wesley.</li>
+</ul>
+<hr />
+</body>
+</html>

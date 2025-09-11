@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
+  <title>Módulo 3 – Pilas y colas</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Módulo 3 – Pilas y colas</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y
+Algoritmos</p>
+<p class="date">21 de agosto de 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1
+id="módulo-3-pilas-y-colas-gestionando-el-orden-en-la-complejidad">Módulo
+3 – Pilas y Colas: Gestionando el Orden en la Complejidad</h1>
+<h2 id="motivación-el-poder-de-las-restricciones">0. Motivación: El
+Poder de las Restricciones</h2>
+<p>Antes de sumergirnos en la implementación, es crucial preguntarse:
+¿por qué querríamos limitar nuestro acceso a los datos? En un mundo
+donde las listas y los arrays nos dan la libertad de acceder a cualquier
+elemento por su índice (<code>array[i]</code>), las pilas y colas
+parecen un paso atrás.</p>
+<p>La respuesta reside en una poderosa filosofía de diseño de software:
+<strong>la restricción como herramienta para la simplicidad y la
+seguridad</strong>.</p>
+<ol type="1">
+<li><strong>Reducción de la Complejidad Cognitiva</strong>: Al limitar
+las operaciones a <code>push/pop</code> o <code>enqueue/dequeue</code>,
+el programador no tiene que pensar en todos los posibles estados de la
+estructura. El comportamiento es predecible y fácil de razonar. Esto es
+como las marchas de un coche: en lugar de controlar la rotación del
+motor directamente, usamos una abstracción (primera, segunda, etc.) que
+simplifica la conducción.</li>
+<li><strong>Prevención de Errores</strong>: Imponer un orden de acceso
+estricto (LIFO o FIFO) evita errores comunes, como modificar un elemento
+en medio de una colección mientras se está procesando o acceder a datos
+en el orden incorrecto en un sistema concurrente.</li>
+<li><strong>Modelado del Mundo Real</strong>: Muchas procesos del mundo
+real son inherentemente LIFO o FIFO. Las pilas y colas no son
+invenciones abstractas, sino <strong>modelos matemáticos de procesos
+reales</strong>:
+<ul>
+<li>La pila de llamadas de un programa refleja cómo las tareas se anidan
+y resuelven.</li>
+<li>Una cola de impresión refleja el principio de justicia de “el
+primero que llega, es el primero en ser servido”.</li>
+</ul></li>
+</ol>
+<p>Al adoptar estas restricciones, ganamos claridad, robustez y
+algoritmos que son un reflejo fiel de los problemas que intentan
+solucionar.</p>
+<hr />
+<h2 id="pilas-stacks-la-memoria-del-presente-reciente">1. Pilas
+(Stacks): La Memoria del Presente Reciente</h2>
+<p>Una <strong>pila</strong> es una estructura de datos que opera bajo
+el principio <strong>LIFO (Last-In, First-Out)</strong>. Su analogía más
+famosa es una pila de platos: solo puedes interactuar con el plato que
+está en la cima. Esta estructura es fundamental para gestionar procesos
+que tienen una naturaleza jerárquica o recursiva, donde la tarea más
+reciente debe ser la primera en resolverse.</p>
+<h3 id="operaciones-principales-y-casos-límite">1.1 Operaciones
+Principales y Casos Límite</h3>
+<p>Las operaciones definen la “personalidad” de la pila. Es crucial
+entender no solo lo que hacen, sino también sus condiciones de
+error.</p>
+<ul>
+<li><strong><code>apilar</code> (push)</strong>: Añade un elemento a la
+cima de la pila.
+<ul>
+<li><strong>Caso Límite</strong>: Si la pila está implementada con un
+array de tamaño fijo y ya está llena, se produce un error de
+<strong>desbordamiento de pila (Stack Overflow)</strong>. Este es uno de
+los errores más famosos de la programación.</li>
+</ul></li>
+<li><strong><code>desapilar</code> (pop)</strong>: Elimina el elemento
+de la cima y lo devuelve.
+<ul>
+<li><strong>Caso Límite</strong>: Si se intenta desapilar un elemento de
+una pila vacía, se produce un error de <strong>subdesbordamiento (Stack
+Underflow)</strong>. El programa debe gestionar esta situación para
+evitar un comportamiento indefinido.</li>
+</ul></li>
+<li><strong><code>consultar</code> (peek/top)</strong>: Devuelve el
+elemento de la cima sin modificar la pila. Es una operación de solo
+lectura.</li>
+<li><strong><code>vacía</code> (isEmpty)</strong>: Booleano que indica
+si la pila no contiene elementos.</li>
+<li><strong><code>tamaño</code> (size)</strong>: Devuelve el número de
+elementos actualmente en la pila.</li>
+</ul>
+<h4 id="pseudocódigo-básico">Pseudocódigo básico</h4>
+<pre class="text"><code>procedimiento apilar(PILA P, DATO x):
+    P.tope ← P.tope + 1
+    P.elementos[P.tope] ← x
+
+DATO desapilar(PILA P):
+    si P.tope = 0 entonces error &quot;Pila vacía&quot;
+    x ← P.elementos[P.tope]
+    P.tope ← P.tope - 1
+    devolver x</code></pre>
+<h3 id="análisis-detallado-de-implementaciones">1.2. Análisis Detallado
+de Implementaciones</h3>
+<p>La elección de la implementación subyacente (array o lista enlazada)
+tiene implicaciones en el rendimiento y el uso de memoria.</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 41%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Implementación con Vector (Array)</th>
+<th>Implementación con Lista Enlazada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Rendimiento</strong></td>
+<td><span class="math inline"><em>O</em>(1)</span> amortizado. Las
+operaciones son muy rápidas.</td>
+<td><span class="math inline"><em>O</em>(1)</span> garantizado. Siempre
+es una operación constante.</td>
+</tr>
+<tr class="even">
+<td><strong>Uso de Memoria</strong></td>
+<td>Puede desperdiciar memoria si se reserva más de la necesaria.</td>
+<td>Más eficiente: solo usa la memoria que necesita.</td>
+</tr>
+<tr class="odd">
+<td><strong>Overhead de Memoria</strong></td>
+<td>Mínimo (solo el array y un índice <code>tope</code>).</td>
+<td>Mayor: cada elemento necesita un puntero adicional
+(<code>siguiente</code>).</td>
+</tr>
+<tr class="even">
+<td><strong>Localidad de Caché</strong></td>
+<td><strong>Excelente</strong>. Los elementos están contiguos en
+memoria.</td>
+<td><strong>Pobre</strong>. Los nodos pueden estar dispersos por la
+memoria.</td>
+</tr>
+<tr class="odd">
+<td><strong>Flexibilidad</strong></td>
+<td>Tamaño fijo (a menos que se use un array dinámico, con coste).</td>
+<td>Dinámica y flexible por naturaleza.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusión Filosófica</strong>: La implementación con
+<strong>vector</strong> es preferible cuando el tamaño máximo es
+conocido o predecible y el rendimiento es crítico (gracias a la caché).
+La <strong>lista enlazada</strong> es ideal para situaciones donde el
+tamaño es impredecible y la flexibilidad es la máxima prioridad.</p>
+<h3 id="caso-de-estudio-a-fondo-la-pila-de-llamadas-call-stack">1.3.
+Caso de Estudio a Fondo: La Pila de Llamadas (Call Stack)</h3>
+<p>Quizás la aplicación más importante de las pilas es la
+<strong>gestión de la pila de llamadas a funciones</strong> en casi
+todos los lenguajes de programación modernos. Sin ella, la recursión y
+la propia estructura de nuestros programas serían imposibles.</p>
+<p><strong>¿Cómo funciona?</strong></p>
+<ol type="1">
+<li><strong>Programa Principal</strong>: El sistema operativo crea un
+“marco de pila” (stack frame) para la función <code>main()</code>. Este
+marco contiene sus variables locales y la dirección de retorno.</li>
+<li><strong>Llamada a Función</strong>: Cuando <code>main()</code> llama
+a <code>funcionA()</code>, se crea un nuevo marco para
+<code>funcionA</code> y se apila <strong>encima</strong> del de
+<code>main()</code>.</li>
+<li><strong>Llamadas Anidadas</strong>: Si <code>funcionA()</code> llama
+a <code>funcionB()</code>, se apila un nuevo marco para
+<code>funcionB</code> en la cima.</li>
+<li><strong>Retorno</strong>: Cuando <code>funcionB()</code> termina, su
+marco se <strong>desapila</strong>. El control vuelve a
+<code>funcionA()</code>, que ahora está de nuevo en la cima.</li>
+<li><strong>Fin</strong>: El proceso continúa hasta que todas las
+funciones han retornado y la pila vuelve a estar vacía (solo con
+<code>main</code>, que al terminar devuelve el control al SO).</li>
+</ol>
+<p><strong>Diagrama conceptual:</strong></p>
+<pre><code>      Pila:
+    | Marco funcionB | &lt;-- Cima (en ejecución)
+    |----------------|
+    | Marco funcionA |
+    |----------------|
+    | Marco main()   |
+    +----------------+</code></pre>
+<p>Este mecanismo es la razón por la que una recursión infinita causa un
+error de <strong>Stack Overflow</strong>: cada llamada recursiva apila
+un nuevo marco hasta que se agota la memoria asignada a la pila.</p>
+<figure>
+<img src="../images/stack.png" style="width:50.0%"
+alt="Representación de una pila" />
+<figcaption aria-hidden="true">Representación de una pila</figcaption>
+</figure>
+<p><em>Figura 5: estructura LIFO.</em></p>
+<p>📌 <em>Filosofía</em>: la pila nos enseña que <strong>la historia
+reciente es la más importante</strong>: lo último que hicimos es lo
+primero que podemos deshacer.</p>
+<hr />
+<h2 id="colas-queues-la-justicia-del-orden-de-llegada">2. Colas
+(Queues): La Justicia del Orden de Llegada</h2>
+<p>Una <strong>cola</strong> implementa el principio <strong>FIFO
+(First-In, First-Out)</strong>. Es el modelo de la fila de un
+supermercado: la primera persona en llegar es la primera en ser
+atendida. Este principio de justicia y orden secuencial es clave para
+sistemas que gestionan recursos compartidos o procesan tareas en el
+orden en que fueron solicitadas.</p>
+<h3 id="operaciones-principales">2.1 Operaciones Principales</h3>
+<ul>
+<li><strong><code>encolar</code> (enqueue)</strong>: Añade un elemento
+al <strong>final</strong> de la cola.</li>
+<li><strong><code>desencolar</code> (dequeue)</strong>: Elimina el
+elemento del <strong>principio</strong> de la cola y lo devuelve.</li>
+<li><strong><code>frente</code> (front/peek)</strong>: Consulta el
+primer elemento sin retirarlo.</li>
+<li><strong><code>vacía</code> (isEmpty)</strong>: Indica si la cola
+está vacía.</li>
+</ul>
+<h4 id="pseudocódigo-básico-1">Pseudocódigo básico</h4>
+<pre class="text"><code>procedimiento encolar(COLA Q, DATO x):
+    Q.trasero ← Q.trasero + 1
+    Q.elementos[Q.trasero] ← x
+
+DATO desencolar(COLA Q):
+    si Q.frente &gt; Q.trasero entonces error &quot;Cola vacía&quot;
+    x ← Q.elementos[Q.frente]
+    Q.frente ← Q.frente + 1
+    devolver x</code></pre>
+<h3 id="implementaciones-y-el-desafío-de-la-cola-circular">2.2
+Implementaciones y el Desafío de la Cola Circular</h3>
+<p><strong>El Problema de la Implementación con Vector
+Simple:</strong></p>
+<p>Si usamos un vector con dos punteros, <code>frente</code> y
+<code>trasero</code>, nos encontramos con un problema. A medida que
+encolamos y desencolamos, ambos punteros avanzan. Eventualmente,
+<code>trasero</code> llegará al final del array, y no podremos añadir
+más elementos, <strong>incluso si hay espacio libre al
+principio</strong> (dejado por los elementos desencolados).</p>
+<p><strong>La Solución Elegante: La Cola Circular</strong></p>
+<p>La cola circular resuelve esto tratando el array como si fuera un
+círculo. Cuando un puntero llega al final, simplemente “da la vuelta” y
+continúa desde el principio.</p>
+<p>Esto se logra con la <strong>aritmética modular</strong>. Para un
+array de tamaño <span class="math inline"><em>N</em></span>:</p>
+<ul>
+<li>Para avanzar el puntero <code>trasero</code>:
+<code>trasero = (trasero + 1) % N</code></li>
+<li>Para avanzar el puntero <code>frente</code>:
+<code>frente = (frente + 1) % N</code></li>
+</ul>
+<p>Este diseño es increíblemente eficiente y es el estándar para
+implementar buffers de tamaño fijo en sistemas operativos, redes y
+hardware.</p>
+<h3 id="variantes-de-colas">2.3 Variantes de Colas</h3>
+<ul>
+<li><strong>Cola Circular</strong>: Como se vio, es una optimización
+para implementaciones con arrays. Es la base de los <em>ring
+buffers</em>.</li>
+<li><strong>Deque (Cola Doble)</strong>: Del inglés <em>Double-Ended
+Queue</em>. Es una estructura híbrida que permite <strong>encolar y
+desencolar por ambos extremos</strong>. Es una navaja suiza de las
+estructuras lineales, útil en algoritmos de ventanas deslizantes
+(<em>sliding window</em>) o para construir otros algoritmos más
+complejos.</li>
+<li><strong>Cola de Prioridad</strong>: Rompe la regla FIFO. Cada
+elemento tiene una <strong>prioridad</strong> asociada. Al desencolar,
+siempre se extrae el elemento con la máxima prioridad, sin importar
+cuándo llegó. No se implementa con arrays o listas, sino con estructuras
+más complejas como los <strong>heaps (montículos)</strong>. Son
+esenciales en algoritmos como el de Dijkstra (para encontrar el camino
+más corto en un grafo) o en la planificación de procesos de un SO donde
+algunas tareas son más urgentes que otras.</li>
+</ul>
+<h3
+id="caso-de-estudio-a-fondo-el-planificador-de-procesos-del-sistema-operativo">2.4
+Caso de Estudio a Fondo: El Planificador de Procesos del Sistema
+Operativo</h3>
+<p>Los sistemas operativos modernos son multitarea, lo que significa que
+pueden ejecutar múltiples procesos (casi) simultáneamente. ¿Cómo decide
+la CPU a qué proceso prestarle atención en cada momento? La respuesta
+más simple es una <strong>cola de procesos listos (Ready
+Queue)</strong>.</p>
+<ol type="1">
+<li><p><strong>Llegada de Procesos</strong>: Cuando un programa se lanza
+(ej., abres un navegador), el SO crea un Proceso y lo
+<strong>encola</strong> en la cola de procesos listos.</p></li>
+<li><p><strong>Planificación (Scheduling)</strong>: El
+<strong>planificador</strong> de la CPU es un componente del SO que toma
+el primer proceso de la cola (<code>desencolar</code>).</p></li>
+<li><p><strong>Ejecución</strong>: La CPU ejecuta ese proceso durante un
+breve intervalo de tiempo llamado <em>quantum</em>.</p></li>
+<li><p><strong>Re-encolado o Finalización</strong>:</p>
+<ul>
+<li>Si el proceso no ha terminado al final de su <em>quantum</em>, es
+interrumpido y <strong>vuelve a ser encolado</strong> al final de la
+fila para esperar su próximo turno (esto se conoce como
+<em>Round-Robin</em>).</li>
+<li>Si el proceso termina o necesita esperar por una operación (ej.,
+leer un archivo), se retira de la cola.</li>
+</ul></li>
+</ol>
+<p>Este sistema basado en colas garantiza la <strong>equidad
+(fairness)</strong>: cada proceso tiene la oportunidad de ejecutarse,
+evitando que un solo proceso monopolice la CPU.</p>
+<figure>
+<img src="../images/queue.png" style="width:70.0%"
+alt="Representación de una cola" />
+<figcaption aria-hidden="true">Representación de una cola</figcaption>
+</figure>
+<p><em>Figura 6: estructura FIFO.</em></p>
+<hr />
+<h2 id="contexto-histórico-y-orígenes-conceptuales">3. Contexto
+Histórico y Orígenes Conceptuales</h2>
+<p>Las pilas y colas no nacieron con la informática moderna; son
+conceptos que los matemáticos y lógicos ya utilizaban.</p>
+<ul>
+<li><strong>Notación Polaca Inversa (RPN)</strong>: En la década de
+1920, el lógico polaco Jan Łukasiewicz desarrolló una notación
+matemática que no requería paréntesis. Esta notación (ej.
+<code>3 4 +</code> en lugar de <code>3 + 4</code>) es trivial de evaluar
+con una pila y fue la base de las famosas calculadoras científicas de
+<strong>Hewlett-Packard (HP)</strong> en los años 70, que se ganaron una
+legión de fans por su eficiencia.</li>
+<li><strong>Primeros Lenguajes</strong>: Alan Turing ya teorizó sobre
+una “pila” para llamadas a subrutinas en sus diseños de máquinas. Los
+primeros lenguajes de alto nivel como <strong>Lisp y Fortran</strong>
+implementaron pilas para gestionar la recursión y las llamadas a
+funciones, sentando las bases de cómo funcionan los lenguajes hoy en
+día.</li>
+<li><strong>Spooling y Sistemas Operativos</strong>: El concepto de cola
+se formalizó en los sistemas operativos de los años 60. El término
+<strong>spooling</strong> (<em>Simultaneous Peripheral Operations
+On-Line</em>) se acuñó para describir el sistema que usaba colas para
+gestionar trabajos de impresión en un disco intermedio, liberando a la
+CPU para otras tareas. Este fue uno de los primeros ejemplos de
+procesamiento asíncrono, una idea fundamental en la computación
+moderna.</li>
+</ul>
+<hr />
+<h2 id="conclusiones-más-allá-de-la-implementación">4. Conclusiones: Más
+Allá de la Implementación</h2>
+<p>Las pilas y colas son mucho más que simples formas de organizar
+datos. Son <strong>abstracciones fundamentales</strong> que nos enseñan
+a pensar sobre el flujo del tiempo y el orden en los algoritmos.</p>
+<ul>
+<li><strong>Pila</strong>: Gobierna la <strong>profundidad</strong>, la
+recursión y el retroceso (<em>backtracking</em>). Es la estructura de
+“ir por un camino, y si no funciona, volver sobre tus pasos”.</li>
+<li><strong>Cola</strong>: Gobierna la <strong>amplitud</strong>, el
+reparto justo de recursos y el procesamiento secuencial. Es la
+estructura de “atender a todos en orden, nivel por nivel”.</li>
+</ul>
+<p>Comprender su disciplina de acceso es el primer paso para dominar
+algoritmos más complejos de grafos (DFS usa una pila, BFS usa una cola),
+sistemas concurrentes y diseño de sistemas operativos. Representan dos
+formas primordiales de gestionar tareas: una que prioriza lo último y
+otra que respeta el orden histórico.</p>
+<hr />
+<h2 id="ejercicios-ampliados">5. Ejercicios Ampliados</h2>
+<h4 id="ejercicios-teóricos-y-de-diseño">Ejercicios Teóricos y de
+Diseño</h4>
+<ol type="1">
+<li>Dibuja el estado de una pila y una cola después de la siguiente
+secuencia de operaciones: <code>push(A)</code>, <code>enqueue(B)</code>,
+<code>push(C)</code>, <code>dequeue()</code>, <code>pop()</code>,
+<code>enqueue(D)</code>.</li>
+<li>Explica por qué una cola de prioridad no puede ser implementada
+eficientemente con una simple lista enlazada si se quiere mantener un
+rendimiento óptimo en las operaciones.</li>
+<li>Diseña un algoritmo que utilice dos colas para simular el
+comportamiento de una pila. Analiza la complejidad de tus operaciones
+<code>push</code> y <code>pop</code>.</li>
+</ol>
+<h4 id="ejercicios-prácticos-de-programación">Ejercicios Prácticos de
+Programación</h4>
+<ol start="4" type="1">
+<li><strong>Verificador de Paréntesis</strong>: Escribe una función que
+reciba una cadena con paréntesis <code>()</code>, corchetes
+<code>[]</code> y llaves <code>{}</code> y determine si están
+balanceados. (Pista: usa una pila).</li>
+<li><strong>Simulador de Hot-Potato</strong>: Implementa el juego de la
+“patata caliente”. Un grupo de niños se pasa una patata. Cada N pases,
+el niño que la tiene es eliminado. El último que queda, gana. (Pista:
+una cola circular es perfecta para esto).</li>
+<li><strong>Implementa una Deque</strong>: Crea una clase
+<code>Deque</code> utilizando una lista doblemente enlazada como
+estructura subyacente, con operaciones <code>addFirst</code>,
+<code>addLast</code>, <code>removeFirst</code>,
+<code>removeLast</code>.</li>
+</ol>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
+<em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data
+Structures and Algorithms in Python</em>. Wiley.</li>
+<li>Weiss, M. A. <em>Data Structures and Algorithm Analysis</em>.
+Pearson.</li>
+<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>.
+Addison-Wesley.</li>
+<li>Knuth, D. <em>The Art of Computer Programming, Vol. 1: Fundamental
+Algorithms</em>. Addison-Wesley.</li>
+</ul>
+<hr />
+</body>
+</html>

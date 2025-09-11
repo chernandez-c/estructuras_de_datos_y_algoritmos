@@ -125,7 +125,7 @@ procedimiento fusionar(izquierda, derecha):
     ...
 ```
 
-  * **Análisis**: Su complejidad es **siempre** $O(n \\log n)$, lo que lo hace muy predecible y fiable. Su principal desventaja es que requiere espacio adicional ($O(n)$) para almacenar las sublistas, lo que puede ser un problema con memoria limitada. Es un algoritmo **estable**, lo que significa que mantiene el orden relativo de los elementos con claves iguales.
+  * **Análisis**: Su complejidad es **siempre** $O(n \log n)$, lo que lo hace muy predecible y fiable. Su principal desventaja es que requiere espacio adicional ($O(n)$) para almacenar las sublistas, lo que puede ser un problema con memoria limitada. Es un algoritmo **estable**, lo que significa que mantiene el orden relativo de los elementos con claves iguales.
 
 ### 2.2 Quicksort (Ordenación Rápida)
 
@@ -149,7 +149,7 @@ función quickSort(lista):
     devolver resultado
 ```
 
-  * **Análisis**: A pesar de su peor caso de $O(n^2)$, su rendimiento **promedio** es $O(n \\log n)$ con constantes muy bajas, lo que lo hace extremadamente rápido en la práctica. Funciona *in-place*, requiriendo solo $O(\\log n)$ de espacio en la pila de recursión. Es el algoritmo de ordenación de propósito general más utilizado en las bibliotecas estándar de muchos lenguajes.
+  * **Análisis**: A pesar de su peor caso de $O(n^2)$, su rendimiento **promedio** es $O(n \log n)$ con constantes muy bajas, lo que lo hace extremadamente rápido en la práctica. Funciona *in-place*, requiriendo solo $O(\log n)$ de espacio en la pila de recursión. Es el algoritmo de ordenación de propósito general más utilizado en las bibliotecas estándar de muchos lenguajes.
 
 -----
 
@@ -160,8 +160,8 @@ función quickSort(lista):
 | **Bubble Sort** | $O(n^2)$ | $O(n^2)$ | $O(1)$ | ✅ | Solo para fines educativos. |
 | **Insertion Sort**| $O(n^2)$ | $O(n^2)$ | $O(1)$ | ✅ | Eficiente en listas pequeñas o casi ordenadas. |
 | **Selection Sort**| $O(n^2)$ | $O(n^2)$ | $O(1)$ | ❌ | Predecible pero lento. Minimiza intercambios. |
-| **Merge Sort** | $O(n \\log n)$| $O(n \\log n)$| $O(n)$ | ✅ | Muy fiable. Ideal para ordenación externa. |
-| **Quicksort** | $O(n \\log n)$| $O(n^2)$ | $O(\\log n)$ | ❌ | Generalmente el más rápido en la práctica. |
+| **Merge Sort** | $O(n \log n)$| $O(n \log n)$| $O(n)$ | ✅ | Muy fiable. Ideal para ordenación externa. |
+| **Quicksort** | $O(n \log n)$| $O(n^2)$ | $O(\log n)$ | ❌ | Generalmente el más rápido en la práctica. |
 
 **¿Qué algoritmo elegir?** 
 

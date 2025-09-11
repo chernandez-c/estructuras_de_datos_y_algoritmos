@@ -162,8 +162,10 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <header id="title-block-header">
@@ -200,28 +202,25 @@ interesantes y complejos de la computación.</p>
 <hr />
 <h2 id="conceptos-fundamentales-de-los-grafos">1. Conceptos
 Fundamentales de los Grafos</h2>
-<p>Un <strong>grafo</strong> <span
-class="math inline"><em>G</em> = (<em>V</em>,<em>E</em>)</span> es un
-par compuesto por un conjunto de <strong>vértices</strong> (o nodos)
-<span class="math inline"><em>V</em></span> y un conjunto de
+<p>Un <strong>grafo</strong> <span class="math inline">\(G = (V,
+E)\)</span> es un par compuesto por un conjunto de
+<strong>vértices</strong> (o nodos) <span
+class="math inline">\(V\)</span> y un conjunto de
 <strong>aristas</strong> (o arcos) <span
-class="math inline"><em>E</em></span> que conectan pares de
-vértices.</p>
+class="math inline">\(E\)</span> que conectan pares de vértices.</p>
 <h3 id="la-taxonomía-de-los-grafos">1.1 La Taxonomía de los Grafos</h3>
 <ul>
 <li><strong>Grafo No Dirigido</strong>: Las aristas son bidireccionales.
-Si existe una arista <span
-class="math inline">{<em>u</em>, <em>v</em>}</span>, se puede ir de
-<span class="math inline"><em>u</em></span> a <span
-class="math inline"><em>v</em></span> y de <span
-class="math inline"><em>v</em></span> a <span
-class="math inline"><em>u</em></span>. Modela relaciones simétricas,
-como la amistad en Facebook.</li>
+Si existe una arista <span class="math inline">\(\{u, v\}\)</span>, se
+puede ir de <span class="math inline">\(u\)</span> a <span
+class="math inline">\(v\)</span> y de <span
+class="math inline">\(v\)</span> a <span
+class="math inline">\(u\)</span>. Modela relaciones simétricas, como la
+amistad en Facebook.</li>
 <li><strong>Grafo Dirigido (Dígrafo)</strong>: Las aristas son flechas
-con una sola dirección. Una arista <span
-class="math inline">(<em>u</em>,<em>v</em>)</span> va de <span
-class="math inline"><em>u</em></span> hacia <span
-class="math inline"><em>v</em></span>, pero no necesariamente al revés.
+con una sola dirección. Una arista <span class="math inline">\((u,
+v)\)</span> va de <span class="math inline">\(u\)</span> hacia <span
+class="math inline">\(v\)</span>, pero no necesariamente al revés.
 Modela relaciones asimétricas, como “seguir” a alguien en Twitter o los
 hipervínculos en la web.</li>
 <li><strong>Grafo Ponderado</strong>: A cada arista se le asigna un
@@ -230,10 +229,10 @@ tiempo, capacidad, etc. Son esenciales para problemas de optimización,
 como encontrar la ruta más corta en un mapa.</li>
 <li><strong>Grafo Disperso vs. Denso</strong>: Un grafo es
 <strong>disperso</strong> si tiene pocas aristas en comparación con el
-número máximo posible (<span
-class="math inline">|<em>E</em>| ≪ |<em>V</em>|<sup>2</sup></span>). Un
-grafo es <strong>denso</strong> si se acerca a ese máximo. Esta
-distinción es clave para elegir la representación correcta.</li>
+número máximo posible (<span class="math inline">\(|E| \ll
+|V|^2\)</span>). Un grafo es <strong>denso</strong> si se acerca a ese
+máximo. Esta distinción es clave para elegir la representación
+correcta.</li>
 </ul>
 <h3 id="representaciones-el-mapa-del-grafo">1.2 Representaciones: El
 Mapa del Grafo</h3>
@@ -249,9 +248,9 @@ crucial, con un gran impacto en el rendimiento.</p>
 <tr class="header">
 <th style="text-align: left;">Característica</th>
 <th style="text-align: left;">Matriz de Adyacencia (<span
-class="math inline"><em>O</em>(∥<em>V</em>∥<sup>2</sup>)</span>)</th>
+class="math inline">\(O(\|V\|^2)\)</span>)</th>
 <th style="text-align: left;">Lista de Adyacencia (<span
-class="math inline"><em>O</em>(∥<em>V</em>∥+∥<em>E</em>∥)</span>)</th>
+class="math inline">\(O(\|V\|+\|E\|)\)</span>)</th>
 </tr>
 </thead>
 <tbody>
@@ -265,39 +264,39 @@ para grafos dispersos.</td>
 <tr class="even">
 <td style="text-align: left;"><strong>Añadir Vértice</strong></td>
 <td style="text-align: left;">Costoso (<span
-class="math inline"><em>O</em>(∥<em>V</em>∥<sup>2</sup>)</span>),
-requiere reconstruir la matriz.</td>
+class="math inline">\(O(\|V\|^2)\)</span>), requiere reconstruir la
+matriz.</td>
 <td style="text-align: left;">Fácil (<span
-class="math inline"><em>O</em>(1)</span>).</td>
+class="math inline">\(O(1)\)</span>).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Añadir Arista</strong></td>
 <td style="text-align: left;">Muy rápido (<span
-class="math inline"><em>O</em>(1)</span>).</td>
+class="math inline">\(O(1)\)</span>).</td>
 <td style="text-align: left;">Rápido (<span
-class="math inline"><em>O</em>(1)</span>).</td>
+class="math inline">\(O(1)\)</span>).</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Verificar si existe <span
-class="math inline">{<em>u</em>, <em>v</em>}</span></strong></td>
+class="math inline">\(\{u,v\}\)</span></strong></td>
 <td style="text-align: left;">Muy rápido (<span
-class="math inline"><em>O</em>(1)</span>), acceso directo a la celda
+class="math inline">\(O(1)\)</span>), acceso directo a la celda
 <code>M[u][v]</code>.</td>
 <td style="text-align: left;">Lento (<span
-class="math inline"><em>O</em>(<em>k</em>)</span> donde <span
-class="math inline"><em>k</em></span> es el grado del vértice <span
-class="math inline"><em>u</em></span>).</td>
+class="math inline">\(O(k)\)</span> donde <span
+class="math inline">\(k\)</span> es el grado del vértice <span
+class="math inline">\(u\)</span>).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Iterar sobre vecinos de <span
-class="math inline"><em>u</em></span></strong></td>
+class="math inline">\(u\)</span></strong></td>
 <td style="text-align: left;">Lento (<span
-class="math inline"><em>O</em>(∥<em>V</em>∥)</span>), hay que recorrer
-toda la fila.</td>
+class="math inline">\(O(\|V\|)\)</span>), hay que recorrer toda la
+fila.</td>
 <td style="text-align: left;">Óptimo (<span
-class="math inline"><em>O</em>(<em>k</em>)</span> donde <span
-class="math inline"><em>k</em></span> es el grado de <span
-class="math inline"><em>u</em></span>).</td>
+class="math inline">\(O(k)\)</span> donde <span
+class="math inline">\(k\)</span> es el grado de <span
+class="math inline">\(u\)</span>).</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Ideal para</strong></td>
@@ -410,10 +409,9 @@ ancestro), hemos encontrado un “back edge”, lo que significa que hay un
 ciclo.</li>
 <li><strong>Ordenación Topológica</strong>: En un Grafo Dirigido
 Acíclico (DAG), una ordenación topológica es una secuencia lineal de
-vértices tal que para cada arista <span
-class="math inline">(<em>u</em>,<em>v</em>)</span>, <span
-class="math inline"><em>u</em></span> aparece antes que <span
-class="math inline"><em>v</em></span>. Es fundamental para planificar
+vértices tal que para cada arista <span class="math inline">\((u,
+v)\)</span>, <span class="math inline">\(u\)</span> aparece antes que
+<span class="math inline">\(v\)</span>. Es fundamental para planificar
 tareas con dependencias (ej. compilar un proyecto). Un recorrido DFS
 postorden produce el inverso de una ordenación topológica.</li>
 </ul>

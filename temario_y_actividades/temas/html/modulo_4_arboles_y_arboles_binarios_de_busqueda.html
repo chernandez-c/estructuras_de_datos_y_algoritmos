@@ -162,8 +162,10 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <header id="title-block-header">
@@ -261,8 +263,8 @@ array de forma compacta.</li>
 <li><strong>Árbol Binario Perfecto</strong>: Un árbol lleno donde todas
 las hojas están en el mismo nivel. Representa la máxima “densidad” de
 nodos para una altura dada. Un árbol perfecto de altura <span
-class="math inline"><em>h</em></span> tiene exactamente <span
-class="math inline">2<sup><em>h</em> + 1</sup> − 1</span> nodos.</li>
+class="math inline">\(h\)</span> tiene exactamente <span
+class="math inline">\(2^{h+1} - 1\)</span> nodos.</li>
 <li><strong>Árbol Degenerado o Sesgado</strong>: Cada nodo padre tiene
 un solo hijo. Se comporta exactamente como una <strong>lista
 enlazada</strong>, perdiendo todas las ventajas de un árbol. Es el peor
@@ -332,7 +334,7 @@ un array ordenado, pero aplicado a una estructura de datos dinámica que
 permite inserciones y eliminaciones eficientes. Mientras el árbol esté
 razonablemente <strong>balanceado</strong>, las operaciones principales
 (búsqueda, inserción, eliminación) tienen una complejidad temporal de
-<span class="math inline"><em>O</em>(log<em>n</em>)</span>.</p>
+<span class="math inline">\(O(\log n)\)</span>.</p>
 <h3 id="operaciones-detalladas">3.2 Operaciones Detalladas</h3>
 <h4 id="inserción-y-búsqueda">Inserción y Búsqueda</h4>
 <p>Las operaciones de búsqueda e inserción son recursivas y elegantes.
@@ -385,18 +387,16 @@ caso más simple (Caso 1 o Caso 2).</li>
 <hr />
 <h2 id="el-talón-de-aquiles-de-los-bst-el-desequilibrio">4. El Talón de
 Aquiles de los BST: El Desequilibrio</h2>
-<p>La magia de <span
-class="math inline"><em>O</em>(log<em>n</em>)</span> solo funciona si la
-altura del árbol (<span class="math inline"><em>h</em></span>) es
-cercana a <span class="math inline">log <em>n</em></span>. ¿Qué pasa si
+<p>La magia de <span class="math inline">\(O(\log n)\)</span> solo
+funciona si la altura del árbol (<span class="math inline">\(h\)</span>)
+es cercana a <span class="math inline">\(\log n\)</span>. ¿Qué pasa si
 insertamos elementos ya ordenados (ej. 10, 20, 30, 40, 50) en un
 BST?</p>
 <p>El resultado es un <strong>árbol degenerado</strong>: una larga
 cadena de hijos derechos. La altura del árbol se convierte en <span
-class="math inline"><em>n</em></span>, y la búsqueda se degrada a una
+class="math inline">\(n\)</span>, y la búsqueda se degrada a una
 búsqueda lineal con complejidad <span
-class="math inline"><em>O</em>(<em>n</em>)</span>, perdiendo toda su
-ventaja.</p>
+class="math inline">\(O(n)\)</span>, perdiendo toda su ventaja.</p>
 <h3 id="la-solución-árboles-autobalanceados">4.1 La Solución: Árboles
 Autobalanceados</h3>
 <p>Para resolver el problema del crecimiento desmesurado de la altura en
@@ -449,7 +449,7 @@ número de nodos negros.</li>
 </ol></li>
 <li><p><strong>Altura garantizada</strong>: se demuestra que el camino
 más largo no puede ser más del doble que el más corto ⇒ altura <span
-class="math inline"><em>O</em>(log<em>n</em>)</span>.</p></li>
+class="math inline">\(O(\log n)\)</span>.</p></li>
 <li><p><strong>Corrección</strong>: cuando una operación viola las
 propiedades de color, se arregla con una combinación de <strong>cambios
 de color</strong> y <strong>rotaciones</strong>.</p></li>

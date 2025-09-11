@@ -163,24 +163,9 @@
       vertical-align: middle;
     }
   </style>
-  <script defer=""
-  src="https://unpkg.com/katex@0.16.11/distkatex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <link rel="stylesheet"
-  href="https://unpkg.com/katex@0.16.11/distkatex.min.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <header id="title-block-header">
@@ -192,7 +177,7 @@ Algoritmos</p>
 <nav id="TOC" role="doc-toc">
 
 </nav>
-<h1 id="módulo-2--listas-enlazadas">Módulo 2 – Listas enlazadas</h1>
+<h1 id="módulo-2-listas-enlazadas">Módulo 2 – Listas enlazadas</h1>
 <hr />
 <h2 id="introducción">Introducción</h2>
 <p>En el módulo anterior vimos que los <strong>vectores
@@ -218,7 +203,7 @@ dinámica en la que cada elemento (o <strong>nodo</strong>) contiene:</p>
 ejecución</strong>: podemos añadir y quitar nodos sin necesidad de
 reservar o liberar grandes bloques contiguos de memoria.</p>
 <hr />
-<h2 id="1-estructura-de-una-lista-enlazada-simple">1. Estructura de una
+<h2 id="estructura-de-una-lista-enlazada-simple">1. Estructura de una
 lista enlazada simple</h2>
 <p>Una <strong>lista enlazada simple</strong> está formada por nodos
 conectados uno tras otro. Cada nodo tiene dos campos:</p>
@@ -231,26 +216,31 @@ siguiente nodo.</li>
 <p>El primer nodo se denomina <strong>cabeza</strong> (<em>head</em>), y
 el último nodo apunta a <code>null</code>, señalando el final de la
 lista.</p>
-<p><img src="../images/linked_list.png" alt="Lista enlazada simple" />{
-width=80% }</p>
+<figure>
+<img src="../images/linked_list.png" style="width:80.0%"
+alt="Lista enlazada simple" />
+<figcaption aria-hidden="true">Lista enlazada simple</figcaption>
+</figure>
 <p><em>Figura 2: lista enlazada simple de cinco nodos.</em></p>
-<h3 id="11-operaciones-básicas-y-coste">1.1 Operaciones básicas y
+<h3 id="operaciones-básicas-y-coste">1.1 Operaciones básicas y
 coste</h3>
 <ul>
 <li><strong>Inserción al inicio</strong> → <span
-class="math inline">O(1)</span> Basta con redirigir el puntero de la
+class="math inline">\(O(1)\)</span> Basta con redirigir el puntero de la
 cabeza.</li>
 <li><strong>Inserción al final</strong> → <span
-class="math inline">O(n)</span> Necesitamos recorrer toda la lista hasta
-el último nodo.</li>
+class="math inline">\(O(n)\)</span> Necesitamos recorrer toda la lista
+hasta el último nodo.</li>
 <li><strong>Inserción intermedia</strong> → <span
-class="math inline">O(n)</span> Hay que llegar a la posición
+class="math inline">\(O(n)\)</span> Hay que llegar a la posición
 deseada.</li>
-<li><strong>Eliminación</strong> → <span class="math inline">O(1)</span>
-si es la cabeza; <span class="math inline">O(n)</span> si está en medio
-(hay que conocer el nodo anterior).</li>
-<li><strong>Búsqueda</strong> → <span class="math inline">O(n)</span>,
-porque no existe acceso aleatorio.</li>
+<li><strong>Eliminación</strong> → <span
+class="math inline">\(O(1)\)</span> si es la cabeza; <span
+class="math inline">\(O(n)\)</span> si está en medio (hay que conocer el
+nodo anterior).</li>
+<li><strong>Búsqueda</strong> → <span
+class="math inline">\(O(n)\)</span>, porque no existe acceso
+aleatorio.</li>
 </ul>
 <h4 id="pseudocódigo-de-inserción-al-inicio">Pseudocódigo de inserción
 al inicio</h4>
@@ -271,8 +261,7 @@ importa más que la meta</strong>. Para llegar al nodo 5, no podemos
 saltar, debemos recorrer la lista paso a paso, como quien lee una novela
 página a página.</p>
 <hr />
-<h2 id="2-listas-doblemente-enlazadas">2. Listas doblemente
-enlazadas</h2>
+<h2 id="listas-doblemente-enlazadas">2. Listas doblemente enlazadas</h2>
 <p>Una mejora importante es la <strong>lista doblemente
 enlazada</strong>. Aquí cada nodo guarda tres campos:</p>
 <ul>
@@ -283,8 +272,11 @@ enlazada</strong>. Aquí cada nodo guarda tres campos:</p>
 <p>Esto permite recorrer la lista en <strong>ambos sentidos</strong> y
 facilita operaciones como eliminar un nodo sin necesidad de conocer a su
 predecesor.</p>
-<p><img src="../images/doubly_linked_list.png"
-alt="Lista doblemente enlazada" />{ width=80% }</p>
+<figure>
+<img src="../images/doubly_linked_list.png" style="width:80.0%"
+alt="Lista doblemente enlazada" />
+<figcaption aria-hidden="true">Lista doblemente enlazada</figcaption>
+</figure>
 <p><em>Figura 3: lista doblemente enlazada.</em></p>
 <p>⚡ Inconveniente: se necesita más memoria por nodo y más trabajo al
 insertar (hay que actualizar dos punteros en vez de uno).</p>
@@ -293,7 +285,7 @@ de editores de texto en los años 70 (como <em>EMACS</em>) usaban listas
 doblemente enlazadas para representar líneas de texto, porque resultaba
 natural moverse hacia adelante y atrás en el documento.</p>
 <hr />
-<h2 id="3-listas-circulares">3. Listas circulares</h2>
+<h2 id="listas-circulares">3. Listas circulares</h2>
 <p>En una <strong>lista circular</strong>, el último nodo no apunta a
 <code>null</code> sino de nuevo al primero. De esta forma, el recorrido
 nunca se detiene: no existe un “final”.</p>
@@ -303,8 +295,11 @@ nunca se detiene: no existe un “final”.</p>
 <li>Mantener un puntero al último nodo permite insertar al inicio y al
 final en tiempo constante.</li>
 </ul>
-<p><img src="../images/circular_linked_list.png"
-alt="Lista circular" />{ width=65% }</p>
+<figure>
+<img src="../images/circular_linked_list.png" style="width:65.0%"
+alt="Lista circular" />
+<figcaption aria-hidden="true">Lista circular</figcaption>
+</figure>
 <p><em>Figura 4: lista enlazada circular.</em></p>
 <h3 id="aplicaciones-típicas">Aplicaciones típicas</h3>
 <ul>
@@ -316,8 +311,13 @@ inicio.</li>
 <p>También existen <strong>listas doblemente circulares</strong>, que
 permiten navegar hacia adelante y atrás sin límites.</p>
 <hr />
-<h2 id="4-comparación-con-arrays">4. Comparación con arrays</h2>
+<h2 id="comparación-con-arrays">4. Comparación con arrays</h2>
 <table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 47%" />
+<col style="width: 30%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Característica</th>
@@ -333,15 +333,16 @@ permiten navegar hacia adelante y atrás sin límites.</p>
 </tr>
 <tr class="even">
 <td><strong>Acceso aleatorio</strong></td>
-<td>No, recorrido secuencial <span class="math inline">O(n)</span>.</td>
-<td>Sí, acceso <span class="math inline">O(1)</span> mediante
+<td>No, recorrido secuencial <span
+class="math inline">\(O(n)\)</span>.</td>
+<td>Sí, acceso <span class="math inline">\(O(1)\)</span> mediante
 índices.</td>
 </tr>
 <tr class="odd">
 <td><strong>Inserción/eliminación</strong></td>
-<td><span class="math inline">O(1)</span> si se conoce el nodo; <span
-class="math inline">O(n)</span> si hay que recorrer.</td>
-<td><span class="math inline">O(n)</span> (desplazamiento de
+<td><span class="math inline">\(O(1)\)</span> si se conoce el nodo;
+<span class="math inline">\(O(n)\)</span> si hay que recorrer.</td>
+<td><span class="math inline">\(O(n)\)</span> (desplazamiento de
 elementos).</td>
 </tr>
 <tr class="even">
@@ -366,8 +367,8 @@ mejor rendimiento en caché.</li>
 <p>📌 Filosofía: la elección de la estructura de datos depende del
 <strong>patrón de uso</strong>, no de una “mejor” universal.</p>
 <hr />
-<h2 id="5-casos-de-uso-en-bioinformática-y-computación">5. Casos de uso
-en bioinformática y computación</h2>
+<h2 id="casos-de-uso-en-bioinformática-y-computación">5. Casos de uso en
+bioinformática y computación</h2>
 <ul>
 <li><strong>Gestión dinámica de secuencias</strong>: en ediciones de
 ADN, cuando se insertan o eliminan bases constantemente.</li>
@@ -384,7 +385,7 @@ reproducción o turnos cíclicos.</li>
 listas circulares para gestionar el historial de comandos, haciendo que
 se “reciclaran” automáticamente.</p>
 <hr />
-<h2 id="6-conclusiones">6. Conclusiones</h2>
+<h2 id="conclusiones">6. Conclusiones</h2>
 <p>Las listas enlazadas <strong>resuelven las limitaciones de tamaño
 fijo</strong> de los arrays.</p>
 <ul>
@@ -399,11 +400,11 @@ mientras que las listas enlazadas representan la
 <strong>adaptación</strong> (cambian sobre la marcha, sacrificando
 eficiencia en el acceso).</p>
 <hr />
-<h2 id="7-ejercicios-de-autoevaluación">7. Ejercicios de
+<h2 id="ejercicios-de-autoevaluación">7. Ejercicios de
 autoevaluación</h2>
 <ol type="1">
 <li>¿Cuál es el coste temporal de acceder al elemento <span
-class="math inline">i</span> en una lista enlazada simple?</li>
+class="math inline">\(i\)</span> en una lista enlazada simple?</li>
 <li>Explica por qué una lista doblemente enlazada facilita la
 eliminación de un nodo conocido.</li>
 <li>Implementa en pseudocódigo la inserción al final de una lista

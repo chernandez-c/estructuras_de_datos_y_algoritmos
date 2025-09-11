@@ -162,8 +162,10 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <header id="title-block-header">
@@ -283,10 +285,10 @@ tiene implicaciones en el rendimiento y el uso de memoria.</p>
 <tbody>
 <tr class="odd">
 <td><strong>Rendimiento</strong></td>
-<td><span class="math inline"><em>O</em>(1)</span> amortizado. Las
+<td><span class="math inline">\(O(1)\)</span> amortizado. Las
 operaciones son muy rápidas.</td>
-<td><span class="math inline"><em>O</em>(1)</span> garantizado. Siempre
-es una operación constante.</td>
+<td><span class="math inline">\(O(1)\)</span> garantizado. Siempre es
+una operación constante.</td>
 </tr>
 <tr class="even">
 <td><strong>Uso de Memoria</strong></td>
@@ -408,7 +410,7 @@ principio</strong> (dejado por los elementos desencolados).</p>
 círculo. Cuando un puntero llega al final, simplemente “da la vuelta” y
 continúa desde el principio.</p>
 <p>Esto se logra con la <strong>aritmética modular</strong>. Para un
-array de tamaño <span class="math inline"><em>N</em></span>:</p>
+array de tamaño <span class="math inline">\(N\)</span>:</p>
 <ul>
 <li>Para avanzar el puntero <code>trasero</code>:
 <code>trasero = (trasero + 1) % N</code></li>

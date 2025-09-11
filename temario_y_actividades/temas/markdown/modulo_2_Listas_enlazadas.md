@@ -36,7 +36,7 @@ Una **lista enlazada simple** está formada por nodos conectados uno tras otro. 
 
 El primer nodo se denomina **cabeza** (*head*), y el último nodo apunta a `null`, señalando el final de la lista.
 
-![Lista enlazada simple](../images/linked_list.png){ width=80% }
+![Lista enlazada simple](../images/linked_list.png)
 
 *Figura 2: lista enlazada simple de cinco nodos.*
 
@@ -87,7 +87,7 @@ Aquí cada nodo guarda tres campos:
 
 Esto permite recorrer la lista en **ambos sentidos** y facilita operaciones como eliminar un nodo sin necesidad de conocer a su predecesor.
 
-![Lista doblemente enlazada](../images/doubly_linked_list.png){ width=80% }
+![Lista doblemente enlazada](../images/doubly_linked_list.png)
 
 *Figura 3: lista doblemente enlazada.*
 
@@ -106,7 +106,7 @@ Características:
 * La **cabeza** puede ser cualquier nodo.
 * Mantener un puntero al último nodo permite insertar al inicio y al final en tiempo constante.
 
-![Lista circular](../images/circular_linked_list.png){ width=65% }
+![Lista circular](../images/circular_linked_list.png)
 
 *Figura 4: lista enlazada circular.*
 

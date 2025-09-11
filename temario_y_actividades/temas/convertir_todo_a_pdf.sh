@@ -45,10 +45,26 @@ convert_direct_to_pdf() {
 
   print_message "$C_YELLOW" "▶️  Convirtiendo a PDF (directo): '$markdown_file' → '$pdf_file'..."
   local -a pandoc_args=(
-    "--from" "gfm+tex_math_dollars" "--pdf-engine=lualatex" "--toc"
-    "--highlight-style=tango" "-V" "mainfont=Noto Serif"
-    "-V" "monofont=Noto Sans Mono" "-V" "sansfont=Noto Color Emoji"
-    "-V" "geometry:margin=2.5cm"
+    "--from=gfm+tex_math_dollars" \
+    "--pdf-engine=lualatex" \
+    "--toc" \
+    "--highlight-style=tango" \
+    "--number-sections" \
+    "-V" "mainfont=Noto Serif" \
+    "-V" "monofont=Noto Sans Mono" \
+    "-V" "sansfont=Noto Sans" \
+    "-V" "geometry=margin=2.5cm" \
+    "-V" "fontsize=12pt" \
+    "-V" "linestretch=1.2" \
+    "-V" "colorlinks=true" \
+    "-V" "linkcolor=blue" \
+    "-V" "citecolor=blue" \
+    "-V" "urlcolor=blue" \
+    "-V" "papersize=a4" \
+    "-V" "titlepage=true" \
+    "-V" "titlepage-color=eeeeff" \
+    "-V" "titlepage-text-color=000000" \
+    "-V" "titlepage-rule-height=2" \
   )
   [[ -f "$HEADER_FILE" ]] && pandoc_args+=("-H" "$HEADER_FILE")
   pandoc "$markdown_file" -o "$pdf_file" "${pandoc_args[@]}"
@@ -69,14 +85,14 @@ convert_to_html() {
 
 
 #### NO FUNCIONA!! ####
-convert_html_to_pdf() {
-  local html_file="$1"
-  local base_name; base_name=$(basename "${html_file%.html}")
-  local pdf_file="${PDF_DIR}/${base_name}.pdf"
-
-  print_message "$C_YELLOW" "▶️  Paso 2: '$html_file' → '$pdf_file'..."
-  wkhtmltopdf --javascript-delay "$JS_DELAY" --enable-local-file-access "$html_file" "$pdf_file"
-}
+#convert_html_to_pdf() {
+#  local html_file="$1"
+#  local base_name; base_name=$(basename "${html_file%.html}")
+#  local pdf_file="${PDF_DIR}/${base_name}.pdf"
+#
+#  print_message "$C_YELLOW" "▶️  Paso 2: '$html_file' → '$pdf_file'..."
+#  wkhtmltopdf --javascript-delay "$JS_DELAY" --enable-local-file-access "$html_file" "$pdf_file"
+#}
 
 # --- Función Principal ---
 main() {
@@ -104,7 +120,7 @@ main() {
     convert_direct_to_pdf "$file"
 
     convert_to_html "$file"
-    print_message "$C_GREEN" "Se han convertido terminado de convertir $file"
+    print_message "$C_GREEN" "Se ha terminado de convertir $file"
 
     # MÉTODO 2: Podría extenderse a (MD -> HTML -> PDF). 
      #local html_path

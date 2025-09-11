@@ -157,7 +157,7 @@ La notación Big O describe el comportamiento asintótico de un algoritmo: cómo
 
 **Visualización del crecimiento de complejidades comunes**:
 
-![Crecimiento de funciones de complejidad](../images/complejidad.png){ width=70% }
+![Crecimiento de funciones de complejidad](../images/complejidad.png)
 
 ---
 

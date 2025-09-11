@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 4 – Árboles: Estructurando la Jerarquía
 
-## 0. Motivación: De lo Lineal a lo Jerárquico
+## Motivación: De lo Lineal a lo Jerárquico
 
 En los módulos anteriores, exploramos estructuras de datos **lineales** como listas, pilas y colas. Son como perlas en un hilo: cada elemento tiene un "siguiente" y, a veces, un "anterior". Este modelo es perfecto para secuencias, pero el mundo real rara vez es tan simple.
 
@@ -24,7 +24,7 @@ Los árboles nos ofrecen un lenguaje para organizar la información de una maner
 
 -----
 
-## 1. Conceptos Fundamentales de los Árboles
+## Conceptos Fundamentales de los Árboles
 
 Un **árbol** es una colección de **nodos** conectados por **aristas** de forma jerárquica. A diferencia de los grafos (que veremos más adelante), un árbol no puede contener ciclos y siempre hay un único camino entre dos nodos cualesquiera.
 
@@ -45,13 +45,13 @@ Para hablar de árboles, necesitamos un vocabulario común.
 
 -----
 
-## 2. El Árbol Binario: Una Simplificación Poderosa
+## El Árbol Binario: Una Simplificación Poderosa
 
 Aunque un nodo en un árbol general puede tener cualquier número de hijos, una de las variantes más estudiadas y utilizadas es el **árbol binario**, donde cada nodo tiene, como máximo, **dos hijos**: un hijo izquierdo y un hijo derecho.
 
 Esta restricción no es una limitación, sino una especialización que simplifica enormemente los algoritmos y permite estructuras de datos muy eficientes.
 
-### 2.1 Tipos de Árboles Binarios
+### Tipos de Árboles Binarios
 
 No todos los árboles binarios son iguales. Su forma (o *topología*) tiene un gran impacto en su eficiencia.
 
@@ -60,7 +60,7 @@ No todos los árboles binarios son iguales. Su forma (o *topología*) tiene un g
   * **Árbol Binario Perfecto**: Un árbol lleno donde todas las hojas están en el mismo nivel. Representa la máxima "densidad" de nodos para una altura dada. Un árbol perfecto de altura $h$ tiene exactamente $2^{h+1} - 1$ nodos.
   * **Árbol Degenerado o Sesgado**: Cada nodo padre tiene un solo hijo. Se comporta exactamente como una **lista enlazada**, perdiendo todas las ventajas de un árbol. Es el peor caso para un árbol de búsqueda.
 
-### 2.2 El Propósito de los Recorridos
+### El Propósito de los Recorridos
 
 Recorrer un árbol significa visitar cada uno de sus nodos en un orden específico. Este orden no es arbitrario; cada tipo de recorrido tiene un propósito fundamental. Dado este árbol de ejemplo:
 
@@ -86,7 +86,7 @@ Recorrer un árbol significa visitar cada uno de sus nodos en un orden específi
 
 -----
 
-## 3. Árboles Binarios de Búsqueda (BST)
+## Árboles Binarios de Búsqueda (BST)
 
 Un BST impone una regla fundamental sobre un árbol binario: la **propiedad de orden del BST**.
 
@@ -95,13 +95,13 @@ Un BST impone una regla fundamental sobre un árbol binario: la **propiedad de o
 >   * Todos los valores en el subárbol izquierdo de `N` deben ser **menores** que el valor de `N`.
 >   * Todos los valores en el subárbol derecho de `N` deben ser **mayores** que el valor de `N`.
 
-### 3.1 La Gran Idea: Dividir para Conquistar
+### La Gran Idea: Dividir para Conquistar
 
 Esta simple regla es la que le da al BST su poder. Cada vez que comparamos una clave con un nodo, podemos **descartar la mitad del árbol restante**. Si la clave que buscamos es menor que el nodo actual, sabemos con certeza que *no* puede estar en el subárbol derecho, y viceversa.
 
 Este es el mismo principio de la **búsqueda binaria** en un array ordenado, pero aplicado a una estructura de datos dinámica que permite inserciones y eliminaciones eficientes. Mientras el árbol esté razonablemente **balanceado**, las operaciones principales (búsqueda, inserción, eliminación) tienen una complejidad temporal de $O(\log n)$.
 
-### 3.2 Operaciones Detalladas
+### Operaciones Detalladas
 
 #### Inserción y Búsqueda
 
@@ -132,14 +132,14 @@ La eliminación es la operación más compleja porque debemos preservar la propi
 
 -----
 
-## 4. El Talón de Aquiles de los BST: El Desequilibrio
+## El Talón de Aquiles de los BST: El Desequilibrio
 
 La magia de $O(\log n)$ solo funciona si la altura del árbol ($h$) es cercana a $\log n$. ¿Qué pasa si insertamos elementos ya ordenados (ej. 10, 20, 30, 40, 50) en un BST?
 
 El resultado es un **árbol degenerado**: una larga cadena de hijos derechos. La altura del árbol se convierte en $n$, y la búsqueda se degrada a una búsqueda lineal con complejidad $O(n)$, perdiendo toda su ventaja.
 
 
-### 4.1 La Solución: Árboles Autobalanceados
+### La Solución: Árboles Autobalanceados
 
 Para resolver el problema del crecimiento desmesurado de la altura en los **árboles binarios de búsqueda (ABB)**, se inventaron los **árboles autobalanceados**.
 La idea central es sencilla: tras cada operación de inserción o eliminación, el árbol **verifica si alguna rama ha quedado demasiado “pesada”** en comparación con la otra, y en caso afirmativo **aplica transformaciones locales** para restaurar un equilibrio razonable.
@@ -180,7 +180,7 @@ La diferencia está en el grado de perfeccionismo:
 * Rojo-Negro = equilibrio flexible, ideal en entornos con muchas modificaciones.
 
 
-## 5. Caso de Estudio: Árboles de Expresión Aritmética
+## Caso de Estudio: Árboles de Expresión Aritmética
 
 Una aplicación clásica de los árboles binarios es la representación de expresiones matemáticas.
 
@@ -231,7 +231,7 @@ En resumen: el uso de árboles de expresión y su traducción a notación postfi
 
 -----
 
-## 6. Más Allá de los Binarios: Un Vistazo al Ecosistema de Árboles
+## Más Allá de los Binarios: Un Vistazo al Ecosistema de Árboles
 
 Aunque los BST son fundamentales, no son el final del camino. Dependiendo del problema, se usan otras variantes:
 
@@ -241,7 +241,7 @@ Aunque los BST son fundamentales, no son el final del camino. Dependiendo del pr
 
 -----
 
-## 7. Ejercicios Ampliados
+## Ejercicios Ampliados
 
 #### Ejercicios Teóricos y de Diseño
 

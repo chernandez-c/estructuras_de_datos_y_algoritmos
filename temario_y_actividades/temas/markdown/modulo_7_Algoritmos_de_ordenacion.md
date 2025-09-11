@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 7 – Algoritmos de Ordenación: Imponiendo el Orden en el Caos
 
-## 0. Motivación: El Orden como Prerrequisito de la Eficiencia
+## Motivación: El Orden como Prerrequisito de la Eficiencia
 
 En un mundo saturado de datos, la información en su estado crudo es a menudo caótica e inmanejable. La **ordenación** es el proceso fundamental mediante el cual transformamos este caos en una estructura inteligible. Es, quizás, la tarea más realizada en computación, no como un fin en sí misma, sino como un paso crucial que habilita operaciones más complejas y eficientes.
 
@@ -24,11 +24,11 @@ El estudio de los algoritmos de ordenación es un viaje por la historia de la al
 
 -----
 
-## 1. Algoritmos Simples (Complejidad Cuadrática)
+## Algoritmos Simples (Complejidad Cuadrática)
 
 Estos algoritmos son conceptualmente sencillos y fáciles de implementar, pero su rendimiento de $O(n^2)$ los hace inviables para conjuntos de datos que no sean pequeños. Son, sin embargo, excelentes herramientas pedagógicas para entender los fundamentos de la ordenación.
 
-### 1.1 Bubble Sort (Ordenación por Burbuja)
+### Bubble Sort (Ordenación por Burbuja)
 
   * **Filosofía**: La "fuerza bruta" paciente. Compara repetidamente pares de elementos adyacentes y los intercambia si están en el orden incorrecto. En cada pasada completa, el siguiente elemento más grande "burbujea" hasta su posición final.
   * **Analogía**: Imagina una fila de personas de diferentes alturas. En cada paso, miras a dos personas contiguas y, si la de la izquierda es más alta que la de la derecha, las intercambias. Si repites este proceso a lo largo de toda la fila suficientes veces, la gente terminará ordenada por altura.
@@ -50,7 +50,7 @@ procedimiento bubbleSort(lista):
 
   * **Análisis**: Su rendimiento es pobre ($O(n^2)$) porque solo mueve los elementos de uno en uno. Su única ventaja real es su capacidad de detectar si la lista ya está ordenada (terminando en una sola pasada, $O(n)$).
 
-### 1.2 Insertion Sort (Ordenación por Inserción)
+### Insertion Sort (Ordenación por Inserción)
 
   * **Filosofía**: Construir el orden de forma incremental. Recorre la lista, tomando cada elemento y "deslizándolo" hacia la izquierda en la parte ya ordenada de la lista hasta encontrar su lugar correcto.
   * **Analogía**: Es exactamente como la mayoría de la gente ordena una mano de cartas. Tomas una carta a la vez y la insertas en la posición correcta entre las cartas que ya tienes ordenadas en la otra mano.
@@ -71,7 +71,7 @@ procedimiento insertionSort(lista):
 
   * **Análisis**: Aunque su peor caso sigue siendo $O(n^2)$, es significativamente más eficiente en la práctica que Bubble Sort. Su gran ventaja es su rendimiento **adaptativo**: para listas que están **casi ordenadas**, su complejidad se acerca a $O(n)$, lo que lo hace muy útil en ciertos escenarios.
 
-### 1.3 Selection Sort (Ordenación por Selección)
+### Selection Sort (Ordenación por Selección)
 
   * **Filosofía**: El método metódico. Divide la lista en dos partes: una ordenada (al principio) y una desordenada (el resto). En cada paso, encuentra el elemento más pequeño de la parte desordenada y lo intercambia con el primer elemento de esa parte, expandiendo así la sección ordenada.
   * **Analogía**: Es como un director de casting que tiene que poner en fila a un grupo de actores por altura. Primero, busca al actor más bajo de todo el grupo y lo pone al principio. Luego, ignora a esa persona y busca al más bajo del resto, colocándolo en la segunda posición. Repite hasta que todos están en fila.
@@ -93,13 +93,13 @@ procedimiento selectionSort(lista):
 
 -----
 
-## 2. Algoritmos Eficientes 
+## Algoritmos Eficientes 
 
 **Complejidad $O(n \log n)$**
 
 Estos algoritmos utilizan estrategias más sofisticadas, típicamente basadas en el paradigma **"Divide y Vencerás"**, para lograr una eficiencia muy superior. Son el estándar de oro para la ordenación de propósito general.
 
-### 2.1 Merge Sort (Ordenación por Mezcla)
+### Merge Sort (Ordenación por Mezcla)
 
   * **Filosofía**: La organización recursiva. La idea es que es trivial ordenar una lista de un solo elemento. Merge Sort divide recursivamente la lista a la mitad hasta que solo quedan sublistas de un elemento. Luego, combina (fusiona o "merge") esas sublistas de manera ordenada hasta reconstruir la lista completa.
   * **El paso clave**: La función `fusionar(izquierda, derecha)` es el corazón del algoritmo. Toma dos sublistas ya ordenadas y las combina en una nueva lista ordenada en tiempo lineal $O(n)$.
@@ -127,7 +127,7 @@ procedimiento fusionar(izquierda, derecha):
 
   * **Análisis**: Su complejidad es **siempre** $O(n \log n)$, lo que lo hace muy predecible y fiable. Su principal desventaja es que requiere espacio adicional ($O(n)$) para almacenar las sublistas, lo que puede ser un problema con memoria limitada. Es un algoritmo **estable**, lo que significa que mantiene el orden relativo de los elementos con claves iguales.
 
-### 2.2 Quicksort (Ordenación Rápida)
+### Quicksort (Ordenación Rápida)
 
   * **Filosofía**: La partición inteligente. Es otro algoritmo de "Divide y Vencerás", pero funciona de manera diferente.
     1.  **Elegir un pivote**: Se selecciona un elemento de la lista (el pivote).
@@ -153,7 +153,7 @@ función quickSort(lista):
 
 -----
 
-## 3. Comparación y Criterios de Elección
+## Comparación y Criterios de Elección
 
 | Algoritmo | Complejidad Promedio | Peor Caso | Espacio Adicional | Estable | Comentarios |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -184,7 +184,7 @@ función quickSort(lista):
 
 ---
 
-## 5. Conclusiones
+## Conclusiones
 
 * Los algoritmos **cuadráticos** son simples, útiles solo para listas pequeñas o fines pedagógicos.
 * **Merge sort** y **quicksort** ofrecen rendimiento $O(n \log n)$ y son los más usados en la práctica.
@@ -193,7 +193,7 @@ función quickSort(lista):
 
 ---
 
-## 6. Ejercicios de autoevaluación
+## Ejercicios de autoevaluación
 
 1. Ordena manualmente la lista `[5,2,9,1,5,6]` con bubble sort, mostrando cada pasada.
 2. ¿Por qué insertion sort es más eficiente que bubble sort en la práctica?

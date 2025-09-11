@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 8 – Algoritmos y Estructuras de Datos: El Corazón Computacional de la Bioinformática
 
-## 0. Motivación: De la Biología a los Terabytes 🧬💻
+## Motivación: De la Biología a los Terabytes 🧬💻
 
 La biología del siglo XXI ha experimentado una transformación radical. Hemos pasado de estudiar organismos uno a uno a secuenciar genomas completos en cuestión de horas. Esta revolución ha generado un **diluvio de datos** de una escala sin precedentes. El genoma humano, por ejemplo, es una secuencia de 3.200 millones de caracteres. Un solo experimento de expresión génica puede generar una matriz con cientos de miles de puntos de datos.
 
@@ -18,11 +18,11 @@ Este módulo es la culminación de todo el curso. Aquí veremos cómo los concep
 
 ---
 
-## 1. Procesamiento de Secuencias Biológicas: El Lenguaje de la Vida
+## Procesamiento de Secuencias Biológicas: El Lenguaje de la Vida
 
 La tarea más fundamental en bioinformática es el análisis de secuencias de ADN, ARN y proteínas. La eficiencia aquí no es un lujo, es una necesidad.
 
-### 1.1 Búsqueda de Patrones (Motivos)
+### Búsqueda de Patrones (Motivos)
 
 * **Problema Real**: No se trata solo de encontrar una subsecuencia. Buscamos "señales" con significado biológico.
     * **Ejemplo 1**: Localizar todas las ocurrencias del codón de inicio `ATG` para predecir dónde comienzan los genes.
@@ -38,7 +38,7 @@ La tarea más fundamental en bioinformática es el análisis de secuencias de AD
         * **Filosofía**: Son la solución "definitiva" para la búsqueda de patrones. Un árbol de sufijos es una estructura de datos que contiene **todos los sufijos** de una cadena de una manera comprimida.
         * **Analogía**: Imagina tener un índice de un libro que no solo te dice en qué página aparece cada palabra, sino también cada frase, cada párrafo y cada combinación de letras posible. Eso es un árbol de sufijos para una secuencia. Permite responder preguntas complejas como "¿cuál es la subsecuencia más larga que se repite en este genoma?" en tiempo proporcional a la longitud del patrón, no del genoma.
 
-### 1.2 Comparación de Secuencias (Alineamiento)
+### Comparación de Secuencias (Alineamiento)
 
 * **Problema Real**: ¿Cómo cuantificamos la similitud entre dos genes? Esto es crucial para inferir funciones (si un gen desconocido es 80% similar a un gen conocido, probablemente tengan funciones parecidas) o para trazar relaciones evolutivas.
 
@@ -53,7 +53,7 @@ La tarea más fundamental en bioinformática es el análisis de secuencias de AD
 
 ---
 
-## 2. Ordenación: Poniendo en Fila los Datos Biológicos
+## Ordenación: Poniendo en Fila los Datos Biológicos
 
 La ordenación es un paso de pre-procesamiento omnipresente.
 * **Caso Práctico 1: Análisis de datos de secuenciación (NGS)**. Un experimento produce cientos de millones de lecturas de ADN cortas (*reads*). Antes de mapearlas contra un genoma de referencia, es útil ordenarlas. ¿Por qué? Un lote de lecturas ordenadas lexicográficamente puede ser procesado de forma más eficiente por los algoritmos de mapeo debido a una mejor localidad de caché y patrones de acceso a memoria.
@@ -65,7 +65,7 @@ La ordenación es un paso de pre-procesamiento omnipresente.
 
 ---
 
-## 3. Grafos: La Estructura de las Redes Biológicas
+## Grafos: La Estructura de las Redes Biológicas
 
 La biología está llena de redes, y los grafos son el lenguaje natural para describirlas.
 
@@ -82,7 +82,7 @@ La biología está llena de redes, y los grafos son el lenguaje natural para des
 
 ---
 
-## 4. Árboles: Jerarquías en Evolución y Datos
+## Árboles: Jerarquías en Evolución y Datos
 
 * **Árboles Filogenéticos**:
     * **Modelo**: Representan la historia evolutiva. Las hojas son las especies actuales y los nodos internos son los ancestros comunes. La longitud de las ramas puede representar el tiempo evolutivo o la cantidad de cambio genético.
@@ -94,7 +94,7 @@ La biología está llena de redes, y los grafos son el lenguaje natural para des
 
 ---
 
-## 5. Conclusiones Finales: La Caja de Herramientas del Bioinformático
+## Conclusiones Finales: La Caja de Herramientas del Bioinformático
 
 Este módulo demuestra que la bioinformática no es simplemente "aplicar programas a datos biológicos". Es el campo donde la teoría de la computación se encuentra con los desafíos más fundamentales de la biología.
 
@@ -104,7 +104,7 @@ Este módulo demuestra que la bioinformática no es simplemente "aplicar program
 
 ---
 
-## 6. Ejercicios de autoevaluación
+## Ejercicios de autoevaluación
 
 1. Diseña un pseudocódigo para buscar un motivo de longitud 3 en una secuencia de ADN usando **tablas hash de k-mers** (apóyate en el Módulo 6).  
 2. ¿Qué ventajas tiene **radix sort** sobre quicksort para ordenar secuencias de nucleótidos? (revisa Módulo 7).  

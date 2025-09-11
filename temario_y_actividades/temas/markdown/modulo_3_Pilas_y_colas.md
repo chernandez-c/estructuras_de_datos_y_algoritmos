@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 3 – Pilas y Colas: Gestionando el Orden en la Complejidad
 
-## 0. Motivación: El Poder de las Restricciones
+## Motivación: El Poder de las Restricciones
 
 Antes de sumergirnos en la implementación, es crucial preguntarse: ¿por qué querríamos limitar nuestro acceso a los datos? En un mundo donde las listas y los arrays nos dan la libertad de acceder a cualquier elemento por su índice (`array[i]`), las pilas y colas parecen un paso atrás.
 
@@ -24,11 +24,11 @@ Al adoptar estas restricciones, ganamos claridad, robustez y algoritmos que son 
 
 -----
 
-## 1. Pilas (Stacks): La Memoria del Presente Reciente
+## Pilas (Stacks): La Memoria del Presente Reciente
 
 Una **pila** es una estructura de datos que opera bajo el principio **LIFO (Last-In, First-Out)**. Su analogía más famosa es una pila de platos: solo puedes interactuar con el plato que está en la cima. Esta estructura es fundamental para gestionar procesos que tienen una naturaleza jerárquica o recursiva, donde la tarea más reciente debe ser la primera en resolverse.
 
-### 1.1 Operaciones Principales y Casos Límite
+### Operaciones Principales y Casos Límite
 
 Las operaciones definen la "personalidad" de la pila. Es crucial entender no solo lo que hacen, sino también sus condiciones de error.
 
@@ -54,7 +54,7 @@ DATO desapilar(PILA P):
     devolver x
 ```
 
-### 1.2. Análisis Detallado de Implementaciones
+###. Análisis Detallado de Implementaciones
 
 La elección de la implementación subyacente (array o lista enlazada) tiene implicaciones en el rendimiento y el uso de memoria.
 
@@ -68,7 +68,7 @@ La elección de la implementación subyacente (array o lista enlazada) tiene imp
 
 **Conclusión Filosófica**: La implementación con **vector** es preferible cuando el tamaño máximo es conocido o predecible y el rendimiento es crítico (gracias a la caché). La **lista enlazada** es ideal para situaciones donde el tamaño es impredecible y la flexibilidad es la máxima prioridad.
 
-### 1.3. Caso de Estudio a Fondo: La Pila de Llamadas (Call Stack)
+###. Caso de Estudio a Fondo: La Pila de Llamadas (Call Stack)
 
 Quizás la aplicación más importante de las pilas es la **gestión de la pila de llamadas a funciones** en casi todos los lenguajes de programación modernos. Sin ella, la recursión y la propia estructura de nuestros programas serían imposibles.
 
@@ -102,11 +102,11 @@ Este mecanismo es la razón por la que una recursión infinita causa un error de
 
 ---
 
-## 2. Colas (Queues): La Justicia del Orden de Llegada
+## Colas (Queues): La Justicia del Orden de Llegada
 
 Una **cola** implementa el principio **FIFO (First-In, First-Out)**. Es el modelo de la fila de un supermercado: la primera persona en llegar es la primera en ser atendida. Este principio de justicia y orden secuencial es clave para sistemas que gestionan recursos compartidos o procesan tareas en el orden en que fueron solicitadas.
 
-### 2.1 Operaciones Principales
+### Operaciones Principales
 
 * **`encolar` (enqueue)**: Añade un elemento al **final** de la cola.
 * **`desencolar` (dequeue)**: Elimina el elemento del **principio** de la cola y lo devuelve.
@@ -127,7 +127,7 @@ DATO desencolar(COLA Q):
     devolver x
 ```
 
-### 2.2 Implementaciones y el Desafío de la Cola Circular
+### Implementaciones y el Desafío de la Cola Circular
 
 **El Problema de la Implementación con Vector Simple:**
 
@@ -144,13 +144,13 @@ Esto se logra con la **aritmética modular**. Para un array de tamaño $N$:
 
 Este diseño es increíblemente eficiente y es el estándar para implementar buffers de tamaño fijo en sistemas operativos, redes y hardware.
 
-### 2.3 Variantes de Colas
+### Variantes de Colas
 
 * **Cola Circular**: Como se vio, es una optimización para implementaciones con arrays. Es la base de los *ring buffers*.
 * **Deque (Cola Doble)**: Del inglés *Double-Ended Queue*. Es una estructura híbrida que permite **encolar y desencolar por ambos extremos**. Es una navaja suiza de las estructuras lineales, útil en algoritmos de ventanas deslizantes (*sliding window*) o para construir otros algoritmos más complejos.
 * **Cola de Prioridad**: Rompe la regla FIFO. Cada elemento tiene una **prioridad** asociada. Al desencolar, siempre se extrae el elemento con la máxima prioridad, sin importar cuándo llegó. No se implementa con arrays o listas, sino con estructuras más complejas como los **heaps (montículos)**. Son esenciales en algoritmos como el de Dijkstra (para encontrar el camino más corto en un grafo) o en la planificación de procesos de un SO donde algunas tareas son más urgentes que otras.
 
-### 2.4 Caso de Estudio a Fondo: El Planificador de Procesos del Sistema Operativo
+### Caso de Estudio a Fondo: El Planificador de Procesos del Sistema Operativo
 
 Los sistemas operativos modernos son multitarea, lo que significa que pueden ejecutar múltiples procesos (casi) simultáneamente. ¿Cómo decide la CPU a qué proceso prestarle atención en cada momento? La respuesta más simple es una **cola de procesos listos (Ready Queue)**.
 
@@ -170,7 +170,7 @@ Este sistema basado en colas garantiza la **equidad (fairness)**: cada proceso t
 
 ---
 
-## 3. Contexto Histórico y Orígenes Conceptuales
+## Contexto Histórico y Orígenes Conceptuales
 
 Las pilas y colas no nacieron con la informática moderna; son conceptos que los matemáticos y lógicos ya utilizaban.
 
@@ -180,7 +180,7 @@ Las pilas y colas no nacieron con la informática moderna; son conceptos que los
 
 ---
 
-## 4. Conclusiones: Más Allá de la Implementación
+## Conclusiones: Más Allá de la Implementación
 
 Las pilas y colas son mucho más que simples formas de organizar datos. Son **abstracciones fundamentales** que nos enseñan a pensar sobre el flujo del tiempo y el orden en los algoritmos.
 
@@ -191,7 +191,7 @@ Comprender su disciplina de acceso es el primer paso para dominar algoritmos má
 
 ---
 
-## 5. Ejercicios Ampliados
+## Ejercicios Ampliados
 
 #### Ejercicios Teóricos y de Diseño
 

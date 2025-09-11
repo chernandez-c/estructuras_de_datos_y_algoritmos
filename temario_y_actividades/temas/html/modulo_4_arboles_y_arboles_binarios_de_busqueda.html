@@ -179,7 +179,7 @@ Algoritmos</p>
 </nav>
 <h1 id="módulo-4-árboles-estructurando-la-jerarquía">Módulo 4 – Árboles:
 Estructurando la Jerarquía</h1>
-<h2 id="motivación-de-lo-lineal-a-lo-jerárquico">0. Motivación: De lo
+<h2 id="motivación-de-lo-lineal-a-lo-jerárquico">Motivación: De lo
 Lineal a lo Jerárquico</h2>
 <p>En los módulos anteriores, exploramos estructuras de datos
 <strong>lineales</strong> como listas, pilas y colas. Son como perlas en
@@ -206,8 +206,8 @@ complejos.</p>
 una manera que refleja su estructura inherente, permitiendo operaciones
 increíblemente eficientes que serían imposibles en un modelo lineal.</p>
 <hr />
-<h2 id="conceptos-fundamentales-de-los-árboles">1. Conceptos
-Fundamentales de los Árboles</h2>
+<h2 id="conceptos-fundamentales-de-los-árboles">Conceptos Fundamentales
+de los Árboles</h2>
 <p>Un <strong>árbol</strong> es una colección de <strong>nodos</strong>
 conectados por <strong>aristas</strong> de forma jerárquica. A
 diferencia de los grafos (que veremos más adelante), un árbol no puede
@@ -241,8 +241,8 @@ descendientes forman un subárbol, que es un árbol válido en sí
 mismo.</li>
 </ul>
 <hr />
-<h2 id="el-árbol-binario-una-simplificación-poderosa">2. El Árbol
-Binario: Una Simplificación Poderosa</h2>
+<h2 id="el-árbol-binario-una-simplificación-poderosa">El Árbol Binario:
+Una Simplificación Poderosa</h2>
 <p>Aunque un nodo en un árbol general puede tener cualquier número de
 hijos, una de las variantes más estudiadas y utilizadas es el
 <strong>árbol binario</strong>, donde cada nodo tiene, como máximo,
@@ -250,7 +250,7 @@ hijos, una de las variantes más estudiadas y utilizadas es el
 <p>Esta restricción no es una limitación, sino una especialización que
 simplifica enormemente los algoritmos y permite estructuras de datos muy
 eficientes.</p>
-<h3 id="tipos-de-árboles-binarios">2.1 Tipos de Árboles Binarios</h3>
+<h3 id="tipos-de-árboles-binarios">Tipos de Árboles Binarios</h3>
 <p>No todos los árboles binarios son iguales. Su forma (o
 <em>topología</em>) tiene un gran impacto en su eficiencia.</p>
 <ul>
@@ -270,7 +270,7 @@ un solo hijo. Se comporta exactamente como una <strong>lista
 enlazada</strong>, perdiendo todas las ventajas de un árbol. Es el peor
 caso para un árbol de búsqueda.</li>
 </ul>
-<h3 id="el-propósito-de-los-recorridos">2.2 El Propósito de los
+<h3 id="el-propósito-de-los-recorridos">El Propósito de los
 Recorridos</h3>
 <p>Recorrer un árbol significa visitar cada uno de sus nodos en un orden
 específico. Este orden no es arbitrario; cada tipo de recorrido tiene un
@@ -309,8 +309,8 @@ expresión (notación postfija o RPN).</li>
 </ul></li>
 </ol>
 <hr />
-<h2 id="árboles-binarios-de-búsqueda-bst">3. Árboles Binarios de
-Búsqueda (BST)</h2>
+<h2 id="árboles-binarios-de-búsqueda-bst">Árboles Binarios de Búsqueda
+(BST)</h2>
 <p>Un BST impone una regla fundamental sobre un árbol binario: la
 <strong>propiedad de orden del BST</strong>.</p>
 <blockquote>
@@ -322,8 +322,8 @@ ser <strong>menores</strong> que el valor de <code>N</code>.</li>
 <strong>mayores</strong> que el valor de <code>N</code>.</li>
 </ul>
 </blockquote>
-<h3 id="la-gran-idea-dividir-para-conquistar">3.1 La Gran Idea: Dividir
-para Conquistar</h3>
+<h3 id="la-gran-idea-dividir-para-conquistar">La Gran Idea: Dividir para
+Conquistar</h3>
 <p>Esta simple regla es la que le da al BST su poder. Cada vez que
 comparamos una clave con un nodo, podemos <strong>descartar la mitad del
 árbol restante</strong>. Si la clave que buscamos es menor que el nodo
@@ -335,7 +335,7 @@ permite inserciones y eliminaciones eficientes. Mientras el árbol esté
 razonablemente <strong>balanceado</strong>, las operaciones principales
 (búsqueda, inserción, eliminación) tienen una complejidad temporal de
 <span class="math inline">\(O(\log n)\)</span>.</p>
-<h3 id="operaciones-detalladas">3.2 Operaciones Detalladas</h3>
+<h3 id="operaciones-detalladas">Operaciones Detalladas</h3>
 <h4 id="inserción-y-búsqueda">Inserción y Búsqueda</h4>
 <p>Las operaciones de búsqueda e inserción son recursivas y elegantes.
 Se desciende por el árbol, tomando una decisión en cada nivel (ir a la
@@ -385,7 +385,7 @@ caso más simple (Caso 1 o Caso 2).</li>
 </ul></li>
 </ol>
 <hr />
-<h2 id="el-talón-de-aquiles-de-los-bst-el-desequilibrio">4. El Talón de
+<h2 id="el-talón-de-aquiles-de-los-bst-el-desequilibrio">El Talón de
 Aquiles de los BST: El Desequilibrio</h2>
 <p>La magia de <span class="math inline">\(O(\log n)\)</span> solo
 funciona si la altura del árbol (<span class="math inline">\(h\)</span>)
@@ -397,7 +397,7 @@ cadena de hijos derechos. La altura del árbol se convierte en <span
 class="math inline">\(n\)</span>, y la búsqueda se degrada a una
 búsqueda lineal con complejidad <span
 class="math inline">\(O(n)\)</span>, perdiendo toda su ventaja.</p>
-<h3 id="la-solución-árboles-autobalanceados">4.1 La Solución: Árboles
+<h3 id="la-solución-árboles-autobalanceados">La Solución: Árboles
 Autobalanceados</h3>
 <p>Para resolver el problema del crecimiento desmesurado de la altura en
 los <strong>árboles binarios de búsqueda (ABB)</strong>, se inventaron
@@ -468,7 +468,7 @@ locales</strong> para mantener el árbol con altura logarítmica.</p>
 <p>La diferencia está en el grado de perfeccionismo: * AVL = equilibrio
 estricto, ideal si buscas rapidez de acceso. * Rojo-Negro = equilibrio
 flexible, ideal en entornos con muchas modificaciones.</p>
-<h2 id="caso-de-estudio-árboles-de-expresión-aritmética">5. Caso de
+<h2 id="caso-de-estudio-árboles-de-expresión-aritmética">Caso de
 Estudio: Árboles de Expresión Aritmética</h2>
 <p>Una aplicación clásica de los árboles binarios es la representación
 de expresiones matemáticas.</p>
@@ -541,8 +541,9 @@ postfija <strong>transformó una limitación tecnológica en una solución
 elegante</strong> que marcó la diferencia entre una calculadora que solo
 sumaba y una que ya parecía un pequeño ordenador.</p>
 <hr />
-<h2 id="más-allá-de-los-binarios-un-vistazo-al-ecosistema-de-árboles">6.
-Más Allá de los Binarios: Un Vistazo al Ecosistema de Árboles</h2>
+<h2
+id="más-allá-de-los-binarios-un-vistazo-al-ecosistema-de-árboles">Más
+Allá de los Binarios: Un Vistazo al Ecosistema de Árboles</h2>
 <p>Aunque los BST son fundamentales, no son el final del camino.
 Dependiendo del problema, se usan otras variantes:</p>
 <ul>
@@ -561,7 +562,7 @@ hijos), usados para implementar <strong>colas de
 prioridad</strong>.</li>
 </ul>
 <hr />
-<h2 id="ejercicios-ampliados">7. Ejercicios Ampliados</h2>
+<h2 id="ejercicios-ampliados">Ejercicios Ampliados</h2>
 <h4 id="ejercicios-teóricos-y-de-diseño">Ejercicios Teóricos y de
 Diseño</h4>
 <ol type="1">

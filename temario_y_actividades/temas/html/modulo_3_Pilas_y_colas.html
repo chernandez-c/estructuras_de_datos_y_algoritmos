@@ -180,8 +180,8 @@ Algoritmos</p>
 <h1
 id="módulo-3-pilas-y-colas-gestionando-el-orden-en-la-complejidad">Módulo
 3 – Pilas y Colas: Gestionando el Orden en la Complejidad</h1>
-<h2 id="motivación-el-poder-de-las-restricciones">0. Motivación: El
-Poder de las Restricciones</h2>
+<h2 id="motivación-el-poder-de-las-restricciones">Motivación: El Poder
+de las Restricciones</h2>
 <p>Antes de sumergirnos en la implementación, es crucial preguntarse:
 ¿por qué querríamos limitar nuestro acceso a los datos? En un mundo
 donde las listas y los arrays nos dan la libertad de acceder a cualquier
@@ -217,16 +217,16 @@ primero que llega, es el primero en ser servido”.</li>
 algoritmos que son un reflejo fiel de los problemas que intentan
 solucionar.</p>
 <hr />
-<h2 id="pilas-stacks-la-memoria-del-presente-reciente">1. Pilas
-(Stacks): La Memoria del Presente Reciente</h2>
+<h2 id="pilas-stacks-la-memoria-del-presente-reciente">Pilas (Stacks):
+La Memoria del Presente Reciente</h2>
 <p>Una <strong>pila</strong> es una estructura de datos que opera bajo
 el principio <strong>LIFO (Last-In, First-Out)</strong>. Su analogía más
 famosa es una pila de platos: solo puedes interactuar con el plato que
 está en la cima. Esta estructura es fundamental para gestionar procesos
 que tienen una naturaleza jerárquica o recursiva, donde la tarea más
 reciente debe ser la primera en resolverse.</p>
-<h3 id="operaciones-principales-y-casos-límite">1.1 Operaciones
-Principales y Casos Límite</h3>
+<h3 id="operaciones-principales-y-casos-límite">Operaciones Principales
+y Casos Límite</h3>
 <p>Las operaciones definen la “personalidad” de la pila. Es crucial
 entender no solo lo que hacen, sino también sus condiciones de
 error.</p>
@@ -265,8 +265,7 @@ DATO desapilar(PILA P):
     x ← P.elementos[P.tope]
     P.tope ← P.tope - 1
     devolver x</code></pre>
-<h3 id="análisis-detallado-de-implementaciones">1.2. Análisis Detallado
-de Implementaciones</h3>
+<p>###. Análisis Detallado de Implementaciones</p>
 <p>La elección de la implementación subyacente (array o lista enlazada)
 tiene implicaciones en el rendimiento y el uso de memoria.</p>
 <table>
@@ -320,8 +319,7 @@ memoria.</td>
 conocido o predecible y el rendimiento es crítico (gracias a la caché).
 La <strong>lista enlazada</strong> es ideal para situaciones donde el
 tamaño es impredecible y la flexibilidad es la máxima prioridad.</p>
-<h3 id="caso-de-estudio-a-fondo-la-pila-de-llamadas-call-stack">1.3.
-Caso de Estudio a Fondo: La Pila de Llamadas (Call Stack)</h3>
+<p>###. Caso de Estudio a Fondo: La Pila de Llamadas (Call Stack)</p>
 <p>Quizás la aplicación más importante de las pilas es la
 <strong>gestión de la pila de llamadas a funciones</strong> en casi
 todos los lenguajes de programación modernos. Sin ella, la recursión y
@@ -357,8 +355,7 @@ funciones han retornado y la pila vuelve a estar vacía (solo con
 error de <strong>Stack Overflow</strong>: cada llamada recursiva apila
 un nuevo marco hasta que se agota la memoria asignada a la pila.</p>
 <figure>
-<img src="../images/stack.png" style="width:50.0%"
-alt="Representación de una pila" />
+<img src="../images/stack.png" alt="Representación de una pila" />
 <figcaption aria-hidden="true">Representación de una pila</figcaption>
 </figure>
 <p><em>Figura 5: estructura LIFO.</em></p>
@@ -366,15 +363,15 @@ alt="Representación de una pila" />
 reciente es la más importante</strong>: lo último que hicimos es lo
 primero que podemos deshacer.</p>
 <hr />
-<h2 id="colas-queues-la-justicia-del-orden-de-llegada">2. Colas
-(Queues): La Justicia del Orden de Llegada</h2>
+<h2 id="colas-queues-la-justicia-del-orden-de-llegada">Colas (Queues):
+La Justicia del Orden de Llegada</h2>
 <p>Una <strong>cola</strong> implementa el principio <strong>FIFO
 (First-In, First-Out)</strong>. Es el modelo de la fila de un
 supermercado: la primera persona en llegar es la primera en ser
 atendida. Este principio de justicia y orden secuencial es clave para
 sistemas que gestionan recursos compartidos o procesan tareas en el
 orden en que fueron solicitadas.</p>
-<h3 id="operaciones-principales">2.1 Operaciones Principales</h3>
+<h3 id="operaciones-principales">Operaciones Principales</h3>
 <ul>
 <li><strong><code>encolar</code> (enqueue)</strong>: Añade un elemento
 al <strong>final</strong> de la cola.</li>
@@ -395,8 +392,9 @@ DATO desencolar(COLA Q):
     x ← Q.elementos[Q.frente]
     Q.frente ← Q.frente + 1
     devolver x</code></pre>
-<h3 id="implementaciones-y-el-desafío-de-la-cola-circular">2.2
-Implementaciones y el Desafío de la Cola Circular</h3>
+<h3
+id="implementaciones-y-el-desafío-de-la-cola-circular">Implementaciones
+y el Desafío de la Cola Circular</h3>
 <p><strong>El Problema de la Implementación con Vector
 Simple:</strong></p>
 <p>Si usamos un vector con dos punteros, <code>frente</code> y
@@ -420,7 +418,7 @@ array de tamaño <span class="math inline">\(N\)</span>:</p>
 <p>Este diseño es increíblemente eficiente y es el estándar para
 implementar buffers de tamaño fijo en sistemas operativos, redes y
 hardware.</p>
-<h3 id="variantes-de-colas">2.3 Variantes de Colas</h3>
+<h3 id="variantes-de-colas">Variantes de Colas</h3>
 <ul>
 <li><strong>Cola Circular</strong>: Como se vio, es una optimización
 para implementaciones con arrays. Es la base de los <em>ring
@@ -441,8 +439,8 @@ más corto en un grafo) o en la planificación de procesos de un SO donde
 algunas tareas son más urgentes que otras.</li>
 </ul>
 <h3
-id="caso-de-estudio-a-fondo-el-planificador-de-procesos-del-sistema-operativo">2.4
-Caso de Estudio a Fondo: El Planificador de Procesos del Sistema
+id="caso-de-estudio-a-fondo-el-planificador-de-procesos-del-sistema-operativo">Caso
+de Estudio a Fondo: El Planificador de Procesos del Sistema
 Operativo</h3>
 <p>Los sistemas operativos modernos son multitarea, lo que significa que
 pueden ejecutar múltiples procesos (casi) simultáneamente. ¿Cómo decide
@@ -472,14 +470,13 @@ leer un archivo), se retira de la cola.</li>
 (fairness)</strong>: cada proceso tiene la oportunidad de ejecutarse,
 evitando que un solo proceso monopolice la CPU.</p>
 <figure>
-<img src="../images/queue.png" style="width:70.0%"
-alt="Representación de una cola" />
+<img src="../images/queue.png" alt="Representación de una cola" />
 <figcaption aria-hidden="true">Representación de una cola</figcaption>
 </figure>
 <p><em>Figura 6: estructura FIFO.</em></p>
 <hr />
-<h2 id="contexto-histórico-y-orígenes-conceptuales">3. Contexto
-Histórico y Orígenes Conceptuales</h2>
+<h2 id="contexto-histórico-y-orígenes-conceptuales">Contexto Histórico y
+Orígenes Conceptuales</h2>
 <p>Las pilas y colas no nacieron con la informática moderna; son
 conceptos que los matemáticos y lógicos ya utilizaban.</p>
 <ul>
@@ -506,7 +503,7 @@ procesamiento asíncrono, una idea fundamental en la computación
 moderna.</li>
 </ul>
 <hr />
-<h2 id="conclusiones-más-allá-de-la-implementación">4. Conclusiones: Más
+<h2 id="conclusiones-más-allá-de-la-implementación">Conclusiones: Más
 Allá de la Implementación</h2>
 <p>Las pilas y colas son mucho más que simples formas de organizar
 datos. Son <strong>abstracciones fundamentales</strong> que nos enseñan
@@ -525,7 +522,7 @@ sistemas concurrentes y diseño de sistemas operativos. Representan dos
 formas primordiales de gestionar tareas: una que prioriza lo último y
 otra que respeta el orden histórico.</p>
 <hr />
-<h2 id="ejercicios-ampliados">5. Ejercicios Ampliados</h2>
+<h2 id="ejercicios-ampliados">Ejercicios Ampliados</h2>
 <h4 id="ejercicios-teóricos-y-de-diseño">Ejercicios Teóricos y de
 Diseño</h4>
 <ol type="1">

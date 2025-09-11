@@ -27,7 +27,7 @@ De esta manera, el tamaño de la lista se **adapta en tiempo de ejecución**: po
 
 ---
 
-## 1. Estructura de una lista enlazada simple
+## Estructura de una lista enlazada simple
 
 Una **lista enlazada simple** está formada por nodos conectados uno tras otro. Cada nodo tiene dos campos:
 
@@ -40,7 +40,7 @@ El primer nodo se denomina **cabeza** (*head*), y el último nodo apunta a `null
 
 *Figura 2: lista enlazada simple de cinco nodos.*
 
-### 1.1 Operaciones básicas y coste
+### Operaciones básicas y coste
 
 * **Inserción al inicio** → $O(1)$
   Basta con redirigir el puntero de la cabeza.
@@ -76,7 +76,7 @@ La lista enlazada simple nos recuerda que **a veces el camino importa más que l
 
 ---
 
-## 2. Listas doblemente enlazadas
+## Listas doblemente enlazadas
 
 Una mejora importante es la **lista doblemente enlazada**.
 Aquí cada nodo guarda tres campos:
@@ -97,7 +97,7 @@ Esto permite recorrer la lista en **ambos sentidos** y facilita operaciones como
 
 ---
 
-## 3. Listas circulares
+## Listas circulares
 
 En una **lista circular**, el último nodo no apunta a `null` sino de nuevo al primero. De esta forma, el recorrido nunca se detiene: no existe un “final”.
 
@@ -120,7 +120,7 @@ También existen **listas doblemente circulares**, que permiten navegar hacia ad
 
 ---
 
-## 4. Comparación con arrays
+## Comparación con arrays
 
 | Característica              | Lista enlazada                                               | Vector (array)                          |
 | --------------------------- | ------------------------------------------------------------ | --------------------------------------- |
@@ -139,7 +139,7 @@ También existen **listas doblemente circulares**, que permiten navegar hacia ad
 
 ---
 
-## 5. Casos de uso en bioinformática y computación
+## Casos de uso en bioinformática y computación
 
 * **Gestión dinámica de secuencias**: en ediciones de ADN, cuando se insertan o eliminan bases constantemente.
 * **Colas de procesos**: en sistemas operativos, donde los procesos entran y salen de forma continua.
@@ -151,7 +151,7 @@ También existen **listas doblemente circulares**, que permiten navegar hacia ad
 
 ---
 
-## 6. Conclusiones
+## Conclusiones
 
 Las listas enlazadas **resuelven las limitaciones de tamaño fijo** de los arrays.
 
@@ -163,7 +163,7 @@ Las listas enlazadas **resuelven las limitaciones de tamaño fijo** de los array
 
 ---
 
-## 7. Ejercicios de autoevaluación
+## Ejercicios de autoevaluación
 
 1. ¿Cuál es el coste temporal de acceder al elemento $i$ en una lista enlazada simple?
 2. Explica por qué una lista doblemente enlazada facilita la eliminación de un nodo conocido.

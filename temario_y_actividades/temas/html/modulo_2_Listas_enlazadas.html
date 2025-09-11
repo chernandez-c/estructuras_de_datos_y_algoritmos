@@ -203,8 +203,8 @@ dinámica en la que cada elemento (o <strong>nodo</strong>) contiene:</p>
 ejecución</strong>: podemos añadir y quitar nodos sin necesidad de
 reservar o liberar grandes bloques contiguos de memoria.</p>
 <hr />
-<h2 id="estructura-de-una-lista-enlazada-simple">1. Estructura de una
-lista enlazada simple</h2>
+<h2 id="estructura-de-una-lista-enlazada-simple">Estructura de una lista
+enlazada simple</h2>
 <p>Una <strong>lista enlazada simple</strong> está formada por nodos
 conectados uno tras otro. Cada nodo tiene dos campos:</p>
 <ol type="1">
@@ -217,13 +217,11 @@ siguiente nodo.</li>
 el último nodo apunta a <code>null</code>, señalando el final de la
 lista.</p>
 <figure>
-<img src="../images/linked_list.png" style="width:80.0%"
-alt="Lista enlazada simple" />
+<img src="../images/linked_list.png" alt="Lista enlazada simple" />
 <figcaption aria-hidden="true">Lista enlazada simple</figcaption>
 </figure>
 <p><em>Figura 2: lista enlazada simple de cinco nodos.</em></p>
-<h3 id="operaciones-básicas-y-coste">1.1 Operaciones básicas y
-coste</h3>
+<h3 id="operaciones-básicas-y-coste">Operaciones básicas y coste</h3>
 <ul>
 <li><strong>Inserción al inicio</strong> → <span
 class="math inline">\(O(1)\)</span> Basta con redirigir el puntero de la
@@ -261,7 +259,7 @@ importa más que la meta</strong>. Para llegar al nodo 5, no podemos
 saltar, debemos recorrer la lista paso a paso, como quien lee una novela
 página a página.</p>
 <hr />
-<h2 id="listas-doblemente-enlazadas">2. Listas doblemente enlazadas</h2>
+<h2 id="listas-doblemente-enlazadas">Listas doblemente enlazadas</h2>
 <p>Una mejora importante es la <strong>lista doblemente
 enlazada</strong>. Aquí cada nodo guarda tres campos:</p>
 <ul>
@@ -273,7 +271,7 @@ enlazada</strong>. Aquí cada nodo guarda tres campos:</p>
 facilita operaciones como eliminar un nodo sin necesidad de conocer a su
 predecesor.</p>
 <figure>
-<img src="../images/doubly_linked_list.png" style="width:80.0%"
+<img src="../images/doubly_linked_list.png"
 alt="Lista doblemente enlazada" />
 <figcaption aria-hidden="true">Lista doblemente enlazada</figcaption>
 </figure>
@@ -285,7 +283,7 @@ de editores de texto en los años 70 (como <em>EMACS</em>) usaban listas
 doblemente enlazadas para representar líneas de texto, porque resultaba
 natural moverse hacia adelante y atrás en el documento.</p>
 <hr />
-<h2 id="listas-circulares">3. Listas circulares</h2>
+<h2 id="listas-circulares">Listas circulares</h2>
 <p>En una <strong>lista circular</strong>, el último nodo no apunta a
 <code>null</code> sino de nuevo al primero. De esta forma, el recorrido
 nunca se detiene: no existe un “final”.</p>
@@ -296,8 +294,7 @@ nunca se detiene: no existe un “final”.</p>
 final en tiempo constante.</li>
 </ul>
 <figure>
-<img src="../images/circular_linked_list.png" style="width:65.0%"
-alt="Lista circular" />
+<img src="../images/circular_linked_list.png" alt="Lista circular" />
 <figcaption aria-hidden="true">Lista circular</figcaption>
 </figure>
 <p><em>Figura 4: lista enlazada circular.</em></p>
@@ -311,7 +308,7 @@ inicio.</li>
 <p>También existen <strong>listas doblemente circulares</strong>, que
 permiten navegar hacia adelante y atrás sin límites.</p>
 <hr />
-<h2 id="comparación-con-arrays">4. Comparación con arrays</h2>
+<h2 id="comparación-con-arrays">Comparación con arrays</h2>
 <table>
 <colgroup>
 <col style="width: 21%" />
@@ -367,7 +364,7 @@ mejor rendimiento en caché.</li>
 <p>📌 Filosofía: la elección de la estructura de datos depende del
 <strong>patrón de uso</strong>, no de una “mejor” universal.</p>
 <hr />
-<h2 id="casos-de-uso-en-bioinformática-y-computación">5. Casos de uso en
+<h2 id="casos-de-uso-en-bioinformática-y-computación">Casos de uso en
 bioinformática y computación</h2>
 <ul>
 <li><strong>Gestión dinámica de secuencias</strong>: en ediciones de
@@ -385,7 +382,7 @@ reproducción o turnos cíclicos.</li>
 listas circulares para gestionar el historial de comandos, haciendo que
 se “reciclaran” automáticamente.</p>
 <hr />
-<h2 id="conclusiones">6. Conclusiones</h2>
+<h2 id="conclusiones">Conclusiones</h2>
 <p>Las listas enlazadas <strong>resuelven las limitaciones de tamaño
 fijo</strong> de los arrays.</p>
 <ul>
@@ -400,8 +397,7 @@ mientras que las listas enlazadas representan la
 <strong>adaptación</strong> (cambian sobre la marcha, sacrificando
 eficiencia en el acceso).</p>
 <hr />
-<h2 id="ejercicios-de-autoevaluación">7. Ejercicios de
-autoevaluación</h2>
+<h2 id="ejercicios-de-autoevaluación">Ejercicios de autoevaluación</h2>
 <ol type="1">
 <li>¿Cuál es el coste temporal de acceder al elemento <span
 class="math inline">\(i\)</span> en una lista enlazada simple?</li>

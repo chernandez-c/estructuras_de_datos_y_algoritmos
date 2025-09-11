@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 5 – Grafos: Modelando un Mundo Conectado
 
-## 0. Motivación: La Estructura de Datos Universal
+## Motivación: La Estructura de Datos Universal
 
 Hasta ahora, hemos visto estructuras con reglas claras: las listas son secuenciales, los árboles son jerárquicos. Pero, ¿cómo modelamos un sistema donde las conexiones son libres y complejas?
 * En una **red social**, tú estás conectado a tus amigos, pero tus amigos también están conectados entre sí, formando una red intrincada.
@@ -21,18 +21,18 @@ Pasar de los árboles a los grafos es un salto conceptual fundamental: abandonam
 
 ---
 
-## 1. Conceptos Fundamentales de los Grafos
+## Conceptos Fundamentales de los Grafos
 
 Un **grafo** $G = (V, E)$ es un par compuesto por un conjunto de **vértices** (o nodos) $V$ y un conjunto de **aristas** (o arcos) $E$ que conectan pares de vértices.
 
-### 1.1 La Taxonomía de los Grafos
+### La Taxonomía de los Grafos
 
 * **Grafo No Dirigido**: Las aristas son bidireccionales. Si existe una arista $\{u, v\}$, se puede ir de $u$ a $v$ y de $v$ a $u$. Modela relaciones simétricas, como la amistad en Facebook.
 * **Grafo Dirigido (Dígrafo)**: Las aristas son flechas con una sola dirección. Una arista $(u, v)$ va de $u$ hacia $v$, pero no necesariamente al revés. Modela relaciones asimétricas, como "seguir" a alguien en Twitter o los hipervínculos en la web.
 * **Grafo Ponderado**: A cada arista se le asigna un "peso" o "coste" numérico. Este peso puede representar distancia, tiempo, capacidad, etc. Son esenciales para problemas de optimización, como encontrar la ruta más corta en un mapa.
 * **Grafo Disperso vs. Denso**: Un grafo es **disperso** si tiene pocas aristas en comparación con el número máximo posible ($|E| \ll |V|^2$). Un grafo es **denso** si se acerca a ese máximo. Esta distinción es clave para elegir la representación correcta.
 
-### 1.2 Representaciones: El Mapa del Grafo
+### Representaciones: El Mapa del Grafo
 
 Elegir cómo almacenar un grafo en memoria es la primera decisión crucial, con un gran impacto en el rendimiento.
 
@@ -46,20 +46,20 @@ Elegir cómo almacenar un grafo en memoria es la primera decisión crucial, con 
 | **Ideal para** | Grafos **densos** y problemas donde la verificación de aristas es constante. | Grafos **dispersos** (la mayoría de los casos reales). |
 
 
-### 1.3 Orígenes Históricos: Los Puentes de Königsberg
+### Orígenes Históricos: Los Puentes de Königsberg
 La teoría de grafos nació en 1736, cuando el gran matemático **Leonhard Euler** resolvió el problema de los **Siete Puentes de Königsberg**. La ciudad tenía siete puentes que conectaban dos islas y las dos orillas de un río. El acertijo era: ¿es posible dar un paseo que cruce cada puente exactamente una vez y regrese al punto de partida?
 
 Euler abstrajo el problema: representó las zonas de tierra como **vértices** y los puentes como **aristas**. Demostró que tal paseo era imposible, sentando las bases de la teoría de grafos y demostrando el poder de la abstracción matemática.
 
 ---
 
-## 2. Recorrido en Anchura (BFS): La Exploración por Ondas
+## Recorrido en Anchura (BFS): La Exploración por Ondas
 
 El **BFS (Breadth-First Search)** explora el grafo de manera expansiva, como las ondas que se forman al lanzar una piedra al agua. Partiendo de un nodo origen, visita primero a todos sus vecinos directos, luego a los vecinos de sus vecinos, y así sucesivamente, nivel por nivel.
 
 La clave de su comportamiento es el uso de una **cola (FIFO)**, que garantiza que los nodos se procesen en el orden en que fueron descubiertos.
 
-### 2.1 BFS Paso a Paso: Un Ejemplo Guiado
+### BFS Paso a Paso: Un Ejemplo Guiado
 
 Consideremos un grafo simple y apliquemos BFS desde el vértice **A**.
 
@@ -98,18 +98,18 @@ Consideremos un grafo simple y apliquemos BFS desde el vértice **A**.
 
 La cola está vacía. El algoritmo termina. El recorrido es **A -> B -> C -> D**.
 
-### 2.2 La "Superpotencia" de BFS: El Camino Más Corto
+### La "Superpotencia" de BFS: El Camino Más Corto
 La propiedad más importante de BFS es que, en un **grafo no ponderado**, encuentra el camino más corto (en número de aristas) desde el nodo origen a todos los demás nodos alcanzables. Como explora por niveles, la primera vez que llega a un nodo, lo hace necesariamente por el camino más corto posible.
 
 ---
 
-## 3. Recorrido en Profundidad (DFS): El Laberinto y el Retroceso
+## Recorrido en Profundidad (DFS): El Laberinto y el Retroceso
 
 El **DFS (Depth-First Search)** explora el grafo de una manera completamente distinta. Es como un explorador en un laberinto: elige un camino y lo sigue hasta el final. Si llega a un callejón sin salida (o un nodo ya visitado), **retrocede (backtracking)** hasta la última bifurcación y prueba el siguiente camino disponible.
 
 Este comportamiento se logra naturalmente con **recursión** (usando la pila de llamadas del sistema) o con una **pila (LIFO)** explícita.
 
-### 3.1 DFS Paso a Paso: Un Ejemplo Guiado
+### DFS Paso a Paso: Un Ejemplo Guiado
 
 Usando el mismo grafo y partiendo de **A**, un posible recorrido DFS recursivo sería:
 
@@ -132,13 +132,13 @@ Usando el mismo grafo y partiendo de **A**, un posible recorrido DFS recursivo s
 
 **Nota importante**: El orden exacto de un DFS puede variar dependiendo del orden en que se exploran los vecinos.
 
-### 3.2 Aplicaciones Clave de DFS
+### Aplicaciones Clave de DFS
 * **Detección de Ciclos**: Durante un recorrido DFS, si encontramos un vértice que ya está en la pila de recursión actual (un ancestro), hemos encontrado un "back edge", lo que significa que hay un ciclo.
 * **Ordenación Topológica**: En un Grafo Dirigido Acíclico (DAG), una ordenación topológica es una secuencia lineal de vértices tal que para cada arista $(u, v)$, $u$ aparece antes que $v$. Es fundamental para planificar tareas con dependencias (ej. compilar un proyecto). Un recorrido DFS postorden produce el inverso de una ordenación topológica.
 
 ---
 
-## 4. Comparación: ¿BFS o DFS?
+## Comparación: ¿BFS o DFS?
 
 La elección entre BFS y DFS no es una cuestión de "cuál es mejor", sino de "**cuál es la herramienta adecuada para el trabajo**".
 
@@ -152,7 +152,7 @@ La elección entre BFS y DFS no es una cuestión de "cuál es mejor", sino de "*
 
 ---
 
-## 5. Ejercicios Ampliados
+## Ejercicios Ampliados
 
 #### Ejercicios Teóricos y de Diseño
 1.  Dado un grafo no dirigido y conexo, ¿es posible que el orden de visita de BFS y DFS sea el mismo? Si es así, dibuja un ejemplo. Si no, explica por qué.

@@ -8,7 +8,7 @@ number-sections: true
 
 # Módulo 6 – Algoritmos de Búsqueda: Paradigmas y Análisis de Eficiencia
 
-## 0. Introducción: El Problema Fundamental de la Recuperación de Información
+## Introducción: El Problema Fundamental de la Recuperación de Información
 
 La recuperación de información es una de las operaciones computacionales más ubicuas y fundamentales. Desde la consulta de un registro en un sistema de gestión de bases de datos hasta la resolución de símbolos en un compilador, la eficiencia con la que se localiza un dato es un factor determinante en el rendimiento global de un sistema. Un **algoritmo de búsqueda** es, por tanto, un procedimiento formal diseñado para localizar la existencia y posición de un elemento, o un conjunto de elementos, dentro de una estructura de datos.
 
@@ -16,7 +16,7 @@ Este módulo presenta un análisis comparativo de los principales paradigmas de 
 
 -----
 
-## 1. Búsqueda Lineal (Secuencial)
+## Búsqueda Lineal (Secuencial)
 
 La búsqueda lineal constituye el algoritmo más elemental. Procede mediante el examen exhaustivo y secuencial de cada elemento en una colección hasta que se encuentra el elemento objetivo o se agota el espacio de búsqueda.
 
@@ -76,7 +76,7 @@ función busquedaLineal(colección, objetivo):
 
 ---
 
-## 2. Búsqueda Binaria
+## Búsqueda Binaria
 
 Este algoritmo representa un cambio de paradigma fundamental, pero introduce un prerrequisito indispensable: la colección de datos debe estar **totalmente ordenada**. Su estrategia se basa en el principio de **"divide y vencerás"**, reduciendo el espacio de búsqueda a la mitad en cada iteración.
 
@@ -109,7 +109,7 @@ función busquedaBinaria(array_ordenado, objetivo):
 
 ---
 
-## 3. Tablas Hash (Hashing)
+## Tablas Hash (Hashing)
 
 Las tablas hash intentan **calcular la posición** de un elemento de forma directa a través de una **función hash**, $h(k)$, que mapea una clave a un índice de un array.
 
@@ -142,7 +142,7 @@ función buscarEnTablaHash(tabla_hash, clave):
 
 ---
 
-## 4. Búsqueda en Árboles Binarios de Búsqueda (BST)
+## Búsqueda en Árboles Binarios de Búsqueda (BST)
 
 Un BST mantiene sus claves ordenadas de forma implícita. Para cualquier nodo $x$, las claves en su subárbol izquierdo son menores y las del subárbol derecho son mayores. La complejidad depende de la altura del árbol, $h$. En un **árbol auto-balanceado** (ej. AVL, Rojo-Negro), $h \in O(\log n)$, garantizando una búsqueda eficiente.
 
@@ -163,7 +163,7 @@ función buscarEnBST(nodo, clave_objetivo):
 
 ---
 
-## 5. Búsqueda en Grafos (BFS y DFS)
+## Búsqueda en Grafos (BFS y DFS)
 
 En grafos, la búsqueda se refiere a algoritmos de recorrido para determinar la existencia de un vértice o un camino hacia él.
 
@@ -198,7 +198,7 @@ función buscarBFS(grafo, origen, objetivo):
 
 ---
 
-## 6. Comparación de algoritmos de búsqueda
+## Comparación de algoritmos de búsqueda
 
 | Algoritmo   | Datos ordenados      | Complejidad                  | Ventajas                      | Desventajas                         | 
 | ----------- | -------------------- | ---------------------------- | ----------------------------- | ----------------------------------- | 
@@ -210,7 +210,7 @@ función buscarBFS(grafo, origen, objetivo):
 
 ---
 
-## 7. Aplicaciones
+## Aplicaciones
 
 * **Lineal**: búsqueda en pequeños arrays o listas cortas.
 * **Binaria**: diccionarios, búsqueda en bases de datos ordenadas.
@@ -220,7 +220,7 @@ función buscarBFS(grafo, origen, objetivo):
 
 ---
 
-## 8. Conclusiones
+## Conclusiones
 
 * La elección del algoritmo depende de la **estructura de datos** y del **problema**.
 * Lineal es universal pero lenta.
@@ -231,7 +231,7 @@ función buscarBFS(grafo, origen, objetivo):
 
 ---
 
-## 9. Ejercicios de autoevaluación
+## Ejercicios de autoevaluación
 
 1. ¿Cuál es la complejidad promedio y peor caso de una búsqueda en tabla hash?
 2. ¿Por qué no se puede usar búsqueda binaria en una lista no ordenada?

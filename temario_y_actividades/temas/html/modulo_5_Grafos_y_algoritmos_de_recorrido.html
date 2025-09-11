@@ -179,7 +179,7 @@ Algoritmos</p>
 </nav>
 <h1 id="módulo-5-grafos-modelando-un-mundo-conectado">Módulo 5 – Grafos:
 Modelando un Mundo Conectado</h1>
-<h2 id="motivación-la-estructura-de-datos-universal">0. Motivación: La
+<h2 id="motivación-la-estructura-de-datos-universal">Motivación: La
 Estructura de Datos Universal</h2>
 <p>Hasta ahora, hemos visto estructuras con reglas claras: las listas
 son secuenciales, los árboles son jerárquicos. Pero, ¿cómo modelamos un
@@ -200,15 +200,15 @@ del caos conectado. Aprender a navegar y analizar estas estructuras nos
 da las herramientas para resolver algunos de los problemas más
 interesantes y complejos de la computación.</p>
 <hr />
-<h2 id="conceptos-fundamentales-de-los-grafos">1. Conceptos
-Fundamentales de los Grafos</h2>
+<h2 id="conceptos-fundamentales-de-los-grafos">Conceptos Fundamentales
+de los Grafos</h2>
 <p>Un <strong>grafo</strong> <span class="math inline">\(G = (V,
 E)\)</span> es un par compuesto por un conjunto de
 <strong>vértices</strong> (o nodos) <span
 class="math inline">\(V\)</span> y un conjunto de
 <strong>aristas</strong> (o arcos) <span
 class="math inline">\(E\)</span> que conectan pares de vértices.</p>
-<h3 id="la-taxonomía-de-los-grafos">1.1 La Taxonomía de los Grafos</h3>
+<h3 id="la-taxonomía-de-los-grafos">La Taxonomía de los Grafos</h3>
 <ul>
 <li><strong>Grafo No Dirigido</strong>: Las aristas son bidireccionales.
 Si existe una arista <span class="math inline">\(\{u, v\}\)</span>, se
@@ -234,8 +234,8 @@ número máximo posible (<span class="math inline">\(|E| \ll
 máximo. Esta distinción es clave para elegir la representación
 correcta.</li>
 </ul>
-<h3 id="representaciones-el-mapa-del-grafo">1.2 Representaciones: El
-Mapa del Grafo</h3>
+<h3 id="representaciones-el-mapa-del-grafo">Representaciones: El Mapa
+del Grafo</h3>
 <p>Elegir cómo almacenar un grafo en memoria es la primera decisión
 crucial, con un gran impacto en el rendimiento.</p>
 <table>
@@ -307,7 +307,7 @@ mayoría de los casos reales).</td>
 </tr>
 </tbody>
 </table>
-<h3 id="orígenes-históricos-los-puentes-de-königsberg">1.3 Orígenes
+<h3 id="orígenes-históricos-los-puentes-de-königsberg">Orígenes
 Históricos: Los Puentes de Königsberg</h3>
 <p>La teoría de grafos nació en 1736, cuando el gran matemático
 <strong>Leonhard Euler</strong> resolvió el problema de los
@@ -320,8 +320,8 @@ una vez y regrese al punto de partida?</p>
 Demostró que tal paseo era imposible, sentando las bases de la teoría de
 grafos y demostrando el poder de la abstracción matemática.</p>
 <hr />
-<h2 id="recorrido-en-anchura-bfs-la-exploración-por-ondas">2. Recorrido
-en Anchura (BFS): La Exploración por Ondas</h2>
+<h2 id="recorrido-en-anchura-bfs-la-exploración-por-ondas">Recorrido en
+Anchura (BFS): La Exploración por Ondas</h2>
 <p>El <strong>BFS (Breadth-First Search)</strong> explora el grafo de
 manera expansiva, como las ondas que se forman al lanzar una piedra al
 agua. Partiendo de un nodo origen, visita primero a todos sus vecinos
@@ -330,8 +330,8 @@ por nivel.</p>
 <p>La clave de su comportamiento es el uso de una <strong>cola
 (FIFO)</strong>, que garantiza que los nodos se procesen en el orden en
 que fueron descubiertos.</p>
-<h3 id="bfs-paso-a-paso-un-ejemplo-guiado">2.1 BFS Paso a Paso: Un
-Ejemplo Guiado</h3>
+<h3 id="bfs-paso-a-paso-un-ejemplo-guiado">BFS Paso a Paso: Un Ejemplo
+Guiado</h3>
 <p>Consideremos un grafo simple y apliquemos BFS desde el vértice
 <strong>A</strong>.</p>
 <p><strong>Estado Inicial:</strong> * Cola: <code>[]</code> * Visitados:
@@ -354,16 +354,17 @@ visita: <code>[A, B, C, D]</code>. * No tiene vecinos no visitados. *
 Cola: <code>[]</code></p>
 <p>La cola está vacía. El algoritmo termina. El recorrido es <strong>A
 -&gt; B -&gt; C -&gt; D</strong>.</p>
-<h3 id="la-superpotencia-de-bfs-el-camino-más-corto">2.2 La
-“Superpotencia” de BFS: El Camino Más Corto</h3>
+<h3 id="la-superpotencia-de-bfs-el-camino-más-corto">La “Superpotencia”
+de BFS: El Camino Más Corto</h3>
 <p>La propiedad más importante de BFS es que, en un <strong>grafo no
 ponderado</strong>, encuentra el camino más corto (en número de aristas)
 desde el nodo origen a todos los demás nodos alcanzables. Como explora
 por niveles, la primera vez que llega a un nodo, lo hace necesariamente
 por el camino más corto posible.</p>
 <hr />
-<h2 id="recorrido-en-profundidad-dfs-el-laberinto-y-el-retroceso">3.
-Recorrido en Profundidad (DFS): El Laberinto y el Retroceso</h2>
+<h2
+id="recorrido-en-profundidad-dfs-el-laberinto-y-el-retroceso">Recorrido
+en Profundidad (DFS): El Laberinto y el Retroceso</h2>
 <p>El <strong>DFS (Depth-First Search)</strong> explora el grafo de una
 manera completamente distinta. Es como un explorador en un laberinto:
 elige un camino y lo sigue hasta el final. Si llega a un callejón sin
@@ -373,8 +374,8 @@ siguiente camino disponible.</p>
 <p>Este comportamiento se logra naturalmente con
 <strong>recursión</strong> (usando la pila de llamadas del sistema) o
 con una <strong>pila (LIFO)</strong> explícita.</p>
-<h3 id="dfs-paso-a-paso-un-ejemplo-guiado">3.1 DFS Paso a Paso: Un
-Ejemplo Guiado</h3>
+<h3 id="dfs-paso-a-paso-un-ejemplo-guiado">DFS Paso a Paso: Un Ejemplo
+Guiado</h3>
 <p>Usando el mismo grafo y partiendo de <strong>A</strong>, un posible
 recorrido DFS recursivo sería:</p>
 <ol type="1">
@@ -401,7 +402,7 @@ visitado. No hay más caminos.</li>
 </ol>
 <p><strong>Nota importante</strong>: El orden exacto de un DFS puede
 variar dependiendo del orden en que se exploran los vecinos.</p>
-<h3 id="aplicaciones-clave-de-dfs">3.2 Aplicaciones Clave de DFS</h3>
+<h3 id="aplicaciones-clave-de-dfs">Aplicaciones Clave de DFS</h3>
 <ul>
 <li><strong>Detección de Ciclos</strong>: Durante un recorrido DFS, si
 encontramos un vértice que ya está en la pila de recursión actual (un
@@ -416,7 +417,7 @@ tareas con dependencias (ej. compilar un proyecto). Un recorrido DFS
 postorden produce el inverso de una ordenación topológica.</li>
 </ul>
 <hr />
-<h2 id="comparación-bfs-o-dfs">4. Comparación: ¿BFS o DFS?</h2>
+<h2 id="comparación-bfs-o-dfs">Comparación: ¿BFS o DFS?</h2>
 <p>La elección entre BFS y DFS no es una cuestión de “cuál es mejor”,
 sino de “<strong>cuál es la herramienta adecuada para el
 trabajo</strong>”.</p>
@@ -473,7 +474,7 @@ decisión (IA, juegos).</td>
 </tbody>
 </table>
 <hr />
-<h2 id="ejercicios-ampliados">5. Ejercicios Ampliados</h2>
+<h2 id="ejercicios-ampliados">Ejercicios Ampliados</h2>
 <h4 id="ejercicios-teóricos-y-de-diseño">Ejercicios Teóricos y de
 Diseño</h4>
 <ol type="1">

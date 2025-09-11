@@ -22,7 +22,7 @@ Al finalizar este módulo el estudiante será capaz de:
 
 ---
 
-## 1. Introducción
+## Introducción
 
 Cuando hablamos de **algoritmos**, nos referimos a algo tan cotidiano como universal. Un algoritmo no es exclusivo de la informática: es cualquier secuencia **finita y ordenada** de pasos que, si se ejecutan correctamente, conducen a la solución de un problema.
 
@@ -34,7 +34,7 @@ Lo que distingue a los algoritmos en **ciencias de la computación** es que debe
 
 ---
 
-### 1.1 La importancia de la eficiencia
+### La importancia de la eficiencia
 
 Resolver un problema es el primer paso, pero resolverlo de manera **eficiente** es lo que hace que un algoritmo sea útil en la práctica.
 
@@ -50,7 +50,7 @@ En informática moderna, esta diferencia puede ser la frontera entre lo **viable
 
 ---
 
-### 1.2 Estructuras de datos: el soporte de los algoritmos
+### Estructuras de datos: el soporte de los algoritmos
 
 Los algoritmos no trabajan en el vacío: necesitan **datos** sobre los que operar. Aquí entran en juego las **estructuras de datos**, que son formas organizadas de almacenar y gestionar la información.
 
@@ -63,7 +63,7 @@ Dicho de otro modo: **los algoritmos son los procesos, y las estructuras de dato
 
 ---
 
-### 1.3 Conceptos clave de este módulo
+### Conceptos clave de este módulo
 
 En este módulo introduciremos las **piedras angulares** sobre las que se construye todo el estudio de algoritmos y estructuras de datos:
 
@@ -74,7 +74,7 @@ En este módulo introduciremos las **piedras angulares** sobre las que se constr
 
 ---
 
-### 1.4 Mirando hacia adelante
+### Mirando hacia adelante
 
 Dominar estos fundamentos no es un fin en sí mismo, sino un **punto de partida**. Al finalizar el módulo, el estudiante entenderá que:
 
@@ -86,7 +86,7 @@ Dominar estos fundamentos no es un fin en sí mismo, sino un **punto de partida*
 
 ---
 
-## 2. Concepto y representación de algoritmos
+## Concepto y representación de algoritmos
 
 Un **algoritmo** es mucho más que un conjunto de instrucciones: es la **esencia del pensamiento computacional**. Para que un procedimiento pueda considerarse algoritmo, debe cumplir ciertas propiedades fundamentales:
 
@@ -101,7 +101,7 @@ Estas propiedades permiten diferenciar los algoritmos de otros procedimientos in
 
 ---
 
-### 2.1 Representación de algoritmos
+### Representación de algoritmos
 
 Un algoritmo puede representarse de varias formas, según el contexto y la audiencia:
 
@@ -131,7 +131,7 @@ Este algoritmo recorre toda la lista una sola vez.
 
 ---
 
-## 3. Análisis de eficiencia y notación Big O
+## Análisis de eficiencia y notación Big O
 
 No todos los algoritmos que resuelven un mismo problema lo hacen con la misma eficiencia. Por eso surge la necesidad de medir y comparar su rendimiento.
 
@@ -147,7 +147,7 @@ Ejemplo motivador:
 
 ---
 
-### 3.1 Crecimiento con el tamaño de la entrada
+### Crecimiento con el tamaño de la entrada
 
 La notación Big O describe el comportamiento asintótico de un algoritmo: cómo crece su tiempo o memoria requerida cuando *n* se hace grande.
 
@@ -161,7 +161,7 @@ La notación Big O describe el comportamiento asintótico de un algoritmo: cómo
 
 ---
 
-### 3.2 Peor caso, mejor caso y caso promedio
+### Peor caso, mejor caso y caso promedio
 
 Analizar un algoritmo no es tan simple como medir un único tiempo:
 
@@ -176,7 +176,7 @@ Analizar un algoritmo no es tan simple como medir un único tiempo:
 
 ---
 
-### 3.3 Paradigmas algorítmicos
+### Paradigmas algorítmicos
 
 Los algoritmos no se diseñan de manera aislada: suelen seguir **paradigmas de resolución** que sirven como guías generales.
 
@@ -188,7 +188,7 @@ Estos paradigmas son el esqueleto de muchas soluciones modernas en bioinformáti
 
 ---
 
-### 3.4 Tabla de complejidad habitual
+### Tabla de complejidad habitual
 
 | Orden          | Descripción      | Ejemplo                               |
 | -------------- | ---------------- | ------------------------------------- |
@@ -207,7 +207,7 @@ Estos paradigmas son el esqueleto de muchas soluciones modernas en bioinformáti
 
 ---
 
-## 4. Ejemplos aplicados en bioinformática
+## Ejemplos aplicados en bioinformática
 
 La bioinformática es un campo donde la eficiencia algorítmica es crítica:
 
@@ -225,7 +225,7 @@ print(f"GC%: {gc:.2%}")
 
 ---
 
-## 5. Tipos de estructuras de datos
+## Tipos de estructuras de datos
 
 Las estructuras de datos definen cómo se organizan y almacenan los datos en memoria.
 
@@ -241,7 +241,7 @@ Las estructuras de datos definen cómo se organizan y almacenan los datos en mem
 
 ---
 
-### 5.1 Tipos de Dato Abstracto (TDA)
+### Tipos de Dato Abstracto (TDA)
 
 Un **TDA** define el comportamiento esperado de una estructura de datos sin entrar en cómo se implementa.
 
@@ -254,7 +254,7 @@ Ejemplo: la **pila** (stack).
 
 ---
 
-## 6. Vectores y matrices
+## Vectores y matrices
 
 Los **vectores (arrays)** son la estructura más básica y, a la vez, una de las más poderosas:
 
@@ -271,7 +271,7 @@ Las **matrices** (arrays bidimensionales) permiten representar información tabu
 
 ---
 
-## 7. Conclusiones
+## Conclusiones
 
 En esta parte hemos:
 
@@ -286,7 +286,7 @@ En esta parte hemos:
 
 ---
 
-## 8. Ejercicios de autoevaluación
+## Ejercicios de autoevaluación
 
 1. Explica con tus palabras por qué un algoritmo debe ser finito. Da un ejemplo de procedimiento no finito.
 2. Representa en pseudocódigo un algoritmo que busque el mínimo de una lista. ¿Cuál es su complejidad temporal?

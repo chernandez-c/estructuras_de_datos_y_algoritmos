@@ -5,11 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Material</title>
   <script>
-    window.tailwind = {
-      config: {
-        darkMode: 'class'
-      }
-    }
+    // Aplica data-theme temprano para evitar FOUC
+    (function() {
+      try {
+        var t = localStorage.getItem('theme');
+        var setting = (t === 'light' || t === 'dark' || t === 'system') ? t : 'system';
+        document.documentElement.setAttribute('data-theme', setting);
+      } catch (e) {}
+    })();
+  </script>
+  <script>
+    // Aplica tema temprano para evitar FOUC
+    (function() {
+      try {
+        var t = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var dark = t ? (t === 'dark' || (t === 'system' && prefersDark)) : prefersDark;
+        if (dark) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -17,11 +31,22 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link id="markdown-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
 </head>
-  <body class="antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+  <body class="antialiased">
   <main class="container mx-auto p-4 sm:p-6 lg:p-8">
     <div class="mb-4 flex justify-between">
-      <a href="index.html" class="text-blue-500 underline">← Volver</a>
-      <button id="theme-toggle" class="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Cambiar tema"></button>
+      <a href="index.html" class="underline">← Volver</a>
+      <div class="relative group flex items-center gap-2">
+        <span id="theme-tooltip" class="theme-tip pointer-events-none absolute -top-6 right-0 text-[11px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Tema</span>
+        <button id="theme-toggle" class="p-2 rounded-md" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"></button>
+        <div class="transition-opacity opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto focus-within:opacity-100 focus-within:pointer-events-auto">
+          <label for="theme-select" class="sr-only">Tema</label>
+          <select id="theme-select" class="theme-select p-2 rounded-md text-sm" aria-label="Selector de tema">
+            <option value="system">Sistema</option>
+            <option value="light">Claro</option>
+            <option value="dark">Oscuro</option>
+          </select>
+        </div>
+      </div>
     </div>
     <div id="content" class="markdown-body"></div>
   </main>

@@ -48,9 +48,9 @@ function showModule(hash) {
     });
     navLinks.forEach(link => {
         if (link.getAttribute('href') === hash) {
-            link.classList.add('active', 'text-blue-500', 'dark:text-blue-400', 'border-blue-500', 'dark:border-blue-400');
+            link.classList.add('active');
         } else {
-            link.classList.remove('active', 'text-blue-500', 'dark:text-blue-400', 'border-blue-500', 'dark:border-blue-400');
+            link.classList.remove('active');
         }
     });
 }

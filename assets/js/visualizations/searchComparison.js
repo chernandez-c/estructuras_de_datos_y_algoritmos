@@ -7,8 +7,8 @@ function initSearchComparison() {
     linearContainer.innerHTML = '';
     binaryContainer.innerHTML = '';
     searchArray.forEach(val => {
-        linearContainer.innerHTML += `<div id="linear-${val}" class="w-8 h-8 m-1 flex items-center justify-center bg-gray-300 rounded text-xs">${val}</div>`;
-        binaryContainer.innerHTML += `<div id="binary-${val}" class="w-8 h-8 m-1 flex items-center justify-center bg-gray-300 rounded text-xs">${val}</div>`;
+        linearContainer.innerHTML += `<div id="linear-${val}" class="chip">${val}</div>`;
+        binaryContainer.innerHTML += `<div id="binary-${val}" class="chip">${val}</div>`;
     });
 }
 
@@ -28,14 +28,16 @@ async function linearSearch(value) {
     for (let i = 0; i < searchArray.length; i++) {
         steps++;
         const el = document.getElementById(`linear-${searchArray[i]}`);
-        el.classList.add('bg-yellow-400');
+        el.classList.add('chip-active');
         await new Promise(r => setTimeout(r, 50));
         if (searchArray[i] === value) {
-            el.classList.replace('bg-yellow-400', 'bg-green-500');
+            el.classList.remove('chip-active');
+            el.classList.add('chip-found');
             document.getElementById('linear-steps').textContent = `(${steps} pasos)`;
             return;
         }
-        el.classList.replace('bg-yellow-400', 'bg-gray-400');
+        el.classList.remove('chip-active');
+        el.classList.add('chip-dim');
     }
 }
 
@@ -45,21 +47,29 @@ async function binarySearch(value) {
     while (low <= high) {
         steps++;
         let mid = Math.floor((low + high) / 2);
-        for(let i = low; i <= high; i++) document.getElementById(`binary-${searchArray[i]}`).classList.add('bg-blue-300');
+        for(let i = low; i <= high; i++) document.getElementById(`binary-${searchArray[i]}`).classList.add('chip-range');
 
         const midEl = document.getElementById(`binary-${searchArray[mid]}`);
-        midEl.classList.replace('bg-blue-300', 'bg-yellow-400');
+        midEl.classList.remove('chip-range');
+        midEl.classList.add('chip-active');
         await new Promise(r => setTimeout(r, 500));
 
         if (searchArray[mid] === value) {
-            midEl.classList.replace('bg-yellow-400', 'bg-green-500');
+            midEl.classList.remove('chip-active');
+            midEl.classList.add('chip-found');
             document.getElementById('binary-steps').textContent = `(${steps} pasos)`;
             return;
         } else if (searchArray[mid] < value) {
-            for(let i = low; i <= mid; i++) document.getElementById(`binary-${searchArray[i]}`).className = 'w-8 h-8 m-1 flex items-center justify-center bg-gray-400 rounded text-xs';
+            for(let i = low; i <= mid; i++) {
+                const el = document.getElementById(`binary-${searchArray[i]}`);
+                el.className = 'chip chip-dim';
+            }
             low = mid + 1;
         } else {
-            for(let i = mid; i <= high; i++) document.getElementById(`binary-${searchArray[i]}`).className = 'w-8 h-8 m-1 flex items-center justify-center bg-gray-400 rounded text-xs';
+            for(let i = mid; i <= high; i++) {
+                const el = document.getElementById(`binary-${searchArray[i]}`);
+                el.className = 'chip chip-dim';
+            }
             high = mid - 1;
         }
         await new Promise(r => setTimeout(r, 500));

@@ -3,15 +3,15 @@
   <p class="mb-4">Necesitamos encontrar todas las apariciones de 100 motivos de ADN (de 8 bases) dentro de una secuencia de 1 millón de bases. ¿Cómo lo hacemos eficientemente?</p>
   <div class="grid md:grid-cols-2 gap-8">
     <div>
-      <h4 class="font-semibold text-lg text-red-600 dark:text-red-400">Solución Ingenua (Fuerza Bruta)</h4>
+      <h4 class="font-semibold text-lg text-red-600">Solución Ingenua (Fuerza Bruta)</h4>
       <p>Recorrer la secuencia por cada motivo.</p>
-      <p class="font-mono bg-gray-100 dark:bg-gray-700 p-2 rounded mt-2 text-sm">O(|Motivos| * |Secuencia| * |k|)</p>
+      <p class="font-mono bg-soft p-2 rounded mt-2 text-sm">O(|Motivos| * |Secuencia| * |k|)</p>
       <p class="mt-2">Operaciones Aprox: <span class="font-bold">~800,000,000</span></p>
     </div>
     <div>
-      <h4 class="font-semibold text-lg text-green-600 dark:text-green-400">Solución Eficiente (Tabla Hash)</h4>
+      <h4 class="font-semibold text-lg text-green-600">Solución Eficiente (Tabla Hash)</h4>
       <p>1. Crear un índice de todos los k-mers de la secuencia.<br>2. Buscar cada motivo en el índice.</p>
-      <p class="font-mono bg-gray-100 dark:bg-gray-700 p-2 rounded mt-2 text-sm">O((|Secuencia| + |Motivos|) * |k|)</p>
+      <p class="font-mono bg-soft p-2 rounded mt-2 text-sm">O((|Secuencia| + |Motivos|) * |k|)</p>
       <p class="mt-2">Operaciones Aprox: <span class="font-bold">~8,000,000</span></p>
     </div>
   </div>
@@ -23,7 +23,7 @@
     <textarea id="bio-seq" class="w-full border p-2 font-mono text-sm" rows="3"></textarea>
     <div class="flex gap-2">
       <input id="bio-motif" type="text" class="flex-1 border p-2" placeholder="Motivo (ej. ACGTAC)" />
-      <button id="bio-run" class="bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Buscar</button>
+      <button id="bio-run" class="btn btn-purple text-white font-bold py-2 px-4 rounded">Buscar</button>
     </div>
     <div id="bio-results" class="mt-2 text-sm"></div>
   </div>

@@ -36,7 +36,7 @@ Conexiones:
 
 La figura 10 representa el grafo de la red de metro.  Cada línea une dos estaciones conectadas directamente.
 
-![Red de metro simplificada](../images/graph.png){ width=65% }
+![Red de metro simplificada](../../images/graph.png){ width=65% }
 
 *Figura 10: grafo simplificado de una red de metro (se reutiliza la imagen de ejemplo de grafo).* 
 

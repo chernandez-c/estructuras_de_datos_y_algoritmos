@@ -94,7 +94,7 @@ Quizás la aplicación más importante de las pilas es la **gestión de la pila 
 
 Este mecanismo es la razón por la que una recursión infinita causa un error de **Stack Overflow**: cada llamada recursiva apila un nuevo marco hasta que se agota la memoria asignada a la pila.
 
-![Representación de una pila](../images/stack.png)
+![Representación de una pila](../../images/stack.png)
 
 *Figura 5: estructura LIFO.*
 
@@ -164,7 +164,7 @@ Los sistemas operativos modernos son multitarea, lo que significa que pueden eje
 
 Este sistema basado en colas garantiza la **equidad (fairness)**: cada proceso tiene la oportunidad de ejecutarse, evitando que un solo proceso monopolice la CPU.
 
-![Representación de una cola](../images/queue.png)
+![Representación de una cola](../../images/queue.png)
 
 *Figura 6: estructura FIFO.*
 

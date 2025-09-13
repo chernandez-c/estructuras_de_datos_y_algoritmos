@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
+  <title>Módulo 5 – Grafos y algoritmos de recorrido</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Módulo 5 – Grafos y algoritmos de recorrido</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y
+Algoritmos</p>
+<p class="date">21 de agosto de 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1 id="módulo-5-grafos-modelando-un-mundo-conectado">Módulo 5 – Grafos:
+Modelando un Mundo Conectado</h1>
+<h2 id="motivación-la-estructura-de-datos-universal">Motivación: La
+Estructura de Datos Universal</h2>
+<p>Hasta ahora, hemos visto estructuras con reglas claras: las listas
+son secuenciales, los árboles son jerárquicos. Pero, ¿cómo modelamos un
+sistema donde las conexiones son libres y complejas? * En una
+<strong>red social</strong>, tú estás conectado a tus amigos, pero tus
+amigos también están conectados entre sí, formando una red intrincada. *
+En la <strong>World Wide Web</strong>, una página enlaza a otra, que a
+su vez enlaza a muchas más, creando una telaraña global. * En un
+<strong>mapa de carreteras</strong>, las ciudades están conectadas por
+múltiples rutas, con intersecciones y posibles caminos circulares.</p>
+<p>Las estructuras lineales y jerárquicas son insuficientes para
+representar esta realidad. Los <strong>grafos</strong> son la respuesta.
+Son la estructura de datos más general y poderosa, capaz de modelar
+cualquier sistema de “entidades” y las “relaciones” entre ellas.</p>
+<p>Pasar de los árboles a los grafos es un salto conceptual fundamental:
+abandonamos la seguridad de la jerarquía para abrazar la flexibilidad
+del caos conectado. Aprender a navegar y analizar estas estructuras nos
+da las herramientas para resolver algunos de los problemas más
+interesantes y complejos de la computación.</p>
+<hr />
+<h2 id="conceptos-fundamentales-de-los-grafos">Conceptos Fundamentales
+de los Grafos</h2>
+<p>Un <strong>grafo</strong> <span class="math inline">\(G = (V,
+E)\)</span> es un par compuesto por un conjunto de
+<strong>vértices</strong> (o nodos) <span
+class="math inline">\(V\)</span> y un conjunto de
+<strong>aristas</strong> (o arcos) <span
+class="math inline">\(E\)</span> que conectan pares de vértices.</p>
+<h3 id="la-taxonomía-de-los-grafos">La Taxonomía de los Grafos</h3>
+<ul>
+<li><strong>Grafo No Dirigido</strong>: Las aristas son bidireccionales.
+Si existe una arista <span class="math inline">\(\{u, v\}\)</span>, se
+puede ir de <span class="math inline">\(u\)</span> a <span
+class="math inline">\(v\)</span> y de <span
+class="math inline">\(v\)</span> a <span
+class="math inline">\(u\)</span>. Modela relaciones simétricas, como la
+amistad en Facebook.</li>
+<li><strong>Grafo Dirigido (Dígrafo)</strong>: Las aristas son flechas
+con una sola dirección. Una arista <span class="math inline">\((u,
+v)\)</span> va de <span class="math inline">\(u\)</span> hacia <span
+class="math inline">\(v\)</span>, pero no necesariamente al revés.
+Modela relaciones asimétricas, como “seguir” a alguien en Twitter o los
+hipervínculos en la web.</li>
+<li><strong>Grafo Ponderado</strong>: A cada arista se le asigna un
+“peso” o “coste” numérico. Este peso puede representar distancia,
+tiempo, capacidad, etc. Son esenciales para problemas de optimización,
+como encontrar la ruta más corta en un mapa.</li>
+<li><strong>Grafo Disperso vs. Denso</strong>: Un grafo es
+<strong>disperso</strong> si tiene pocas aristas en comparación con el
+número máximo posible (<span class="math inline">\(|E| \ll
+|V|^2\)</span>). Un grafo es <strong>denso</strong> si se acerca a ese
+máximo. Esta distinción es clave para elegir la representación
+correcta.</li>
+</ul>
+<h3 id="representaciones-el-mapa-del-grafo">Representaciones: El Mapa
+del Grafo</h3>
+<p>Elegir cómo almacenar un grafo en memoria es la primera decisión
+crucial, con un gran impacto en el rendimiento.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">Matriz de Adyacencia (<span
+class="math inline">\(O(\|V\|^2)\)</span>)</th>
+<th style="text-align: left;">Lista de Adyacencia (<span
+class="math inline">\(O(\|V\|+\|E\|)\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Uso de Memoria</strong></td>
+<td style="text-align: left;">Alto y fijo. Ineficiente para grafos
+dispersos.</td>
+<td style="text-align: left;">Proporcional al número de aristas. Ideal
+para grafos dispersos.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Añadir Vértice</strong></td>
+<td style="text-align: left;">Costoso (<span
+class="math inline">\(O(\|V\|^2)\)</span>), requiere reconstruir la
+matriz.</td>
+<td style="text-align: left;">Fácil (<span
+class="math inline">\(O(1)\)</span>).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Añadir Arista</strong></td>
+<td style="text-align: left;">Muy rápido (<span
+class="math inline">\(O(1)\)</span>).</td>
+<td style="text-align: left;">Rápido (<span
+class="math inline">\(O(1)\)</span>).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Verificar si existe <span
+class="math inline">\(\{u,v\}\)</span></strong></td>
+<td style="text-align: left;">Muy rápido (<span
+class="math inline">\(O(1)\)</span>), acceso directo a la celda
+<code>M[u][v]</code>.</td>
+<td style="text-align: left;">Lento (<span
+class="math inline">\(O(k)\)</span> donde <span
+class="math inline">\(k\)</span> es el grado del vértice <span
+class="math inline">\(u\)</span>).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Iterar sobre vecinos de <span
+class="math inline">\(u\)</span></strong></td>
+<td style="text-align: left;">Lento (<span
+class="math inline">\(O(\|V\|)\)</span>), hay que recorrer toda la
+fila.</td>
+<td style="text-align: left;">Óptimo (<span
+class="math inline">\(O(k)\)</span> donde <span
+class="math inline">\(k\)</span> es el grado de <span
+class="math inline">\(u\)</span>).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Ideal para</strong></td>
+<td style="text-align: left;">Grafos <strong>densos</strong> y problemas
+donde la verificación de aristas es constante.</td>
+<td style="text-align: left;">Grafos <strong>dispersos</strong> (la
+mayoría de los casos reales).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="orígenes-históricos-los-puentes-de-königsberg">Orígenes
+Históricos: Los Puentes de Königsberg</h3>
+<p>La teoría de grafos nació en 1736, cuando el gran matemático
+<strong>Leonhard Euler</strong> resolvió el problema de los
+<strong>Siete Puentes de Königsberg</strong>. La ciudad tenía siete
+puentes que conectaban dos islas y las dos orillas de un río. El
+acertijo era: ¿es posible dar un paseo que cruce cada puente exactamente
+una vez y regrese al punto de partida?</p>
+<p>Euler abstrajo el problema: representó las zonas de tierra como
+<strong>vértices</strong> y los puentes como <strong>aristas</strong>.
+Demostró que tal paseo era imposible, sentando las bases de la teoría de
+grafos y demostrando el poder de la abstracción matemática.</p>
+<hr />
+<h2 id="recorrido-en-anchura-bfs-la-exploración-por-ondas">Recorrido en
+Anchura (BFS): La Exploración por Ondas</h2>
+<p>El <strong>BFS (Breadth-First Search)</strong> explora el grafo de
+manera expansiva, como las ondas que se forman al lanzar una piedra al
+agua. Partiendo de un nodo origen, visita primero a todos sus vecinos
+directos, luego a los vecinos de sus vecinos, y así sucesivamente, nivel
+por nivel.</p>
+<p>La clave de su comportamiento es el uso de una <strong>cola
+(FIFO)</strong>, que garantiza que los nodos se procesen en el orden en
+que fueron descubiertos.</p>
+<h3 id="bfs-paso-a-paso-un-ejemplo-guiado">BFS Paso a Paso: Un Ejemplo
+Guiado</h3>
+<p>Consideremos un grafo simple y apliquemos BFS desde el vértice
+<strong>A</strong>.</p>
+<p><strong>Estado Inicial:</strong> * Cola: <code>[]</code> * Visitados:
+<code>{}</code> * Orden de visita: <code>[]</code></p>
+<p><strong>Paso 1:</strong> * Se visita <strong>A</strong>. * Cola:
+<code>[A]</code> * Visitados: <code>{A}</code></p>
+<p><strong>Paso 2:</strong> * Se desencola <strong>A</strong>. Orden de
+visita: <code>[A]</code>. * Se encolan los vecinos no visitados de A (B
+y C). * Cola: <code>[B, C]</code> * Visitados:
+<code>{A, B, C}</code></p>
+<p><strong>Paso 3:</strong> * Se desencola <strong>B</strong>. Orden de
+visita: <code>[A, B]</code>. * Se encola el vecino no visitado de B (D).
+* Cola: <code>[C, D]</code> * Visitados: <code>{A, B, C, D}</code></p>
+<p><strong>Paso 4:</strong> * Se desencola <strong>C</strong>. Orden de
+visita: <code>[A, B, C]</code>. * Los vecinos de C (A y D) ya han sido
+visitados. No se encola nada. * Cola: <code>[D]</code> * Visitados:
+<code>{A, B, C, D}</code></p>
+<p><strong>Paso 5:</strong> * Se desencola <strong>D</strong>. Orden de
+visita: <code>[A, B, C, D]</code>. * No tiene vecinos no visitados. *
+Cola: <code>[]</code></p>
+<p>La cola está vacía. El algoritmo termina. El recorrido es <strong>A
+-&gt; B -&gt; C -&gt; D</strong>.</p>
+<h3 id="la-superpotencia-de-bfs-el-camino-más-corto">La “Superpotencia”
+de BFS: El Camino Más Corto</h3>
+<p>La propiedad más importante de BFS es que, en un <strong>grafo no
+ponderado</strong>, encuentra el camino más corto (en número de aristas)
+desde el nodo origen a todos los demás nodos alcanzables. Como explora
+por niveles, la primera vez que llega a un nodo, lo hace necesariamente
+por el camino más corto posible.</p>
+<hr />
+<h2
+id="recorrido-en-profundidad-dfs-el-laberinto-y-el-retroceso">Recorrido
+en Profundidad (DFS): El Laberinto y el Retroceso</h2>
+<p>El <strong>DFS (Depth-First Search)</strong> explora el grafo de una
+manera completamente distinta. Es como un explorador en un laberinto:
+elige un camino y lo sigue hasta el final. Si llega a un callejón sin
+salida (o un nodo ya visitado), <strong>retrocede
+(backtracking)</strong> hasta la última bifurcación y prueba el
+siguiente camino disponible.</p>
+<p>Este comportamiento se logra naturalmente con
+<strong>recursión</strong> (usando la pila de llamadas del sistema) o
+con una <strong>pila (LIFO)</strong> explícita.</p>
+<h3 id="dfs-paso-a-paso-un-ejemplo-guiado">DFS Paso a Paso: Un Ejemplo
+Guiado</h3>
+<p>Usando el mismo grafo y partiendo de <strong>A</strong>, un posible
+recorrido DFS recursivo sería:</p>
+<ol type="1">
+<li> <strong>DFS(A)</strong>: Marcar A como visitado. Orden:
+<code>[A]</code>.     * Explorar el primer vecino de A:
+<strong>B</strong>.     * Llamar a <strong>DFS(B)</strong>.</li>
+<li> <strong>DFS(B)</strong>: Marcar B como visitado. Orden:
+<code>[A, B]</code>.     * Explorar el primer vecino de B:
+<strong>D</strong>.     * Llamar a <strong>DFS(D)</strong>.</li>
+<li> <strong>DFS(D)</strong>: Marcar D como visitado. Orden:
+<code>[A, B, D]</code>.     * Explorar el primer vecino de D:
+<strong>C</strong>.     * Llamar a <strong>DFS(C)</strong>.</li>
+<li> <strong>DFS(C)</strong>: Marcar C como visitado. Orden:
+<code>[A, B, D, C]</code>.     * El vecino de C, A, ya está visitado. No
+hay más caminos.     * <strong>Retornar</strong> a D.</li>
+<li> (En D): No hay más vecinos por explorar. <strong>Retornar</strong>
+a B.</li>
+<li> (En B): No hay más vecinos por explorar. <strong>Retornar</strong>
+a A.</li>
+<li> (En A): Explorar el siguiente vecino: <strong>C</strong>. Ya está
+visitado. No hay más caminos.</li>
+<li> El algoritmo termina. El recorrido es <strong>A -&gt; B -&gt; D
+-&gt; C</strong>.</li>
+</ol>
+<p><strong>Nota importante</strong>: El orden exacto de un DFS puede
+variar dependiendo del orden en que se exploran los vecinos.</p>
+<h3 id="aplicaciones-clave-de-dfs">Aplicaciones Clave de DFS</h3>
+<ul>
+<li><strong>Detección de Ciclos</strong>: Durante un recorrido DFS, si
+encontramos un vértice que ya está en la pila de recursión actual (un
+ancestro), hemos encontrado un “back edge”, lo que significa que hay un
+ciclo.</li>
+<li><strong>Ordenación Topológica</strong>: En un Grafo Dirigido
+Acíclico (DAG), una ordenación topológica es una secuencia lineal de
+vértices tal que para cada arista <span class="math inline">\((u,
+v)\)</span>, <span class="math inline">\(u\)</span> aparece antes que
+<span class="math inline">\(v\)</span>. Es fundamental para planificar
+tareas con dependencias (ej. compilar un proyecto). Un recorrido DFS
+postorden produce el inverso de una ordenación topológica.</li>
+</ul>
+<hr />
+<h2 id="comparación-bfs-o-dfs">Comparación: ¿BFS o DFS?</h2>
+<p>La elección entre BFS y DFS no es una cuestión de “cuál es mejor”,
+sino de “<strong>cuál es la herramienta adecuada para el
+trabajo</strong>”.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Característica</th>
+<th style="text-align: left;">BFS (Anchura)</th>
+<th style="text-align: left;">DFS (Profundidad)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Estructura de Datos</strong></td>
+<td style="text-align: left;"><strong>Cola (FIFO)</strong></td>
+<td style="text-align: left;"><strong>Pila (LIFO) o
+Recursión</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Estrategia</strong></td>
+<td style="text-align: left;">Explora por niveles, de forma expansiva y
+uniforme.</td>
+<td style="text-align: left;">Se sumerge en un camino hasta el final
+antes de retroceder.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Camino más corto</strong></td>
+<td style="text-align: left;">✅ <strong>Garantizado</strong> en grafos
+no ponderados.</td>
+<td style="text-align: left;">❌ No lo garantiza. Puede encontrar un
+camino mucho más largo primero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Uso de Memoria</strong></td>
+<td style="text-align: left;">Puede ser muy alto si el grafo es ancho
+(muchos nodos en un nivel).</td>
+<td style="text-align: left;">Generalmente menor, proporcional a la
+profundidad máxima del grafo.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ideal para…</strong></td>
+<td style="text-align: left;">Encontrar el camino más corto,
+“rastreadores” web que exploran por cercanía, análisis de redes sociales
+(amigos de amigos).</td>
+<td style="text-align: left;">Detección de ciclos, ordenación
+topológica, resolución de laberintos, búsqueda exhaustiva en árboles de
+decisión (IA, juegos).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ejercicios-ampliados">Ejercicios Ampliados</h2>
+<h4 id="ejercicios-teóricos-y-de-diseño">Ejercicios Teóricos y de
+Diseño</h4>
+<ol type="1">
+<li> Dado un grafo no dirigido y conexo, ¿es posible que el orden de
+visita de BFS y DFS sea el mismo? Si es así, dibuja un ejemplo. Si no,
+explica por qué.</li>
+<li> Explica con detalle cómo modificarías el pseudocódigo de DFS para
+detectar un ciclo en un grafo <strong>dirigido</strong>. (Pista:
+necesitas tres estados para cada nodo: no visitado, visitando,
+visitado).</li>
+<li> Diseña un algoritmo que, dado un grafo no dirigido, cuente el
+número de <strong>componentes conexas</strong> que tiene. ¿Usarías BFS o
+DFS? ¿Por qué?</li>
+<li> Un grafo bipartito es aquel cuyos vértices se pueden dividir en dos
+conjuntos disjuntos tal que toda arista conecta un vértice de un
+conjunto con uno del otro. Diseña un algoritmo para determinar si un
+grafo es bipartito. (Pista: BFS y colores).</li>
+</ol>
+<h4 id="ejercicios-prácticos-de-programación">Ejercicios Prácticos de
+Programación</h4>
+<ol start="5" type="1">
+<li> Implementa una clase <code>Grafo</code> que permita añadir vértices
+y aristas, y que pueda ser representado tanto por matriz como por lista
+de adyacencia.</li>
+<li> Implementa las funciones <code>recorridoBFS</code> y
+<code>recorridoDFS</code> para tu clase Grafo.</li>
+<li> Usando tu implementación de BFS, escribe una función que encuentre
+la distancia (número de aristas) entre dos nodos dados. Si no hay
+camino, debe devolver -1.</li>
+<li> Escribe un programa que resuelva un laberinto simple representado
+por una matriz de caracteres (‘#’ para paredes, ‘.’ para caminos, ‘E’
+para entrada, ‘S’ para salida). Utiliza DFS para encontrar un camino
+desde la entrada hasta la salida.</li>
+</ol>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
+<em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>.
+Addison-Wesley.</li>
+<li>Gross, J. L., &amp; Yellen, J. <em>Graph Theory and Its
+Applications</em>. Chapman &amp; Hall/CRC.</li>
+<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data
+Structures and Algorithms in Java</em>. Wiley.</li>
+</ul>
+</body>
+</html>

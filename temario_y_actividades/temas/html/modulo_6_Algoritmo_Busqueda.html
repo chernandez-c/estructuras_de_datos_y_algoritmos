@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
+  <title>Módulo 6 – Algoritmos de búsqueda</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Módulo 6 – Algoritmos de búsqueda</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y
+Algoritmos</p>
+<p class="date">21 de agosto de 2025</p>
+</header>
+<nav id="TOC" role="doc-toc">
+
+</nav>
+<h1
+id="módulo-6-algoritmos-de-búsqueda-paradigmas-y-análisis-de-eficiencia">Módulo
+6 – Algoritmos de Búsqueda: Paradigmas y Análisis de Eficiencia</h1>
+<h2
+id="introducción-el-problema-fundamental-de-la-recuperación-de-información">Introducción:
+El Problema Fundamental de la Recuperación de Información</h2>
+<p>La recuperación de información es una de las operaciones
+computacionales más ubicuas y fundamentales. Desde la consulta de un
+registro en un sistema de gestión de bases de datos hasta la resolución
+de símbolos en un compilador, la eficiencia con la que se localiza un
+dato es un factor determinante en el rendimiento global de un sistema.
+Un <strong>algoritmo de búsqueda</strong> es, por tanto, un
+procedimiento formal diseñado para localizar la existencia y posición de
+un elemento, o un conjunto de elementos, dentro de una estructura de
+datos.</p>
+<p>Este módulo presenta un análisis comparativo de los principales
+paradigmas de búsqueda, evaluando sus fundamentos teóricos, su
+complejidad computacional y los contextos en los que cada uno resulta
+óptimo. Se examinarán desde métodos de fuerza bruta hasta técnicas
+logarítmicas y de tiempo constante amortizado, ilustrando el profundo
+nexo entre la <strong>organización de los datos</strong> y la
+<strong>eficiencia algorítmica</strong>.</p>
+<hr />
+<h2 id="búsqueda-lineal-secuencial">Búsqueda Lineal (Secuencial)</h2>
+<p>La búsqueda lineal constituye el algoritmo más elemental. Procede
+mediante el examen exhaustivo y secuencial de cada elemento en una
+colección hasta que se encuentra el elemento objetivo o se agota el
+espacio de búsqueda.</p>
+<h3 id="análisis-formal">Análisis Formal</h3>
+<p>Dada una colección <span class="math inline">\(C\)</span> de <span
+class="math inline">\(n\)</span> elementos, el algoritmo verifica la
+condición <span class="math inline">\(C[i] = x\)</span> para <span
+class="math inline">\(i = 0, 1, \dots, n-1\)</span>.</p>
+<ul>
+<li><strong>Complejidad Temporal</strong>:
+<ul>
+<li><strong>Peor caso</strong>: El elemento no se encuentra o está en la
+última posición, requiriendo <span class="math inline">\(n\)</span>
+comparaciones. La complejidad es, por tanto, <span
+class="math inline">\(O(n)\)</span>.<br />
+</li>
+<li><strong>Caso promedio</strong>: Asumiendo una distribución uniforme
+de la probabilidad de que el elemento se encuentre en cualquier
+posición, el número esperado de comparaciones es <span
+class="math inline">\(\frac{n+1}{2}\)</span>, lo que también resulta en
+una complejidad de <span class="math inline">\(O(n)\)</span>.</li>
+</ul></li>
+</ul>
+<h4 id="explicación-del-análisis-formal">Explicación del análisis
+Formal</h4>
+<p>La expresión <span class="math inline">\(\frac{n+1}{2}\)</span> es el
+<strong>valor esperado</strong> (la media) del número de comparaciones
+que se realizan en una búsqueda lineal, bajo dos supuestos clave:</p>
+<ol type="1">
+<li>El elemento que se busca <strong>está presente</strong> en la
+colección.<br />
+</li>
+<li>El elemento tiene la <strong>misma probabilidad</strong> de estar en
+cualquiera de las <span class="math inline">\(n\)</span> posiciones
+(distribución uniforme).</li>
+</ol>
+<p>La deducción es la siguiente:</p>
+<ul>
+<li>Para encontrar el elemento en la <strong>1ª posición</strong>, se
+necesita 1 comparación.<br />
+</li>
+<li>Para encontrarlo en la <strong>2ª posición</strong>, se necesitan 2
+comparaciones.<br />
+</li>
+<li>…<br />
+</li>
+<li>Para encontrarlo en la <strong>n-ésima posición</strong>, se
+necesitan <span class="math inline">\(n\)</span> comparaciones.</li>
+</ul>
+<p>El número promedio de comparaciones es la suma de todas las posibles
+comparaciones dividida por el número de posiciones:</p>
+<p><span class="math display">\[\text{Promedio} = \frac{1 + 2 + 3 +
+\dots + n}{n}\]</span></p>
+<p>La suma de los primeros <span class="math inline">\(n\)</span>
+enteros tiene una fórmula conocida: <span
+class="math inline">\(\sum_{i=1}^{n} i = \frac{n(n+1)}{2}\)</span>.</p>
+<p>Sustituyendo esta fórmula en la ecuación del promedio:</p>
+<p><span class="math display">\[\text{Promedio} =
+\frac{\frac{n(n+1)}{2}}{n} = \frac{n(n+1)}{2n} =
+\frac{n+1}{2}\]</span></p>
+<hr />
+<h3 id="conexión-con-la-complejidad-on">Conexión con la Complejidad
+O(n)</h3>
+<p>Aunque el caso promedio sea <span
+class="math inline">\(\frac{n+1}{2}\)</span>, en el análisis de
+complejidad asintótica (notación Big O), los factores constantes y los
+términos de menor orden se descartan.</p>
+<p>La expresión <span class="math inline">\(\frac{n+1}{2}\)</span> se
+puede reescribir como <span class="math inline">\(\frac{1}{2}n +
+\frac{1}{2}\)</span>. El término dominante es <span
+class="math inline">\(\frac{1}{2}n\)</span>. Al eliminar el coeficiente
+constante (<span class="math inline">\(\frac{1}{2}\)</span>), la
+complejidad sigue siendo <strong>lineal</strong>, es decir,
+<strong><span class="math inline">\(O(n)\)</span></strong>. Esto
+significa que, en promedio, el tiempo de ejecución crece linealmente con
+el tamaño de la entrada.</p>
+<ul>
+<li><strong>Ventaja</strong>: Su principal mérito es la
+<strong>universalidad</strong>. No impone precondiciones sobre la
+estructura o el orden de los datos.<br />
+</li>
+<li><strong>Desventaja</strong>: Su escalabilidad es pobre, haciéndolo
+impracticable para conjuntos de datos de gran magnitud.</li>
+</ul>
+<h3 id="pseudocódigo">Pseudocódigo</h3>
+<pre class="text"><code>función busquedaLineal(colección, objetivo):
+    para cada elemento en colección:
+        si elemento == objetivo:
+            devolver posición(elemento)
+    
+    devolver no_encontrado</code></pre>
+<hr />
+<h2 id="búsqueda-binaria">Búsqueda Binaria</h2>
+<p>Este algoritmo representa un cambio de paradigma fundamental, pero
+introduce un prerrequisito indispensable: la colección de datos debe
+estar <strong>totalmente ordenada</strong>. Su estrategia se basa en el
+principio de <strong>“divide y vencerás”</strong>, reduciendo el espacio
+de búsqueda a la mitad en cada iteración.</p>
+<h3 id="análisis-de-complejidad-temporal-deducción-de-olog-n">Análisis
+de Complejidad Temporal: Deducción de O(log n) ⚙️</h3>
+<p>La eficiencia de la búsqueda binaria se modela mediante una
+<strong>relación de recurrencia</strong>. Sea <span
+class="math inline">\(T(n)\)</span> el tiempo de ejecución del algoritmo
+para una entrada de tamaño <span class="math inline">\(n\)</span>. En
+cada paso, se realiza una comparación de coste constante, <span
+class="math inline">\(c\)</span>, y el problema se reduce a un
+subproblema de tamaño <span class="math inline">\(n/2\)</span>. La
+recurrencia es <span class="math inline">\(T(n) = T(n/2) +
+c\)</span>.</p>
+<p>Resolviendo esta recurrencia, por ejemplo, mediante el Teorema
+Maestro o sustitución iterativa, se demuestra que el número de pasos es
+logarítmico. Después de <span class="math inline">\(k\)</span> pasos, el
+tamaño del problema es <span class="math inline">\(n/2^k\)</span>. El
+algoritmo termina cuando <span class="math inline">\(n/2^k = 1\)</span>,
+lo que implica <span class="math inline">\(k = \log_2(n)\)</span>. Por
+lo tanto, la complejidad temporal es: <span class="math inline">\(T(n)
+\in O(\log n)\)</span></p>
+<h3 id="pseudocódigo-versión-iterativa">Pseudocódigo (Versión
+Iterativa)</h3>
+<pre class="text"><code>función busquedaBinaria(array_ordenado, objetivo):
+    bajo ← 0
+    alto ← longitud(array_ordenado) - 1
+
+    mientras bajo ≤ alto:
+        medio ← bajo + piso((alto - bajo) / 2)
+        
+        si array_ordenado[medio] == objetivo:
+            devolver medio
+        sino si array_ordenado[medio] &lt; objetivo:
+            bajo ← medio + 1
+        sino:
+            alto ← medio - 1
+            
+    devolver no_encontrado</code></pre>
+<hr />
+<h2 id="tablas-hash-hashing">Tablas Hash (Hashing)</h2>
+<p>Las tablas hash intentan <strong>calcular la posición</strong> de un
+elemento de forma directa a través de una <strong>función hash</strong>,
+<span class="math inline">\(h(k)\)</span>, que mapea una clave a un
+índice de un array.</p>
+<h3 id="componentes-y-análisis">Componentes y Análisis</h3>
+<ul>
+<li><p><strong>Función Hash</strong>: Debe ser determinista, rápida y
+distribuir las claves de forma <strong>uniforme</strong> sobre los
+índices para minimizar colisiones.</p></li>
+<li><p><strong>Gestión de Colisiones</strong>: Dado que <span
+class="math inline">\(h(k_1) = h(k_2)\)</span> para <span
+class="math inline">\(k_1 \neq k_2\)</span> es posible, se usan
+estrategias como el <strong>encadenamiento separado</strong> o el
+<strong>direccionamiento abierto</strong>.</p></li>
+<li><p><strong>Complejidad</strong>:</p>
+<ul>
+<li><strong>Caso Promedio</strong>: Si el <strong>factor de
+carga</strong> (<span class="math inline">\(\alpha = n/m\)</span>) se
+mantiene constante, la complejidad es <strong><span
+class="math inline">\(O(1)\)</span> amortizado</strong>.</li>
+<li><strong>Peor Caso</strong>: Todas las claves colisionan en el mismo
+índice, degradando la búsqueda a <span
+class="math inline">\(O(n)\)</span>.</li>
+</ul></li>
+</ul>
+<h3 id="pseudocódigo-búsqueda-con-encadenamiento-separado">Pseudocódigo
+(Búsqueda con Encadenamiento Separado)</h3>
+<pre class="text"><code>función buscarEnTablaHash(tabla_hash, clave):
+    // Calcular el índice usando la función hash
+    índice ← hash(clave) % tamaño(tabla_hash)
+    
+    // Obtener la lista enlazada (o bucket) en esa posición
+    bucket ← tabla_hash[índice]
+    
+    // Buscar linealmente dentro del bucket
+    para cada par (k, v) en bucket:
+        si k == clave:
+            devolver v // Valor encontrado
+            
+    devolver no_encontrado</code></pre>
+<hr />
+<h2 id="búsqueda-en-árboles-binarios-de-búsqueda-bst">Búsqueda en
+Árboles Binarios de Búsqueda (BST)</h2>
+<p>Un BST mantiene sus claves ordenadas de forma implícita. Para
+cualquier nodo <span class="math inline">\(x\)</span>, las claves en su
+subárbol izquierdo son menores y las del subárbol derecho son mayores.
+La complejidad depende de la altura del árbol, <span
+class="math inline">\(h\)</span>. En un <strong>árbol
+auto-balanceado</strong> (ej. AVL, Rojo-Negro), <span
+class="math inline">\(h \in O(\log n)\)</span>, garantizando una
+búsqueda eficiente.</p>
+<h3 id="pseudocódigo-versión-recursiva">Pseudocódigo (Versión
+Recursiva)</h3>
+<pre class="text"><code>función buscarEnBST(nodo, clave_objetivo):
+    // Caso base: el subárbol está vacío o encontramos la clave
+    si nodo == null o nodo.clave == clave_objetivo:
+        devolver nodo
+    
+    // Decisión recursiva
+    si clave_objetivo &lt; nodo.clave:
+        devolver buscarEnBST(nodo.izquierdo, clave_objetivo)
+    sino:
+        devolver buscarEnBST(nodo.derecho, clave_objetivo)</code></pre>
+<hr />
+<h2 id="búsqueda-en-grafos-bfs-y-dfs">Búsqueda en Grafos (BFS y
+DFS)</h2>
+<p>En grafos, la búsqueda se refiere a algoritmos de recorrido para
+determinar la existencia de un vértice o un camino hacia él.</p>
+<ul>
+<li><strong>BFS (Breadth-First Search)</strong>: Explora por niveles
+adyacentes. Es el algoritmo canónico para encontrar <strong>caminos de
+mínima longitud</strong> en grafos no ponderados.</li>
+<li><strong>DFS (Depth-First Search)</strong>: Explora una rama hasta su
+máxima profundidad antes de retroceder. Útil en <strong>detección de
+ciclos</strong> y búsqueda exhaustiva.</li>
+</ul>
+<p>Ambos algoritmos tienen una complejidad temporal de <strong><span
+class="math inline">\(O(|V|+|E|)\)</span></strong>.</p>
+<h3 id="pseudocódigo-bfs-para-encontrar-un-objetivo">Pseudocódigo (BFS
+para encontrar un objetivo)</h3>
+<pre class="text"><code>función buscarBFS(grafo, origen, objetivo):
+    crear cola Q
+    crear conjunto de visitados V
+    
+    encolar(origen, Q)
+    añadir(origen, V)
+    
+    mientras Q no esté vacía:
+        actual ← desencolar(Q)
+        
+        si actual == objetivo:
+            devolver encontrado
+            
+        para cada vecino de actual en grafo:
+            si vecino no está en V:
+                añadir(vecino, V)
+                encolar(vecino, Q)
+                
+    devolver no_encontrado</code></pre>
+<hr />
+<h2 id="comparación-de-algoritmos-de-búsqueda">Comparación de algoritmos
+de búsqueda</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 23%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Algoritmo</th>
+<th>Datos ordenados</th>
+<th>Complejidad</th>
+<th>Ventajas</th>
+<th>Desventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lineal</strong></td>
+<td>No</td>
+<td><span class="math inline">\(O(n)\)</span></td>
+<td>Simple, universal</td>
+<td>Lento en colecciones grandes</td>
+</tr>
+<tr class="even">
+<td><strong>Binaria</strong></td>
+<td>Sí</td>
+<td><span class="math inline">\(O(\log n)\)</span></td>
+<td>Muy rápida</td>
+<td>Requiere orden</td>
+</tr>
+<tr class="odd">
+<td><strong>Hash</strong></td>
+<td>No</td>
+<td><span class="math inline">\(O(1)\)</span> promedio</td>
+<td>Extremadamente rápida</td>
+<td>Depende de función hash, colisiones</td>
+</tr>
+<tr class="even">
+<td><strong>BST</strong></td>
+<td>Sí (orden implícito)</td>
+<td><span class="math inline">\(O(\log n)\)</span> en balanceados</td>
+<td>Inserción y borrado dinámicos</td>
+<td>Puede degradarse a <span class="math inline">\(O(n)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>BFS/DFS</strong></td>
+<td>No necesario</td>
+<td><span class="math inline">\(O( V + E )\)</span></td>
+<td>Exploran redes y caminos</td>
+<td>Más complejos conceptualmente</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="aplicaciones">Aplicaciones</h2>
+<ul>
+<li><strong>Lineal</strong>: búsqueda en pequeños arrays o listas
+cortas.</li>
+<li><strong>Binaria</strong>: diccionarios, búsqueda en bases de datos
+ordenadas.</li>
+<li><strong>Hash</strong>: tablas de símbolos en compiladores, índices
+en bases de datos.</li>
+<li><strong>BST</strong>: diccionarios dinámicos, sistemas de
+ficheros.</li>
+<li><strong>BFS/DFS</strong>: rutas en mapas, redes sociales, análisis
+de grafos biológicos.</li>
+</ul>
+<hr />
+<h2 id="conclusiones">Conclusiones</h2>
+<ul>
+<li>La elección del algoritmo depende de la <strong>estructura de
+datos</strong> y del <strong>problema</strong>.</li>
+<li>Lineal es universal pero lenta.</li>
+<li>Binaria aprovecha el orden para lograr <span
+class="math inline">\(O(\log n)\)</span>.</li>
+<li>Hash es rapidísima, ideal para búsquedas directas.</li>
+<li>BST permite colecciones dinámicas ordenadas.</li>
+<li>BFS y DFS extienden la búsqueda a redes y grafos complejos.</li>
+</ul>
+<hr />
+<h2 id="ejercicios-de-autoevaluación">Ejercicios de autoevaluación</h2>
+<ol type="1">
+<li>¿Cuál es la complejidad promedio y peor caso de una búsqueda en
+tabla hash?</li>
+<li>¿Por qué no se puede usar búsqueda binaria en una lista no
+ordenada?</li>
+<li>Inserta los valores 10, 20, 5, 15 en un BST y muestra cómo buscarías
+el valor 15.</li>
+<li>Aplica BFS en un grafo con vértices A–B–C–D y aristas {A–B, A–C,
+B–D}. ¿En qué orden se visitan los vértices desde A?</li>
+<li>Explica en qué contextos preferirías un BST frente a una tabla
+hash.</li>
+<li>Diseña un caso práctico donde BFS sea más útil que DFS.</li>
+</ol>
+<hr />
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
+<em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Weiss, M. A. <em>Data Structures and Algorithm Analysis</em>.
+Pearson.</li>
+<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>.
+Addison-Wesley.</li>
+<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data
+Structures and Algorithms in Java</em>. Wiley.</li>
+</ul>
+</body>
+</html>

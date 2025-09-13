@@ -32,7 +32,7 @@
     const file = params.get('file');
     const container = document.getElementById('content');
     if (file) {
-      loadMarkdownInto(container, `materiales_markdown/${file}`);
+      loadMarkdownInto(container, `temario_y_actividades/${file}`);
     } else {
       container.innerHTML = '<p class="text-red-500">Archivo no especificado.</p>';
     }

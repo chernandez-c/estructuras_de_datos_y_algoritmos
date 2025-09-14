@@ -21,7 +21,7 @@ function bstInsert() {
 function bstClear() { bstRoot = null; renderBST(); }
 function renderBST() {
     bstContainer.innerHTML = '';
-    if (!bstRoot) { bstContainer.innerHTML = `<p class="text-gray-400">El árbol aparecerá aquí...</p>`; return; }
+    if (!bstRoot) { bstContainer.innerHTML = `<p class="text-muted">El árbol aparecerá aquí...</p>`; return; }
     function drawNode(node, x, y, px, py, level) {
         if (!node) return;
         if (px !== null) {

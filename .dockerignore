@@ -1,0 +1,16 @@
+# Dependencies and caches
+node_modules
+npm-debug.log*
+
+# VCS
+.git
+.gitignore
+
+# OS/editor files
+.DS_Store
+*.swp
+
+# Build outputs (none currently, but keep tidy)
+dist
+build
+

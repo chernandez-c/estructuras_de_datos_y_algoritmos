@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso Interactivo: Estructuras de Datos y Algoritmos en Bioinformática</title>
     <script>
-      window.tailwind = {
-        config: {
-          darkMode: 'class'
-        }
-      }
+      // Aplica data-theme lo antes posible para evitar FOUC
+      (function() {
+        try {
+          var t = localStorage.getItem('theme'); // 'light' | 'dark' | 'system'
+          var setting = (t === 'light' || t === 'dark' || t === 'system') ? t : 'system';
+          document.documentElement.setAttribute('data-theme', setting);
+        } catch (e) {}
+      })();
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,19 +21,30 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link id="markdown-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
   </head>
-  <body class="antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+  <body class="antialiased">
 
-    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 dark:bg-gray-800/80">
+    <header class="backdrop-blur-md shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">Estructuras de datos y Algortimos</h1>
+                    <h1 class="text-xl font-bold brand">Estructuras de datos y Algortimos</h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="hidden md:flex items-baseline space-x-4" id="nav-links">
-                        <a href="#inicio" class="nav-link px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 hover:border-blue-500 dark:hover:border-blue-400">Inicio</a>
+                        <a href="#inicio" class="nav-link px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Inicio</a>
                     </div>
-                    <button id="theme-toggle" class="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Cambiar tema"></button>
+                    <div class="relative group flex items-center gap-2">
+                      <span id="theme-tooltip" class="theme-tip pointer-events-none absolute -top-6 right-0 text-[11px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Tema</span>
+                      <button id="theme-toggle" class="p-2 rounded-md" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"></button>
+                      <div class="transition-opacity opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto focus-within:opacity-100 focus-within:pointer-events-auto">
+                        <label for="theme-select" class="sr-only">Tema</label>
+                        <select id="theme-select" class="theme-select p-2 rounded-md text-sm" aria-label="Selector de tema">
+                          <option value="system">Sistema</option>
+                          <option value="light">Claro</option>
+                          <option value="dark">Oscuro</option>
+                        </select>
+                      </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -38,9 +52,9 @@
 
     <main class="container mx-auto p-4 sm:p-6 lg:p-8">
         <section id="inicio" class="module-content min-h-screen text-center flex flex-col justify-center">
-            <h2 class="text-4xl font-bold tracking-tight text-gray-800 dark:text-gray-100 sm:text-5xl md:text-6xl">Introducción a Estructuras de Datos y Algoritmos</h2>
-            <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600 dark:text-gray-300">Una guía interactiva para dominar los fundamentos computacionales esenciales en el campo de la bioinformática.</p>
-            <p class="mt-4 max-w-3xl mx-auto text-base text-gray-500 dark:text-gray-400">Bienvenido/a. En el campo de la bioinformática, manejamos volúmenes de datos extraordinariamente grandes. La capacidad de procesar, buscar y analizar esta información de manera eficiente es una necesidad fundamental. Este curso interactivo te proporcionará los cimientos para entender cómo organizar datos de forma inteligente y diseñar procedimientos eficientes para resolver problemas complejos.</p>
+            <h2 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">Introducción a Estructuras de Datos y Algoritmos</h2>
+            <p class="mt-6 max-w-3xl mx-auto text-lg">Una guía interactiva para dominar los fundamentos computacionales esenciales en el campo de la bioinformática.</p>
+            <p class="mt-4 max-w-3xl mx-auto text-base">Bienvenido/a. En el campo de la bioinformática, manejamos volúmenes de datos extraordinariamente grandes. La capacidad de procesar, buscar y analizar esta información de manera eficiente es una necesidad fundamental. Este curso interactivo te proporcionará los cimientos para entender cómo organizar datos de forma inteligente y diseñar procedimientos eficientes para resolver problemas complejos.</p>
         </section>
         <div id="modules-container"></div>
     </main>

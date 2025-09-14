@@ -1,7 +1,24 @@
 # estructuras_de_datos_y_algoritmos
-Utilidades didácticas
+Utilidades didácticas para Introducción a estructuras de datos y algoritmos:
+Temario:
+- Markdown
+- HTML
+- PDF
+Actividades
+Practicas
+
 
 ## Desarrollo
+
+### Docker
+
+Basta con hacer 
+```bash
+docker build . -t {nombre_imagen}
+docker run -p 8080:8080 {nombre_imagen}
+```
+
+### Sin contenedor
 
 Instala las dependencias y levanta un servidor local:
 

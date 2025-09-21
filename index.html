@@ -20,44 +20,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link id="markdown-style" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown-light.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
   </head>
   <body class="antialiased">
 
-    <header class="backdrop-blur-md shadow-sm sticky top-0 z-50">
+    <header class="backdrop-blur-md shadow-sm sticky top-0 z-50 site-header">
+        <button id="sidebar-toggle" class="sidebar-toggle-btn header-sidebar-toggle" aria-pressed="true" aria-label="Ocultar navegación de módulos">
+            <span class="toggle-icon font-semibold">Menú</span>
+            <span class="toggle-label hidden sm:inline">módulos</span>
+        </button>
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
+            <div class="flex items-center justify-between h-16 gap-4">
+                <div class="flex-1 text-center md:text-left">
                     <h1 class="text-xl font-bold brand">Estructuras de datos y Algortimos</h1>
                 </div>
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-4 justify-end">
                     <div class="hidden md:flex items-baseline space-x-4" id="nav-links">
                         <a href="#inicio" class="nav-link px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Inicio</a>
                     </div>
-                    <div class="relative group flex items-center gap-2">
-                      <span id="theme-tooltip" class="theme-tip pointer-events-none absolute -top-6 right-0 text-[11px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">Tema</span>
-                      <button id="theme-toggle" class="p-2 rounded-md" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"></button>
-                      <div class="transition-opacity opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto focus-within:opacity-100 focus-within:pointer-events-auto">
+                    <div class="theme-switcher group">
+                        <span id="theme-tooltip" class="theme-tip pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 text-[11px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">Tema</span>
+                        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema" aria-pressed="false" title="Cambiar tema"></button>
                         <label for="theme-select" class="sr-only">Tema</label>
-                        <select id="theme-select" class="theme-select p-2 rounded-md text-sm" aria-label="Selector de tema">
+                        <select id="theme-select" class="theme-select" aria-label="Selector de tema">
                           <option value="system">Sistema</option>
                           <option value="light">Claro</option>
                           <option value="dark">Oscuro</option>
                         </select>
-                      </div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <section id="inicio" class="module-content min-h-screen text-center flex flex-col justify-center">
-            <h2 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">Introducción a Estructuras de Datos y Algoritmos</h2>
-            <p class="mt-6 max-w-3xl mx-auto text-lg">Una guía interactiva para dominar los fundamentos computacionales esenciales en el campo de la bioinformática.</p>
-            <p class="mt-4 max-w-3xl mx-auto text-base">Bienvenido/a. En el campo de la bioinformática, manejamos volúmenes de datos extraordinariamente grandes. La capacidad de procesar, buscar y analizar esta información de manera eficiente es una necesidad fundamental. Este curso interactivo te proporcionará los cimientos para entender cómo organizar datos de forma inteligente y diseñar procedimientos eficientes para resolver problemas complejos.</p>
-        </section>
-        <div id="modules-container"></div>
-    </main>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <div class="page-shell">
+        <aside id="module-sidebar" class="module-sidebar">
+            <a href="index.html" class="sidebar-home-link">Inicio</a>
+            <span class="sidebar-label" aria-hidden="true">Menú</span>
+            <div class="sidebar-inner">
+                <p class="sidebar-heading">Módulos</p>
+                <nav id="sidebar-nav" class="sidebar-nav"></nav>
+            </div>
+        </aside>
+        <main class="main-content container mx-auto p-4 sm:p-6 lg:p-8">
+            <section id="inicio" class="module-content min-h-screen text-center flex flex-col justify-center">
+                <h2 class="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">Introducción a Estructuras de Datos y Algoritmos</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg">Una guía interactiva para dominar los fundamentos computacionales esenciales en el campo de la bioinformática.</p>
+                <p class="mt-4 max-w-3xl mx-auto text-base">Bienvenido/a. En el campo de la bioinformática, manejamos volúmenes de datos extraordinariamente grandes. La capacidad de procesar, buscar y analizar esta información de manera eficiente es una necesidad fundamental. Este curso interactivo te proporcionará los cimientos para entender cómo organizar datos de forma inteligente y diseñar procedimientos eficientes para resolver problemas complejos.</p>
+            </section>
+            <div id="modules-container"></div>
+        </main>
+    </div>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/modules.js"></script>
     <script src="assets/js/ui.js"></script>

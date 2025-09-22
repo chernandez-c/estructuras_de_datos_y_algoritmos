@@ -234,5 +234,56 @@ a:hover { color: var(--link-hover); }
     color: var(--fg) !important;
 }
 
+/* Answer toggles */
+.answers-block {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--card-border);
+    background-color: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 2px 4px -2px rgba(15, 23, 42, 0.25);
+}
+
+.answers-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+    color: var(--fg);
+    gap: 0.75rem;
+}
+
+.answers-summary::-webkit-details-marker,
+.answers-summary::marker {
+    display: none;
+}
+
+.answers-summary::after {
+    content: '\25BC';
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+    color: var(--link);
+}
+
+.answers-block[open] .answers-summary::after {
+    transform: rotate(-180deg);
+}
+
+.answers-summary-label {
+    font-size: 1rem;
+}
+
+.answers-summary-action {
+    font-size: 0.875rem;
+    color: var(--link);
+}
+
+.answers-block[open] .answers-summary {
+    margin-bottom: 0.75rem;
+}
+
 /* Animations */
 .stack-item, .queue-item { transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); transform-origin: bottom; }

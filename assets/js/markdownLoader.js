@@ -1,156 +1,157 @@
-const __pendingMathElements = new Set();
+const FRONT_MATTER_RE = /^---[\s\S]*?---/;
+const MATH_DELIMITERS = [
+  { left: '$$', right: '$$', display: true },
+  { left: '$', right: '$', display: false },
+  { left: '\\(', right: '\\)', display: false },
+  { left: '\\[', right: '\\]', display: true }
+];
+const LAST_CONTENT_SELECTOR = ':scope > p:last-of-type, :scope > ul:last-of-type, :scope > ol:last-of-type, :scope > pre:last-of-type, :scope > blockquote:last-of-type, :scope > table:last-of-type';
 
-function renderMathIfReady(el) {
-  if (window.renderMathInElement) {
-    window.renderMathInElement(el, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true }
-      ],
-      throwOnError: false
-    });
-  } else {
-    __pendingMathElements.add(el);
-  }
+const pendingMathElements = new Set();
+
+function stripFrontMatter(text) {
+  return text.replace(FRONT_MATTER_RE, '');
 }
 
-function flushPendingMath() {
-  if (!window.renderMathInElement) return;
-  if (__pendingMathElements.size === 0) return;
-  __pendingMathElements.forEach(el => {
-    window.renderMathInElement(el, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true }
-      ],
-      throwOnError: false
-    });
+function normaliseImageSources(root, basePath) {
+  if (!basePath) return;
+  const baseUrl = new URL(basePath, `${window.location.origin}/`);
+  root.querySelectorAll('img').forEach(img => {
+    const src = img.getAttribute('src');
+    if (!src || /^(?:[a-z]+:)?\/\//i.test(src) || src.startsWith('/')) return;
+    const resolved = new URL(src, baseUrl);
+    img.setAttribute('src', resolved.pathname);
   });
-  __pendingMathElements.clear();
 }
 
-window.addEventListener('katexready', flushPendingMath);
-
-async function loadMarkdownInto(el, path) {
-  try {
-    const res = await fetch(path);
-    const text = await res.text();
-    const content = text.replace(/^---[\s\S]*?---/, '');
-    el.classList.add('markdown-body');
-    el.innerHTML = marked.parse(content);
-
-    renderMathIfReady(el);
-
-    enhanceSelfAssessmentSections(el);
-
-    const base = path.substring(0, path.lastIndexOf('/') + 1);
-    const baseUrl = new URL(base, window.location.origin + '/');
-    el.querySelectorAll('img').forEach(img => {
-      const src = img.getAttribute('src');
-      if (src && !/^(?:[a-z]+:)?\/\//i.test(src) && !src.startsWith('/')) {
-        const resolved = new URL(src, baseUrl);
-        img.setAttribute('src', resolved.pathname);
-      }
-    });
-  } catch (err) {
-    el.innerHTML = '<p class="text-red-500">Error cargando el contenido.</p>';
+function renderMath(element) {
+  if (typeof window.renderMathInElement === 'function') {
+    window.renderMathInElement(element, { delimiters: MATH_DELIMITERS, throwOnError: false });
+  } else {
+    pendingMathElements.add(element);
   }
+}
+
+window.addEventListener('katexready', () => {
+  if (typeof window.renderMathInElement !== 'function' || !pendingMathElements.size) return;
+  pendingMathElements.forEach(el => window.renderMathInElement(el, { delimiters: MATH_DELIMITERS, throwOnError: false }));
+  pendingMathElements.clear();
+});
+
+function createAnswerControls(answerText) {
+  const container = document.createElement('div');
+  container.className = 'answer-controls';
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'btn btn-purple px-3 py-1 rounded-md text-sm';
+  button.textContent = 'Ver respuesta';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'hidden text-sm answer-bubble';
+  bubble.textContent = `Respuesta correcta: ${answerText}`;
+
+  button.addEventListener('click', () => {
+    const hidden = bubble.classList.toggle('hidden');
+    button.textContent = hidden ? 'Ver respuesta' : 'Ocultar respuesta';
+  });
+
+  container.appendChild(button);
+  container.appendChild(bubble);
+  return container;
+}
+
+function buildAnswerMap(answerNodes) {
+  const map = new Map();
+  const lines = answerNodes
+    .map(node => node.textContent.replace(/\u00a0/g, ' ').trim())
+    .join('\n')
+    .split(/\n+/)
+    .map(line => line.trim())
+    .filter(Boolean);
+
+  lines.forEach(line => {
+    const modern = line.match(/^pregunta\s+(\d+)\s*:\s*respuesta\s+([a-z])(?:\s*[–-]\s*(.+))?$/i);
+    if (modern) {
+      const idx = parseInt(modern[1], 10);
+      if (!Number.isNaN(idx)) {
+        const letter = modern[2].toUpperCase();
+        const extra = modern[3]?.trim();
+        map.set(idx, extra ? `${letter} – ${extra}` : letter);
+      }
+      return;
+    }
+
+    const legacy = line.match(/^(\d+)\s*[–-]\s*(.+)$/);
+    if (legacy) {
+      const idx = parseInt(legacy[1], 10);
+      if (!Number.isNaN(idx)) map.set(idx, legacy[2].trim());
+    }
+  });
+  return map;
+}
+
+function collectQuestionItems(preguntasHeading, respuestasHeading) {
+  const items = [];
+  let cursor = preguntasHeading.nextElementSibling;
+  while (cursor && cursor !== respuestasHeading) {
+    if (cursor.tagName === 'OL') {
+      cursor.querySelectorAll(':scope > li').forEach(li => items.push(li));
+    }
+    cursor = cursor.nextElementSibling;
+  }
+  return items;
 }
 
 function enhanceSelfAssessmentSections(root) {
   const headings = Array.from(root.querySelectorAll('h2'));
-  if (headings.length === 0) return;
-
   const preguntasHeading = headings.find(h => h.textContent.trim().toLowerCase() === 'preguntas');
   const respuestasHeading = headings.find(h => h.textContent.trim().toLowerCase() === 'respuestas');
   if (!preguntasHeading || !respuestasHeading) return;
 
   const answerNodes = [];
-  let answerCursor = respuestasHeading.nextElementSibling;
-  while (answerCursor && answerCursor.tagName !== 'H2') {
-    answerNodes.push(answerCursor);
-    answerCursor = answerCursor.nextElementSibling;
+  let cursor = respuestasHeading.nextElementSibling;
+  while (cursor && cursor.tagName !== 'H2') {
+    answerNodes.push(cursor);
+    cursor = cursor.nextElementSibling;
   }
 
-  const answersText = answerNodes.map(node => node.textContent.trim()).join('\n');
-  const answerMap = {};
-  answersText.split(/\n+/).forEach(line => {
-    const clean = line.trim();
-    if (!clean) return;
+  const answerMap = buildAnswerMap(answerNodes);
+  if (!answerMap.size) return;
 
-    const modernMatch = clean.match(/^pregunta\s+(\d+)\s*:\s*respuesta\s+([a-z])(?:\s*[–-]\s*(.+))?$/i);
-    if (modernMatch) {
-      const questionNumber = parseInt(modernMatch[1], 10);
-      if (!Number.isNaN(questionNumber)) {
-        const letter = modernMatch[2].toUpperCase();
-        const extra = modernMatch[3]?.trim();
-        answerMap[questionNumber] = extra ? `${letter} – ${extra}` : letter;
-      }
-      return;
-    }
-
-    const legacyMatch = clean.match(/^(\d+)\s*[–-]\s*(.+)$/);
-    if (legacyMatch) {
-      const questionNumber = parseInt(legacyMatch[1], 10);
-      if (!Number.isNaN(questionNumber)) {
-        answerMap[questionNumber] = legacyMatch[2].trim();
-      }
-    }
-  });
-
-  if (Object.keys(answerMap).length === 0) return;
-
-  const questionItems = [];
-  let questionCursor = preguntasHeading.nextElementSibling;
-  while (questionCursor && questionCursor !== respuestasHeading) {
-    if (questionCursor.tagName === 'OL') {
-      questionItems.push(...Array.from(questionCursor.children).filter(child => child.tagName === 'LI'));
-    }
-    questionCursor = questionCursor.nextElementSibling;
-  }
-
+  const questionItems = collectQuestionItems(preguntasHeading, respuestasHeading);
   questionItems.forEach((item, index) => {
-    const questionNumber = index + 1;
-    const answerText = answerMap[questionNumber];
-    if (!answerText) return;
+    const answer = answerMap.get(index + 1);
+    if (!answer) return;
 
-    const controlsContainer = document.createElement('span');
-    controlsContainer.className = 'answer-controls';
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'btn btn-purple px-3 py-1 rounded-md text-sm';
-    button.textContent = 'Ver respuesta';
-
-    const answerBubble = document.createElement('div');
-    answerBubble.className = 'hidden text-sm answer-bubble';
-    answerBubble.textContent = `Respuesta correcta: ${answerText}`;
-
-    button.addEventListener('click', () => {
-      const isHidden = answerBubble.classList.toggle('hidden');
-      button.textContent = isHidden ? 'Ver respuesta' : 'Ocultar respuesta';
-    });
-
-    controlsContainer.appendChild(button);
-    controlsContainer.appendChild(answerBubble);
-
-    const contentAnchor = item.querySelector(
-      ':scope > p:last-of-type, :scope > ul:last-of-type, :scope > ol:last-of-type, :scope > pre:last-of-type'
-    );
-
-    if (contentAnchor) {
-      contentAnchor.insertAdjacentElement('afterend', controlsContainer);
+    const controls = createAnswerControls(answer);
+    const anchor = item.querySelector(LAST_CONTENT_SELECTOR);
+    if (anchor) {
+      anchor.insertAdjacentElement('afterend', controls);
     } else {
-      item.appendChild(controlsContainer);
+      item.appendChild(controls);
     }
   });
 
   respuestasHeading.remove();
   answerNodes.forEach(node => node.remove());
+}
+
+async function loadMarkdownInto(el, path) {
+  try {
+    const response = await fetch(path);
+    const raw = await response.text();
+    const content = stripFrontMatter(raw);
+
+    el.classList.add('markdown-body');
+    el.innerHTML = marked.parse(content);
+
+    enhanceSelfAssessmentSections(el);
+    normaliseImageSources(el, path.substring(0, path.lastIndexOf('/') + 1));
+    renderMath(el);
+  } catch (error) {
+    el.innerHTML = '<p class="text-red-500">Error cargando el contenido.</p>';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -159,3 +160,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (path) loadMarkdownInto(el, path);
   });
 });
+
+window.loadMarkdownInto = loadMarkdownInto;

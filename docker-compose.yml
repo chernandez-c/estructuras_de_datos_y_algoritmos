@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  web_bioinformatica:
+    build:
+      context: .              # usa el Dockerfile del directorio actual
+      dockerfile: Dockerfile  # (opcional si tu archivo ya se llama "Dockerfile")
+    container_name: web_bioinformatica
+    ports:
+      - "8080:8080"           # expone el puerto 8080 del contenedor en localhost:8080
+    environment:
+      - NODE_ENV=production   # asegura que corra en modo producción
+    restart: unless-stopped   # lo reinicia salvo que lo pares a mano
+

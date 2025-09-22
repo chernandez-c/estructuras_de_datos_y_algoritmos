@@ -28,3 +28,10 @@ npm start
 ```
 
 La aplicación estará disponible en [http://localhost:8080](http://localhost:8080).
+
+
+### Arrancar contenedor
+
+``` 
+docker exec -it {CONTAINER-ID} sh      #No existe bash en alpine, por eso sh
+```

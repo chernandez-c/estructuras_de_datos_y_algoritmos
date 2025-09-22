@@ -7,166 +7,15 @@
   <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
   <title>Módulo 1 – Fundamentos de estructuras de datos y análisis de algoritmos</title>
   <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -201,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -214,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -230,197 +79,96 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Módulo 1 – Fundamentos de estructuras de datos y
-análisis de algoritmos</h1>
-<p class="author">Curso de Introducción a Estructuras de Datos y
-Algoritmos</p>
+<h1 class="title">Módulo 1 – Fundamentos de estructuras de datos y análisis de algoritmos</h1>
+<p class="author">Curso de Introducción a Estructuras de Datos y Algoritmos</p>
 <p class="date">21 de agosto de 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 
 </nav>
-<h1
-id="módulo-1-fundamentos-de-estructuras-de-datos-y-análisis-de-algoritmos">Módulo
-1 – Fundamentos de estructuras de datos y análisis de algoritmos</h1>
+<h1 id="módulo-1-fundamentos-de-estructuras-de-datos-y-análisis-de-algoritmos">Módulo 1 – Fundamentos de estructuras de datos y análisis de algoritmos</h1>
 <hr />
 <h2 id="objetivos-del-módulo">Objetivos del módulo</h2>
 <p>Al finalizar este módulo el estudiante será capaz de:</p>
 <ul>
-<li>Definir qué es un algoritmo y describir sus propiedades
-esenciales.<br />
+<li>Definir qué es un algoritmo y describir sus propiedades esenciales.<br />
 </li>
-<li>Analizar la eficiencia de un algoritmo en tiempo y memoria
-utilizando notación Big O.<br />
+<li>Analizar la eficiencia de un algoritmo en tiempo y memoria utilizando notación Big O.<br />
 </li>
-<li>Reconocer diferentes paradigmas algorítmicos (divide y vencerás,
-voraces, programación dinámica).<br />
+<li>Reconocer diferentes paradigmas algorítmicos (divide y vencerás, voraces, programación dinámica).<br />
 </li>
-<li>Explicar qué es un tipo de dato abstracto (TDA) y por qué es
-independiente de su implementación.<br />
+<li>Explicar qué es un tipo de dato abstracto (TDA) y por qué es independiente de su implementación.<br />
 </li>
-<li>Comprender el funcionamiento de vectores y matrices como estructuras
-de datos estáticas.</li>
+<li>Comprender el funcionamiento de vectores y matrices como estructuras de datos estáticas.</li>
 </ul>
 <hr />
 <h2 id="introducción">Introducción</h2>
-<p>Cuando hablamos de <strong>algoritmos</strong>, nos referimos a algo
-tan cotidiano como universal. Un algoritmo no es exclusivo de la
-informática: es cualquier secuencia <strong>finita y ordenada</strong>
-de pasos que, si se ejecutan correctamente, conducen a la solución de un
-problema.</p>
+<p>Cuando hablamos de <strong>algoritmos</strong>, nos referimos a algo tan cotidiano como universal. Un algoritmo no es exclusivo de la informática: es cualquier secuencia <strong>finita y ordenada</strong> de pasos que, si se ejecutan correctamente, conducen a la solución de un problema.</p>
 <ul>
-<li>La receta de una tortilla de patatas es un algoritmo: lista de
-ingredientes (entrada), pasos de preparación (proceso) y el plato final
-(salida).</li>
-<li>Seguir las instrucciones para montar un mueble de IKEA es otro
-algoritmo: si no cumples un paso o lo interpretas mal, el resultado no
-será el esperado.</li>
-<li>Incluso actividades básicas como calcular mentalmente el cambio al
-pagar en efectivo son algoritmos en acción.</li>
+<li>La receta de una tortilla de patatas es un algoritmo: lista de ingredientes (entrada), pasos de preparación (proceso) y el plato final (salida).</li>
+<li>Seguir las instrucciones para montar un mueble de IKEA es otro algoritmo: si no cumples un paso o lo interpretas mal, el resultado no será el esperado.</li>
+<li>Incluso actividades básicas como calcular mentalmente el cambio al pagar en efectivo son algoritmos en acción.</li>
 </ul>
-<p>Lo que distingue a los algoritmos en <strong>ciencias de la
-computación</strong> es que deben estar formulados de forma tan precisa
-y sin ambigüedades que <strong>una máquina pueda ejecutarlos</strong>.
-El ordenador no tiene intuición ni interpreta el contexto como lo haría
-un humano: si las instrucciones son vagas o incompletas, simplemente no
-sabrá qué hacer.</p>
+<p>Lo que distingue a los algoritmos en <strong>ciencias de la computación</strong> es que deben estar formulados de forma tan precisa y sin ambigüedades que <strong>una máquina pueda ejecutarlos</strong>. El ordenador no tiene intuición ni interpreta el contexto como lo haría un humano: si las instrucciones son vagas o incompletas, simplemente no sabrá qué hacer.</p>
 <hr />
-<h3 id="la-importancia-de-la-eficiencia">La importancia de la
-eficiencia</h3>
-<p>Resolver un problema es el primer paso, pero resolverlo de manera
-<strong>eficiente</strong> es lo que hace que un algoritmo sea útil en
-la práctica.</p>
+<h3 id="la-importancia-de-la-eficiencia">La importancia de la eficiencia</h3>
+<p>Resolver un problema es el primer paso, pero resolverlo de manera <strong>eficiente</strong> es lo que hace que un algoritmo sea útil en la práctica.</p>
 <p>Un ejemplo cotidiano:</p>
 <ul>
-<li>Imagina que tienes un diccionario con 100.000 palabras y buscas una
-en concreto. Puedes leer palabra por palabra desde el inicio
-(<strong>algoritmo lineal, O(n)</strong>), o usar el índice alfabético
-para descartar mitades sucesivas (<strong>búsqueda binaria, O(log
-n)</strong>). Ambas opciones encuentran la respuesta, pero la segunda lo
-hace en milésimas de segundo, incluso para volúmenes de datos
-enormes.</li>
+<li>Imagina que tienes un diccionario con 100.000 palabras y buscas una en concreto. Puedes leer palabra por palabra desde el inicio (<strong>algoritmo lineal, O(n)</strong>), o usar el índice alfabético para descartar mitades sucesivas (<strong>búsqueda binaria, O(log n)</strong>). Ambas opciones encuentran la respuesta, pero la segunda lo hace en milésimas de segundo, incluso para volúmenes de datos enormes.</li>
 </ul>
-<p>En informática moderna, esta diferencia puede ser la frontera entre
-lo <strong>viable</strong> y lo <strong>imposible</strong>:</p>
+<p>En informática moderna, esta diferencia puede ser la frontera entre lo <strong>viable</strong> y lo <strong>imposible</strong>:</p>
 <ul>
-<li>Google no podría responder a miles de millones de búsquedas diarias
-sin algoritmos de búsqueda altamente optimizados.</li>
-<li>La secuenciación del genoma humano no habría sido factible en plazos
-razonables si no se hubieran desarrollado algoritmos y estructuras de
-datos especializados para manejar grandes volúmenes de información.</li>
-<li>Aplicaciones como Netflix o Spotify, que recomiendan contenidos en
-tiempo real, dependen de algoritmos capaces de procesar datos en
-fracciones de segundo.</li>
+<li>Google no podría responder a miles de millones de búsquedas diarias sin algoritmos de búsqueda altamente optimizados.</li>
+<li>La secuenciación del genoma humano no habría sido factible en plazos razonables si no se hubieran desarrollado algoritmos y estructuras de datos especializados para manejar grandes volúmenes de información.</li>
+<li>Aplicaciones como Netflix o Spotify, que recomiendan contenidos en tiempo real, dependen de algoritmos capaces de procesar datos en fracciones de segundo.</li>
 </ul>
 <hr />
-<h3 id="estructuras-de-datos-el-soporte-de-los-algoritmos">Estructuras
-de datos: el soporte de los algoritmos</h3>
-<p>Los algoritmos no trabajan en el vacío: necesitan
-<strong>datos</strong> sobre los que operar. Aquí entran en juego las
-<strong>estructuras de datos</strong>, que son formas organizadas de
-almacenar y gestionar la información.</p>
-<p>Un mismo conjunto de datos puede volverse fácil o difícil de manejar
-según cómo se organice:</p>
+<h3 id="estructuras-de-datos-el-soporte-de-los-algoritmos">Estructuras de datos: el soporte de los algoritmos</h3>
+<p>Los algoritmos no trabajan en el vacío: necesitan <strong>datos</strong> sobre los que operar. Aquí entran en juego las <strong>estructuras de datos</strong>, que son formas organizadas de almacenar y gestionar la información.</p>
+<p>Un mismo conjunto de datos puede volverse fácil o difícil de manejar según cómo se organice:</p>
 <ul>
-<li>Si guardas los contactos de tu móvil en una simple lista
-desordenada, encontrar a alguien concreto requerirá recorrer todos los
-nombres uno por uno.</li>
-<li>En cambio, si los organizas en un árbol balanceado o en una tabla
-hash, la búsqueda se convierte en una operación casi instantánea.</li>
+<li>Si guardas los contactos de tu móvil en una simple lista desordenada, encontrar a alguien concreto requerirá recorrer todos los nombres uno por uno.</li>
+<li>En cambio, si los organizas en un árbol balanceado o en una tabla hash, la búsqueda se convierte en una operación casi instantánea.</li>
 </ul>
-<p>Dicho de otro modo: <strong>los algoritmos son los procesos, y las
-estructuras de datos son el soporte donde esos procesos se ejecutan de
-manera eficiente</strong>.</p>
+<p>Dicho de otro modo: <strong>los algoritmos son los procesos, y las estructuras de datos son el soporte donde esos procesos se ejecutan de manera eficiente</strong>.</p>
 <hr />
-<h3 id="conceptos-clave-de-este-módulo">Conceptos clave de este
-módulo</h3>
-<p>En este módulo introduciremos las <strong>piedras angulares</strong>
-sobre las que se construye todo el estudio de algoritmos y estructuras
-de datos:</p>
+<h3 id="conceptos-clave-de-este-módulo">Conceptos clave de este módulo</h3>
+<p>En este módulo introduciremos las <strong>piedras angulares</strong> sobre las que se construye todo el estudio de algoritmos y estructuras de datos:</p>
 <ul>
-<li><strong>Tipos de Dato Abstracto (TDA)</strong>: nos permiten definir
-qué operaciones podemos hacer con una estructura (ej. apilar, desapilar
-en una pila) sin preocuparnos aún de cómo se implementan. Esto favorece
-la <strong>abstracción</strong> y el diseño modular.</li>
-<li><strong>Notación Big O</strong>: la herramienta matemática que
-usamos para expresar la eficiencia de los algoritmos, especialmente
-cuando el tamaño de los datos crece. No nos interesa solo saber “cuánto
-tarda” un programa en un caso concreto, sino prever cómo escalará con
-miles o millones de datos.</li>
-<li><strong>Paradigmas algorítmicos</strong>: las “familias” de
-estrategias que permiten resolver problemas de forma general (divide y
-vencerás, algoritmos voraces, programación dinámica). Cada paradigma
-tiene fortalezas y limitaciones que conviene conocer para elegir el
-enfoque adecuado.</li>
-<li><strong>Vectores (arrays)</strong>: la primera estructura de datos
-que estudiaremos. Aunque sencilla, es fundamental para entender la
-relación entre organización de la memoria, acceso rápido a elementos y
-coste de operaciones más complejas como inserciones o borrados.</li>
+<li><strong>Tipos de Dato Abstracto (TDA)</strong>: nos permiten definir qué operaciones podemos hacer con una estructura (ej. apilar, desapilar en una pila) sin preocuparnos aún de cómo se implementan. Esto favorece la <strong>abstracción</strong> y el diseño modular.</li>
+<li><strong>Notación Big O</strong>: la herramienta matemática que usamos para expresar la eficiencia de los algoritmos, especialmente cuando el tamaño de los datos crece. No nos interesa solo saber “cuánto tarda” un programa en un caso concreto, sino prever cómo escalará con miles o millones de datos.</li>
+<li><strong>Paradigmas algorítmicos</strong>: las “familias” de estrategias que permiten resolver problemas de forma general (divide y vencerás, algoritmos voraces, programación dinámica). Cada paradigma tiene fortalezas y limitaciones que conviene conocer para elegir el enfoque adecuado.</li>
+<li><strong>Vectores (arrays)</strong>: la primera estructura de datos que estudiaremos. Aunque sencilla, es fundamental para entender la relación entre organización de la memoria, acceso rápido a elementos y coste de operaciones más complejas como inserciones o borrados.</li>
 </ul>
 <hr />
 <h3 id="mirando-hacia-adelante">Mirando hacia adelante</h3>
-<p>Dominar estos fundamentos no es un fin en sí mismo, sino un
-<strong>punto de partida</strong>. Al finalizar el módulo, el estudiante
-entenderá que:</p>
+<p>Dominar estos fundamentos no es un fin en sí mismo, sino un <strong>punto de partida</strong>. Al finalizar el módulo, el estudiante entenderá que:</p>
 <ul>
-<li>La informática no consiste solo en programar, sino en
-<strong>diseñar soluciones eficientes</strong>.</li>
-<li>Un problema mal resuelto puede ser inofensivo en pequeña escala,
-pero absolutamente desastroso cuando los datos se multiplican por
-millones.</li>
-<li>Los algoritmos y estructuras de datos son el puente entre la teoría
-matemática y las aplicaciones prácticas: desde buscadores web hasta
-análisis genómicos, desde videojuegos hasta inteligencia
-artificial.</li>
+<li>La informática no consiste solo en programar, sino en <strong>diseñar soluciones eficientes</strong>.</li>
+<li>Un problema mal resuelto puede ser inofensivo en pequeña escala, pero absolutamente desastroso cuando los datos se multiplican por millones.</li>
+<li>Los algoritmos y estructuras de datos son el puente entre la teoría matemática y las aplicaciones prácticas: desde buscadores web hasta análisis genómicos, desde videojuegos hasta inteligencia artificial.</li>
 </ul>
-<p>📌 <strong>Idea clave</strong>: Comprender algoritmos y estructuras
-de datos es aprender a pensar cómo resolver problemas de manera
-sistemática y óptima. Es adquirir una caja de herramientas que podrás
-aplicar en cualquier disciplina científica, tecnológica o incluso en la
-vida cotidiana.</p>
+<p>📌 <strong>Idea clave</strong>: Comprender algoritmos y estructuras de datos es aprender a pensar cómo resolver problemas de manera sistemática y óptima. Es adquirir una caja de herramientas que podrás aplicar en cualquier disciplina científica, tecnológica o incluso en la vida cotidiana.</p>
 <hr />
-<h2 id="concepto-y-representación-de-algoritmos">Concepto y
-representación de algoritmos</h2>
-<p>Un <strong>algoritmo</strong> es mucho más que un conjunto de
-instrucciones: es la <strong>esencia del pensamiento
-computacional</strong>. Para que un procedimiento pueda considerarse
-algoritmo, debe cumplir ciertas propiedades fundamentales:</p>
+<h2 id="concepto-y-representación-de-algoritmos">Concepto y representación de algoritmos</h2>
+<p>Un <strong>algoritmo</strong> es mucho más que un conjunto de instrucciones: es la <strong>esencia del pensamiento computacional</strong>. Para que un procedimiento pueda considerarse algoritmo, debe cumplir ciertas propiedades fundamentales:</p>
 <ul>
-<li><p><strong>Finitud</strong>: el algoritmo debe terminar siempre
-después de un número finito de pasos. Si no hay garantía de terminación,
-no estamos ante un algoritmo, sino ante un proceso indefinido. 📌
-<em>Ejemplo</em>: una receta de cocina tiene un final (el plato
-preparado). En cambio, “remueve indefinidamente la sopa” no cumple este
-requisito.</p></li>
-<li><p><strong>Definición precisa</strong>: cada paso debe estar
-claramente especificado y no admitir ambigüedad. Los ordenadores no
-saben interpretar “un poco de sal” o “mezclar hasta que esté bien”.
-Necesitan instrucciones exactas.</p></li>
-<li><p><strong>Entrada y salida</strong>: todo algoritmo parte de unos
-datos de entrada y produce resultados de salida. Sin entrada, el
-algoritmo carece de sentido; sin salida, no resuelve nada.</p></li>
+<li><p><strong>Finitud</strong>: el algoritmo debe terminar siempre después de un número finito de pasos. Si no hay garantía de terminación, no estamos ante un algoritmo, sino ante un proceso indefinido. 📌 <em>Ejemplo</em>: una receta de cocina tiene un final (el plato preparado). En cambio, “remueve indefinidamente la sopa” no cumple este requisito.</p></li>
+<li><p><strong>Definición precisa</strong>: cada paso debe estar claramente especificado y no admitir ambigüedad. Los ordenadores no saben interpretar “un poco de sal” o “mezclar hasta que esté bien”. Necesitan instrucciones exactas.</p></li>
+<li><p><strong>Entrada y salida</strong>: todo algoritmo parte de unos datos de entrada y produce resultados de salida. Sin entrada, el algoritmo carece de sentido; sin salida, no resuelve nada.</p></li>
 </ul>
-<p>Estas propiedades permiten diferenciar los algoritmos de otros
-procedimientos informales, como consejos, hábitos o descripciones
-vagas.</p>
+<p>Estas propiedades permiten diferenciar los algoritmos de otros procedimientos informales, como consejos, hábitos o descripciones vagas.</p>
 <hr />
 <h3 id="representación-de-algoritmos">Representación de algoritmos</h3>
-<p>Un algoritmo puede representarse de varias formas, según el contexto
-y la audiencia:</p>
+<p>Un algoritmo puede representarse de varias formas, según el contexto y la audiencia:</p>
 <ul>
-<li><strong>Lenguaje natural</strong>: útil para explicar a
-principiantes, pero propenso a ambigüedades.</li>
-<li><strong>Diagramas de flujo</strong>: muy usados en las primeras
-etapas de diseño; representan gráficamente decisiones, procesos y
-entradas/salidas.</li>
-<li><strong>Pseudocódigo</strong>: forma intermedia entre el lenguaje
-natural y un lenguaje de programación real. Permite expresar ideas con
-claridad sin preocuparse de la sintaxis exacta.</li>
-<li><strong>Lenguajes de programación</strong>: cuando el objetivo es la
-ejecución por ordenador.</li>
+<li><strong>Lenguaje natural</strong>: útil para explicar a principiantes, pero propenso a ambigüedades.</li>
+<li><strong>Diagramas de flujo</strong>: muy usados en las primeras etapas de diseño; representan gráficamente decisiones, procesos y entradas/salidas.</li>
+<li><strong>Pseudocódigo</strong>: forma intermedia entre el lenguaje natural y un lenguaje de programación real. Permite expresar ideas con claridad sin preocuparse de la sintaxis exacta.</li>
+<li><strong>Lenguajes de programación</strong>: cuando el objetivo es la ejecución por ordenador.</li>
 </ul>
-<h4 id="ejemplo-máximo-de-n-números">Ejemplo: máximo de <em>n</em>
-números</h4>
+<h4 id="ejemplo-máximo-de-n-números">Ejemplo: máximo de <em>n</em> números</h4>
 <pre class="text"><code>Algoritmo Maximo(lista[1..n]):
   max ← lista[1]
   para i desde 2 hasta n hacer
@@ -431,103 +179,59 @@ números</h4>
 <ul>
 <li>Número de operaciones: proporcional a <em>n</em>.</li>
 <li>Complejidad temporal: <strong>O(n)</strong>.</li>
-<li>Complejidad espacial: <strong>O(1)</strong> (solo una variable
-adicional <code>max</code>).</li>
+<li>Complejidad espacial: <strong>O(1)</strong> (solo una variable adicional <code>max</code>).</li>
 </ul>
-<p>📌 Este ejemplo sencillo ilustra cómo analizar un algoritmo no solo
-por su corrección, sino también por su eficiencia.</p>
+<p>📌 Este ejemplo sencillo ilustra cómo analizar un algoritmo no solo por su corrección, sino también por su eficiencia.</p>
 <hr />
-<h2 id="análisis-de-eficiencia-y-notación-big-o">Análisis de eficiencia
-y notación Big O</h2>
-<p>No todos los algoritmos que resuelven un mismo problema lo hacen con
-la misma eficiencia. Por eso surge la necesidad de medir y comparar su
-rendimiento.</p>
+<h2 id="análisis-de-eficiencia-y-notación-big-o">Análisis de eficiencia y notación Big O</h2>
+<p>No todos los algoritmos que resuelven un mismo problema lo hacen con la misma eficiencia. Por eso surge la necesidad de medir y comparar su rendimiento.</p>
 <p>La eficiencia se estudia en dos dimensiones principales:</p>
 <ul>
-<li><strong>Tiempo de ejecución</strong>: cantidad de operaciones
-realizadas en función del tamaño de la entrada (<em>n</em>).</li>
-<li><strong>Uso de memoria</strong>: espacio adicional necesario para
-ejecutar el algoritmo.</li>
+<li><strong>Tiempo de ejecución</strong>: cantidad de operaciones realizadas en función del tamaño de la entrada (<em>n</em>).</li>
+<li><strong>Uso de memoria</strong>: espacio adicional necesario para ejecutar el algoritmo.</li>
 </ul>
 <p>Ejemplo motivador:</p>
 <ul>
-<li>Ordenar una lista de un millón de elementos con <strong>Bubble Sort
-(O(n²))</strong> es impracticable: tardaría horas.</li>
-<li>Con <strong>Merge Sort (O(n log n))</strong> la misma tarea se
-resuelve en segundos.</li>
+<li>Ordenar una lista de un millón de elementos con <strong>Bubble Sort (O(n²))</strong> es impracticable: tardaría horas.</li>
+<li>Con <strong>Merge Sort (O(n log n))</strong> la misma tarea se resuelve en segundos.</li>
 </ul>
 <hr />
-<h3 id="crecimiento-con-el-tamaño-de-la-entrada">Crecimiento con el
-tamaño de la entrada</h3>
-<p>La notación Big O describe el comportamiento asintótico de un
-algoritmo: cómo crece su tiempo o memoria requerida cuando <em>n</em> se
-hace grande.</p>
+<h3 id="crecimiento-con-el-tamaño-de-la-entrada">Crecimiento con el tamaño de la entrada</h3>
+<p>La notación Big O describe el comportamiento asintótico de un algoritmo: cómo crece su tiempo o memoria requerida cuando <em>n</em> se hace grande.</p>
 <ul>
-<li><strong>O(n)</strong>: tiempo lineal. Escala bien con datos
-grandes.</li>
-<li><strong>O(n²)</strong>: tiempo cuadrático. Factible solo con
-volúmenes pequeños.</li>
-<li><strong>O(log n)</strong>: extremadamente eficiente; un millón de
-elementos se resuelve en unas 20 operaciones.</li>
+<li><strong>O(n)</strong>: tiempo lineal. Escala bien con datos grandes.</li>
+<li><strong>O(n²)</strong>: tiempo cuadrático. Factible solo con volúmenes pequeños.</li>
+<li><strong>O(log n)</strong>: extremadamente eficiente; un millón de elementos se resuelve en unas 20 operaciones.</li>
 </ul>
-<p><strong>Visualización del crecimiento de complejidades
-comunes</strong>:</p>
+<p><strong>Visualización del crecimiento de complejidades comunes</strong>:</p>
 <figure>
-<img src="../../images/complejidad.png"
-alt="Crecimiento de funciones de complejidad" />
-<figcaption aria-hidden="true">Crecimiento de funciones de
-complejidad</figcaption>
+<img src="../../images/complejidad.png" alt="" /><figcaption>Crecimiento de funciones de complejidad</figcaption>
 </figure>
 <hr />
-<h3 id="peor-caso-mejor-caso-y-caso-promedio">Peor caso, mejor caso y
-caso promedio</h3>
-<p>Analizar un algoritmo no es tan simple como medir un único
-tiempo:</p>
+<h3 id="peor-caso-mejor-caso-y-caso-promedio">Peor caso, mejor caso y caso promedio</h3>
+<p>Analizar un algoritmo no es tan simple como medir un único tiempo:</p>
 <ul>
-<li><strong>Peor caso</strong>: garantiza que el algoritmo nunca será
-peor que ese límite. Fundamental en contextos críticos (ej. seguridad
-informática).</li>
-<li><strong>Mejor caso</strong>: refleja la situación más favorable (a
-menudo poco representativa).</li>
-<li><strong>Caso promedio</strong>: se calcula considerando la
-distribución estadística de las entradas. Muy útil en práctica
-real.</li>
+<li><strong>Peor caso</strong>: garantiza que el algoritmo nunca será peor que ese límite. Fundamental en contextos críticos (ej. seguridad informática).</li>
+<li><strong>Mejor caso</strong>: refleja la situación más favorable (a menudo poco representativa).</li>
+<li><strong>Caso promedio</strong>: se calcula considerando la distribución estadística de las entradas. Muy útil en práctica real.</li>
 </ul>
 <p>📌 <em>Ejemplo</em>:</p>
 <ul>
-<li><strong>QuickSort</strong> tiene un mejor caso y promedio de
-<strong>O(n log n)</strong>, pero en el peor caso degenera a
-<strong>O(n²)</strong>.</li>
-<li>Por eso se aplican estrategias como elegir pivotes aleatorios para
-evitar los peores escenarios.</li>
+<li><strong>QuickSort</strong> tiene un mejor caso y promedio de <strong>O(n log n)</strong>, pero en el peor caso degenera a <strong>O(n²)</strong>.</li>
+<li>Por eso se aplican estrategias como elegir pivotes aleatorios para evitar los peores escenarios.</li>
 </ul>
 <hr />
 <h3 id="paradigmas-algorítmicos">Paradigmas algorítmicos</h3>
-<p>Los algoritmos no se diseñan de manera aislada: suelen seguir
-<strong>paradigmas de resolución</strong> que sirven como guías
-generales.</p>
+<p>Los algoritmos no se diseñan de manera aislada: suelen seguir <strong>paradigmas de resolución</strong> que sirven como guías generales.</p>
 <ul>
-<li><strong>Divide y vencerás</strong>: divide un problema en
-subproblemas más pequeños, resuélvelos y combina resultados. Ejemplo:
-<em>Merge Sort</em>, búsqueda binaria.</li>
-<li><strong>Voraces (greedy)</strong>: toman decisiones locales óptimas
-esperando llegar a la solución global. Ejemplo: algoritmo de Kruskal
-para árboles de expansión mínima.</li>
-<li><strong>Programación dinámica</strong>: almacena resultados
-intermedios para no recalcular. Ejemplo: algoritmo de Needleman–Wunsch
-para alineamiento global de secuencias.</li>
+<li><strong>Divide y vencerás</strong>: divide un problema en subproblemas más pequeños, resuélvelos y combina resultados. Ejemplo: <em>Merge Sort</em>, búsqueda binaria.</li>
+<li><strong>Voraces (greedy)</strong>: toman decisiones locales óptimas esperando llegar a la solución global. Ejemplo: algoritmo de Kruskal para árboles de expansión mínima.</li>
+<li><strong>Programación dinámica</strong>: almacena resultados intermedios para no recalcular. Ejemplo: algoritmo de Needleman–Wunsch para alineamiento global de secuencias.</li>
 </ul>
-<p>Estos paradigmas son el esqueleto de muchas soluciones modernas en
-bioinformática, optimización y teoría de grafos.</p>
+<p>Estos paradigmas son el esqueleto de muchas soluciones modernas en bioinformática, optimización y teoría de grafos.</p>
 <hr />
-<h3 id="tabla-de-complejidad-habitual">Tabla de complejidad
-habitual</h3>
+<h3 id="tabla-de-complejidad-habitual">Tabla de complejidad habitual</h3>
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 23%" />
-<col style="width: 55%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>Orden</th>
@@ -576,46 +280,27 @@ habitual</h3>
 <p>⚡ Además de Big O, existen notaciones complementarias:</p>
 <ul>
 <li><strong>Ω</strong>: cota inferior.</li>
-<li><strong>Θ</strong>: cota ajustada (cuando superior e inferior
-coinciden).</li>
+<li><strong>Θ</strong>: cota ajustada (cuando superior e inferior coinciden).</li>
 </ul>
 <hr />
-<h2 id="ejemplos-aplicados-en-bioinformática">Ejemplos aplicados en
-bioinformática</h2>
-<p>La bioinformática es un campo donde la eficiencia algorítmica es
-crítica:</p>
+<h2 id="ejemplos-aplicados-en-bioinformática">Ejemplos aplicados en bioinformática</h2>
+<p>La bioinformática es un campo donde la eficiencia algorítmica es crítica:</p>
 <ul>
-<li><strong>Cálculo del contenido GC</strong> en una secuencia de ADN.
-Algoritmo lineal <strong>O(n)</strong>.</li>
+<li><strong>Cálculo del contenido GC</strong> en una secuencia de ADN. Algoritmo lineal <strong>O(n)</strong>.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>seq <span class="op">=</span> <span class="st">&quot;ATGCGCTAAGC&quot;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>gc <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> base <span class="kw">in</span> seq <span class="cf">if</span> base <span class="kw">in</span> <span class="st">&quot;GC&quot;</span>) <span class="op">/</span> <span class="bu">len</span>(seq)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;GC%: </span><span class="sc">{</span>gc<span class="sc">:.2%}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>seq <span class="op">=</span> <span class="st">&quot;ATGCGCTAAGC&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>gc <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> base <span class="kw">in</span> seq <span class="cf">if</span> base <span class="kw">in</span> <span class="st">&quot;GC&quot;</span>) <span class="op">/</span> <span class="bu">len</span>(seq)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="bu">print</span>(<span class="ss">f&quot;GC%: </span><span class="sc">{gc:.2%}</span><span class="ss">&quot;</span>)</span></code></pre></div>
 <ul>
-<li><strong>Comparación de todas las parejas de secuencias</strong> en
-un genoma: <strong>O(n²)</strong>. Impracticable para genomas
-completos.</li>
-<li><strong>Alineamiento global</strong>: programación dinámica →
-<strong>O(n·m)</strong> para dos secuencias de longitudes <em>n</em> y
-<em>m</em>. Aunque costoso, es mucho más eficiente que la comparación
-exhaustiva.</li>
-<li><strong>BLAST</strong>: ejemplo de heurística que sacrifica
-exactitud a cambio de tiempos cercanos a <strong>O(n)</strong>, lo que
-lo hizo revolucionario en los años 90.</li>
+<li><strong>Comparación de todas las parejas de secuencias</strong> en un genoma: <strong>O(n²)</strong>. Impracticable para genomas completos.</li>
+<li><strong>Alineamiento global</strong>: programación dinámica → <strong>O(n·m)</strong> para dos secuencias de longitudes <em>n</em> y <em>m</em>. Aunque costoso, es mucho más eficiente que la comparación exhaustiva.</li>
+<li><strong>BLAST</strong>: ejemplo de heurística que sacrifica exactitud a cambio de tiempos cercanos a <strong>O(n)</strong>, lo que lo hizo revolucionario en los años 90.</li>
 </ul>
 <hr />
-<h2 id="tipos-de-estructuras-de-datos">Tipos de estructuras de
-datos</h2>
-<p>Las estructuras de datos definen cómo se organizan y almacenan los
-datos en memoria.</p>
+<h2 id="tipos-de-estructuras-de-datos">Tipos de estructuras de datos</h2>
+<p>Las estructuras de datos definen cómo se organizan y almacenan los datos en memoria.</p>
 <h3 id="clasificación-básica">Clasificación básica</h3>
 <table>
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 40%" />
-<col style="width: 41%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th>Tipo</th>
@@ -653,38 +338,27 @@ datos en memoria.</p>
 </table>
 <hr />
 <h3 id="tipos-de-dato-abstracto-tda">Tipos de Dato Abstracto (TDA)</h3>
-<p>Un <strong>TDA</strong> define el comportamiento esperado de una
-estructura de datos sin entrar en cómo se implementa.</p>
+<p>Un <strong>TDA</strong> define el comportamiento esperado de una estructura de datos sin entrar en cómo se implementa.</p>
 <p>Ejemplo: la <strong>pila</strong> (stack).</p>
 <ul>
-<li>Operaciones: <code>apilar</code>, <code>desapilar</code>,
-<code>consultar</code>.</li>
-<li>Implementaciones posibles: vector (eficiente en acceso), lista
-enlazada (eficiente en inserción/eliminación).</li>
+<li>Operaciones: <code>apilar</code>, <code>desapilar</code>, <code>consultar</code>.</li>
+<li>Implementaciones posibles: vector (eficiente en acceso), lista enlazada (eficiente en inserción/eliminación).</li>
 </ul>
-<p>📌 Separar concepto de implementación permite diseñar programas más
-robustos y modulares.</p>
+<p>📌 Separar concepto de implementación permite diseñar programas más robustos y modulares.</p>
 <hr />
 <h2 id="vectores-y-matrices">Vectores y matrices</h2>
-<p>Los <strong>vectores (arrays)</strong> son la estructura más básica
-y, a la vez, una de las más poderosas:</p>
+<p>Los <strong>vectores (arrays)</strong> son la estructura más básica y, a la vez, una de las más poderosas:</p>
 <ul>
 <li><strong>Acceso aleatorio</strong>: O(1).</li>
 <li><strong>Recorrido completo</strong>: O(n).</li>
-<li><strong>Inserciones o eliminaciones en medio</strong>: O(n), por el
-coste de mover elementos.</li>
+<li><strong>Inserciones o eliminaciones en medio</strong>: O(n), por el coste de mover elementos.</li>
 </ul>
-<p>Las <strong>matrices</strong> (arrays bidimensionales) permiten
-representar información tabular o espacial:</p>
+<p>Las <strong>matrices</strong> (arrays bidimensionales) permiten representar información tabular o espacial:</p>
 <ul>
 <li>Imagen digital: cada píxel es una celda de la matriz.</li>
-<li>Tabla de expresión genética: filas como genes, columnas como
-condiciones experimentales.</li>
+<li>Tabla de expresión genética: filas como genes, columnas como condiciones experimentales.</li>
 </ul>
-<p>🔍 Ejemplo práctico: recorrer una matriz por filas suele ser más
-rápido que por columnas porque aprovecha la <strong>localidad de
-caché</strong> de la CPU. Esto ilustra cómo los detalles de hardware
-influyen en el rendimiento.</p>
+<p>🔍 Ejemplo práctico: recorrer una matriz por filas suele ser más rápido que por columnas porque aprovecha la <strong>localidad de caché</strong> de la CPU. Esto ilustra cómo los detalles de hardware influyen en el rendimiento.</p>
 <hr />
 <h2 id="conclusiones">Conclusiones</h2>
 <p>En esta parte hemos:</p>
@@ -692,44 +366,29 @@ influyen en el rendimiento.</p>
 <li>Definido los requisitos de un algoritmo.</li>
 <li>Visto cómo representarlos en pseudocódigo y diagramas de flujo.</li>
 <li>Aprendido a medir su eficiencia con Big O y otras notaciones.</li>
-<li>Exploramos paradigmas algorítmicos y su relevancia en problemas
-reales.</li>
-<li>Introducimos la clasificación de estructuras de datos y el concepto
-de TDA.</li>
-<li>Introducimos vectores y matrices como estructuras estáticas
-fundamentales.</li>
+<li>Exploramos paradigmas algorítmicos y su relevancia en problemas reales.</li>
+<li>Introducimos la clasificación de estructuras de datos y el concepto de TDA.</li>
+<li>Introducimos vectores y matrices como estructuras estáticas fundamentales.</li>
 </ul>
-<p>📌 Entender estos conceptos es adquirir el lenguaje básico con el que
-se construyen todos los sistemas informáticos modernos.</p>
+<p>📌 Entender estos conceptos es adquirir el lenguaje básico con el que se construyen todos los sistemas informáticos modernos.</p>
 <hr />
 <h2 id="ejercicios-de-autoevaluación">Ejercicios de autoevaluación</h2>
 <ol type="1">
-<li>Explica con tus palabras por qué un algoritmo debe ser finito. Da un
-ejemplo de procedimiento no finito.</li>
-<li>Representa en pseudocódigo un algoritmo que busque el mínimo de una
-lista. ¿Cuál es su complejidad temporal?</li>
-<li>¿Qué diferencia práctica hay entre un algoritmo O(n) y otro O(n log
-n) para <em>n = 1.000.000</em>?</li>
-<li>Explica por qué QuickSort se considera eficiente a pesar de tener un
-peor caso O(n²).</li>
-<li>¿Cómo implementarías una pila con un vector? ¿Y con una lista
-enlazada? ¿Qué ventajas e inconvenientes observas?</li>
-<li>Diseña un ejemplo donde recorrer una matriz por filas sea más
-eficiente que por columnas y explica por qué.</li>
+<li>Explica con tus palabras por qué un algoritmo debe ser finito. Da un ejemplo de procedimiento no finito.</li>
+<li>Representa en pseudocódigo un algoritmo que busque el mínimo de una lista. ¿Cuál es su complejidad temporal?</li>
+<li>¿Qué diferencia práctica hay entre un algoritmo O(n) y otro O(n log n) para <em>n = 1.000.000</em>?</li>
+<li>Explica por qué QuickSort se considera eficiente a pesar de tener un peor caso O(n²).</li>
+<li>¿Cómo implementarías una pila con un vector? ¿Y con una lista enlazada? ¿Qué ventajas e inconvenientes observas?</li>
+<li>Diseña un ejemplo donde recorrer una matriz por filas sea más eficiente que por columnas y explica por qué.</li>
 </ol>
 <hr />
 <h2 id="referencias">Referencias</h2>
 <ul>
-<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
-<em>Introduction to Algorithms</em>. MIT Press.</li>
-<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>.
-Addison-Wesley.</li>
-<li>Goodrich, M. T., &amp; Tamassia, R. <em>Data Structures and
-Algorithms in Java</em>. Wiley.</li>
-<li>Kleinberg, J., &amp; Tardos, É. <em>Algorithm Design</em>.
-Pearson.</li>
-<li>Gusfield, D. <em>Algorithms on Strings, Trees and Sequences</em>.
-Cambridge University Press (bioinformática).</li>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. <em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>. Addison-Wesley.</li>
+<li>Goodrich, M. T., &amp; Tamassia, R. <em>Data Structures and Algorithms in Java</em>. Wiley.</li>
+<li>Kleinberg, J., &amp; Tardos, É. <em>Algorithm Design</em>. Pearson.</li>
+<li>Gusfield, D. <em>Algorithms on Strings, Trees and Sequences</em>. Cambridge University Press (bioinformática).</li>
 </ul>
 </body>
 </html>

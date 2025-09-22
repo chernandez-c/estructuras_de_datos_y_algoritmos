@@ -47,12 +47,12 @@ Responde las siguientes preguntas seleccionando la opción correcta.
    c) Retroceder al último vértice con vecinos sin visitar (backtracking).  
    d) Insertar un nuevo vértice.
 
-6. **¿Cuál es la complejidad temporal de BFS y DFS en términos de vértices \(|V|\) y aristas \(|E|\)?**
+6. **¿Cuál es la complejidad temporal de BFS y DFS en términos de vértices (|V|) y aristas (|E|)?**
 
-   a) \(O(|V|)\).  
-   b) \(O(|E|)\).  
-   c) \(O(|V| + |E|)\).  
-   d) \(O(|V| \times |E|)\).
+   a) (O(|V|)).  
+   b) (O(|E|)).  
+   c) (O(|V| + |E|)).  
+   d) (O(|V| \times |E|)).
 
 7. **¿Qué recorrido se utiliza para detectar ciclos en un grafo dirigido?**
 
@@ -84,13 +84,13 @@ Responde las siguientes preguntas seleccionando la opción correcta.
 
 ## Respuestas
 
-1 – c  
-2 – b  
-3 – c  
-4 – b  
-5 – c  
-6 – c  
-7 – c  
-8 – a  
-9 – c  
-10 – c
+Pregunta 1: Respuesta C
+Pregunta 2: Respuesta B
+Pregunta 3: Respuesta C
+Pregunta 4: Respuesta B
+Pregunta 5: Respuesta C
+Pregunta 6: Respuesta C
+Pregunta 7: Respuesta C
+Pregunta 8: Respuesta A
+Pregunta 9: Respuesta C
+Pregunta 10: Respuesta C

@@ -21,10 +21,10 @@ Responde las siguientes preguntas seleccionando la opción correcta.  Cada pregu
 
 2. **¿Cuál es la complejidad temporal de la búsqueda binaria en el peor caso?**
 
-   a) \(O(1)\)  
-   b) \(O(n)\)  
-   c) \(O(n^2)\)  
-   d) \(O(\log n)\)
+   a) $O(1)$  
+   b) $O(n)$  
+   c) $O(n^2)$  
+   d) $O(\log n)$
 
 3. **¿Cuál de las siguientes estructuras de datos tiene tamaño fijo y almacena los elementos en posiciones contiguas de memoria?**
 
@@ -40,7 +40,7 @@ Responde las siguientes preguntas seleccionando la opción correcta.  Cada pregu
    c) Puede crecer o decrecer durante la ejecución.  
    d) Almacena elementos en posiciones contiguas.
 
-5. **¿Qué operación de un vector tiene complejidad \(O(1)\)?**
+5. **¿Qué operación de un vector tiene complejidad $O(1)$?**
 
    a) Acceso al elemento en una posición concreta.  
    b) Búsqueda de un elemento.  
@@ -61,12 +61,12 @@ Responde las siguientes preguntas seleccionando la opción correcta.  Cada pregu
    c) El idioma en el que se implementa.  
    d) El tipo de ordenador donde se ejecuta.
 
-8. **Si un algoritmo recorre todos los elementos de un vector de tamaño \(n\) una sola vez, su complejidad es:**
+8. **Si un algoritmo recorre todos los elementos de un vector de tamaño (n) una sola vez, su complejidad es:**
 
-   a) \(O(1)\)  
-   b) \(O(n)\)  
-   c) \(O(n \log n)\)  
-   d) \(O(n^2)\)
+   a) $O(1)$  
+   b) $O(n)$  
+   c) $O(n \log n)$  
+   d) $O(n^2)$
 
 9. **¿Cuál de las siguientes afirmaciones es cierta sobre las matrices (arrays bidimensionales)?**
 
@@ -75,7 +75,7 @@ Responde las siguientes preguntas seleccionando la opción correcta.  Cada pregu
    c) No pueden ser declaradas en C.  
    d) Solo existen en lenguajes interpretados.
 
-10. **¿Cuál de las siguientes operaciones en un vector de tamaño fijo requiere desplazar elementos y tiene complejidad \(O(n)\)?**
+10. **¿Cuál de las siguientes operaciones en un vector de tamaño fijo requiere desplazar elementos y tiene complejidad $O(n)$?**
 
    a) Acceder al elemento `a[5]`.  
    b) Modificar `a[0]`.  
@@ -84,13 +84,13 @@ Responde las siguientes preguntas seleccionando la opción correcta.  Cada pregu
 
 ## Respuestas
 
-1 – b  
-2 – d  
-3 – c  
-4 – c  
-5 – a  
-6 – b  
-7 – b  
-8 – b  
-9 – b  
-10 – c
+Pregunta 1: Respuesta B
+Pregunta 2: Respuesta D
+Pregunta 3: Respuesta C
+Pregunta 4: Respuesta C
+Pregunta 5: Respuesta A
+Pregunta 6: Respuesta B
+Pregunta 7: Respuesta B
+Pregunta 8: Respuesta B
+Pregunta 9: Respuesta B
+Pregunta 10: Respuesta C

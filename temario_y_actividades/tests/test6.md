@@ -21,10 +21,10 @@ Responde las siguientes preguntas seleccionando la opción correcta.
 
 2. **La búsqueda secuencial tiene complejidad temporal:**
 
-   a) \(O(1)\).  
-   b) \(O(n)\).  
-   c) \(O(\log n)\).  
-   d) \(O(n^2)\).
+   a) $O(1)$.  
+   b) $O(n)$.  
+   c) $O(\log n)$.  
+   d) $O(n^2)$.
 
 3. **Para aplicar la búsqueda binaria se requiere que la colección:**
 
@@ -40,7 +40,7 @@ Responde las siguientes preguntas seleccionando la opción correcta.
    c) Merge sort.  
    d) Insertion sort.
 
-5. **¿Cuál de los siguientes algoritmos tiene un rendimiento promedio de \(O(n \log n)\) pero un peor caso de \(O(n^2)\)?**
+5. **¿Cuál de los siguientes algoritmos tiene un rendimiento promedio de $O(n \log n)$ pero un peor caso de $O(n^2)$?**
 
    a) Bubble sort.  
    b) Quicksort.  
@@ -56,12 +56,12 @@ Responde las siguientes preguntas seleccionando la opción correcta.
 
 7. **La ordenación por selección (selection sort) realiza en promedio:**
 
-   a) \(O(n)\) comparaciones.  
-   b) \(O(n \log n)\) comparaciones.  
-   c) \(O(n^2)\) comparaciones.  
-   d) \(O(n^3)\) comparaciones.
+   a) $O(n)$ comparaciones.  
+   b) $O(n \log n)$ comparaciones.  
+   c) $O(n^2)$ comparaciones.  
+   d) $O(n^3)$ comparaciones.
 
-8. **¿Qué algoritmo de ordenación es estable y utiliza espacio adicional \(O(n)\)?**
+8. **¿Qué algoritmo de ordenación es estable y utiliza espacio adicional $O(n)$?**
 
    a) Quicksort.  
    b) Merge sort.  
@@ -77,20 +77,20 @@ Responde las siguientes preguntas seleccionando la opción correcta.
 
 10. **¿Cuál es la complejidad temporal de la inserción en una lista enlazada ordenada mediante un algoritmo de ordenación por inserción?**
 
-   a) \(O(1)\).  
-   b) \(O(n)\).  
-   c) \(O(n \log n)\).  
-   d) \(O(n^2)\).
+   a) $O(1)$.  
+   b) $O(n)$.  
+   c) $O(n \log n)$.  
+   d) $O(n^2)$.
 
 ## Respuestas
 
-1 – b  
-2 – b  
-3 – b  
-4 – c  
-5 – b  
-6 – c  
-7 – c  
-8 – b  
-9 – b  
-10 – b
+Pregunta 1: Respuesta B
+Pregunta 2: Respuesta B
+Pregunta 3: Respuesta B
+Pregunta 4: Respuesta C
+Pregunta 5: Respuesta B
+Pregunta 6: Respuesta C
+Pregunta 7: Respuesta C
+Pregunta 8: Respuesta B
+Pregunta 9: Respuesta B
+Pregunta 10: Respuesta B

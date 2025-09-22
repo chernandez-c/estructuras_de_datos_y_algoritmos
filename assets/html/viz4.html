@@ -13,8 +13,18 @@
       <option value="mergeSort">Merge Sort (O(n log n))</option>
       <option value="quickSort">Quick Sort (O(n log n))</option>
     </select>
-    <button onclick="runSort()" class="btn btn-success text-white px-4 py-2 rounded-lg">Ordenar</button>
-    <button onclick="resetSort()" class="btn btn-neutral text-white px-4 py-2 rounded-lg">Reiniciar</button>
+    <label for="sort-speed" class="flex items-center gap-2 text-sm">
+      Velocidad:
+      <select id="sort-speed" class="p-2 border rounded-lg">
+        <option value="10">Rápida</option>
+        <option value="25" selected>Normal</option>
+        <option value="60">Lenta</option>
+        <option value="120">Muy lenta</option>
+      </select>
+    </label>
+    <button id="run-sort-btn" onclick="runSort()" class="btn btn-success text-white px-4 py-2 rounded-lg">Ordenar</button>
+    <button id="pause-sort-btn" onclick="toggleSortPause()" class="btn btn-purple text-white px-4 py-2 rounded-lg" disabled>Pausar</button>
+    <button id="reset-sort-btn" onclick="resetSort()" class="btn btn-neutral text-white px-4 py-2 rounded-lg">Reiniciar</button>
   </div>
   <div id="sort-container" class="h-64 w-full bg-soft rounded-lg flex items-end justify-center p-2 border"></div>
 </div>

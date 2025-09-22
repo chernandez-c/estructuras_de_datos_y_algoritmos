@@ -40,12 +40,12 @@ Responde las siguientes preguntas seleccionando la opción correcta.
    c) Cada nodo tiene exactamente dos hijos.  
    d) Las claves se insertan siempre en orden ascendente.
 
-5. **La búsqueda de un elemento en un BST equilibrado de \(n\) nodos tiene complejidad:**
+5. **La búsqueda de un elemento en un BST equilibrado de (n) nodos tiene complejidad:**
 
-   a) \(O(1)\).  
-   b) \(O(n)\).  
-   c) \(O(\log n)\).  
-   d) \(O(n^2)\).
+   a) $O(1)$.  
+   b) $O(n)$.  
+   c) $O(\log n)$.  
+   d) $O(n^2)$.
 
 6. **Al eliminar un nodo con dos hijos en un BST, se reemplaza habitualmente por:**
 
@@ -75,22 +75,22 @@ Responde las siguientes preguntas seleccionando la opción correcta.
    c) Inorden.  
    d) Nivel por nivel.
 
-10. **La altura de un árbol degenerado (todos los nodos tienen un único hijo) con \(n\) nodos es:**
+10. **La altura de un árbol degenerado (todos los nodos tienen un único hijo) con (n) nodos es:**
 
    a) 1  
-   b) \(\log n\)  
-   c) \(n\)  
-   d) \(n/2\)
+   b) (\log n)  
+   c) (n)  
+   d) (n/2)
 
 ## Respuestas
 
-1 – c  
-2 – b  
-3 – c  
-4 – b  
-5 – c  
-6 – b  
-7 – b  
-8 – b  
-9 – c  
-10 – c
+Pregunta 1: Respuesta C
+Pregunta 2: Respuesta B
+Pregunta 3: Respuesta C
+Pregunta 4: Respuesta B
+Pregunta 5: Respuesta C
+Pregunta 6: Respuesta B
+Pregunta 7: Respuesta B
+Pregunta 8: Respuesta B
+Pregunta 9: Respuesta C
+Pregunta 10: Respuesta C

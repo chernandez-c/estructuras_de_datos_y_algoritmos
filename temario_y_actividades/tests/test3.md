@@ -63,9 +63,9 @@ Responde las siguientes preguntas seleccionando la opción correcta.
 
 8. **La complejidad temporal de encolar un elemento en una cola implementada con lista enlazada es:**
 
-   a) \(O(1)\).  
-   b) \(O(n)\).  
-   c) \(O(\log n)\).  
+   a) $O(1)$.  
+   b) $O(n)$.  
+   c) $O(\log n)$.  
    d) Depende del tamaño de la cola.
 
 9. **¿Qué tipo de estructura utiliza un algoritmo de retroceso (backtracking)?**
@@ -84,13 +84,13 @@ Responde las siguientes preguntas seleccionando la opción correcta.
 
 ## Respuestas
 
-1 – b  
-2 – c  
-3 – c  
-4 – a  
-5 – a  
-6 – b  
-7 – b  
-8 – a  
-9 – b  
-10 – b
+Pregunta 1: Respuesta B
+Pregunta 2: Respuesta C
+Pregunta 3: Respuesta C
+Pregunta 4: Respuesta A
+Pregunta 5: Respuesta A
+Pregunta 6: Respuesta B
+Pregunta 7: Respuesta B
+Pregunta 8: Respuesta A
+Pregunta 9: Respuesta B
+Pregunta 10: Respuesta B

@@ -7,235 +7,42 @@
   <meta name="author" content="Curso de Introducción a Estructuras de Datos y Algoritmos" />
   <title>Módulo 7 – Algoritmos de ordenación</title>
   <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      background-color: #1a1a1a;
-      border: none;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="/usr/share/javascript/mathjax/MathJax.js"
-  type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Módulo 7 – Algoritmos de ordenación</h1>
-<p class="author">Curso de Introducción a Estructuras de Datos y
-Algoritmos</p>
+<p class="author">Curso de Introducción a Estructuras de Datos y Algoritmos</p>
 <p class="date">21 de agosto de 2025</p>
 </header>
 <nav id="TOC" role="doc-toc">
 
 </nav>
-<h1
-id="módulo-7-algoritmos-de-ordenación-imponiendo-el-orden-en-el-caos">Módulo
-7 – Algoritmos de Ordenación: Imponiendo el Orden en el Caos</h1>
-<h2
-id="motivación-el-orden-como-prerrequisito-de-la-eficiencia">Motivación:
-El Orden como Prerrequisito de la Eficiencia</h2>
-<p>En un mundo saturado de datos, la información en su estado crudo es a
-menudo caótica e inmanejable. La <strong>ordenación</strong> es el
-proceso fundamental mediante el cual transformamos este caos en una
-estructura inteligible. Es, quizás, la tarea más realizada en
-computación, no como un fin en sí misma, sino como un paso crucial que
-habilita operaciones más complejas y eficientes.</p>
-<p>La filosofía detrás de la ordenación es simple: <strong>invertir
-trabajo ahora para ahorrar mucho más trabajo después</strong>.</p>
+<h1 id="módulo-7-algoritmos-de-ordenación-imponiendo-el-orden-en-el-caos">Módulo 7 – Algoritmos de Ordenación: Imponiendo el Orden en el Caos</h1>
+<h2 id="motivación-el-orden-como-prerrequisito-de-la-eficiencia">Motivación: El Orden como Prerrequisito de la Eficiencia</h2>
+<p>En un mundo saturado de datos, la información en su estado crudo es a menudo caótica e inmanejable. La <strong>ordenación</strong> es el proceso fundamental mediante el cual transformamos este caos en una estructura inteligible. Es, quizás, la tarea más realizada en computación, no como un fin en sí misma, sino como un paso crucial que habilita operaciones más complejas y eficientes.</p>
+<p>La filosofía detrás de la ordenación es simple: <strong>invertir trabajo ahora para ahorrar mucho más trabajo después</strong>.</p>
 <ul>
-<li><strong>Búsqueda eficiente</strong>: Como ya vimos, sin orden,
-encontrar un elemento requiere una búsqueda lineal (<span
-class="math inline">\(O(n)\)</span>). Con orden, la búsqueda binaria lo
-encuentra en tiempo logarítmico (<span class="math inline">\(O(\log
-n)\)</span>). Esta es la diferencia entre encontrar un libro en una
-biblioteca desorganizada frente a una catalogada por el sistema decimal
-Dewey.</li>
-<li><strong>Análisis de datos</strong>: ¿Cuál es el valor mediano de un
-conjunto? ¿Cuáles son los elementos duplicados? ¿Qué valores están en el
-percentil 99? Estas preguntas son triviales de responder sobre datos
-ordenados, pero computacionalmente costosas sobre datos
-desordenados.</li>
-<li><strong>Fundamento algorítmico</strong>: Muchos algoritmos avanzados
-presuponen que los datos de entrada están ordenados. Desde encontrar los
-dos puntos más cercanos en un plano hasta la compresión de datos, la
-ordenación es el primer paso indispensable.</li>
+<li><strong>Búsqueda eficiente</strong>: Como ya vimos, sin orden, encontrar un elemento requiere una búsqueda lineal (<span class="math inline">\(O(n)\)</span>). Con orden, la búsqueda binaria lo encuentra en tiempo logarítmico (<span class="math inline">\(O(\log n)\)</span>). Esta es la diferencia entre encontrar un libro en una biblioteca desorganizada frente a una catalogada por el sistema decimal Dewey.</li>
+<li><strong>Análisis de datos</strong>: ¿Cuál es el valor mediano de un conjunto? ¿Cuáles son los elementos duplicados? ¿Qué valores están en el percentil 99? Estas preguntas son triviales de responder sobre datos ordenados, pero computacionalmente costosas sobre datos desordenados.</li>
+<li><strong>Fundamento algorítmico</strong>: Muchos algoritmos avanzados presuponen que los datos de entrada están ordenados. Desde encontrar los dos puntos más cercanos en un plano hasta la compresión de datos, la ordenación es el primer paso indispensable.</li>
 </ul>
-<p>El estudio de los algoritmos de ordenación es un viaje por la
-historia de la algoritmia. Nos enseña sobre diferentes enfoques para
-resolver un mismo problema (fuerza bruta, divide y vencerás) y nos
-obliga a pensar en los <em>trade-offs</em> fundamentales: tiempo
-vs. memoria, simplicidad vs. eficiencia, y el comportamiento en el
-mejor, peor y caso promedio.</p>
+<p>El estudio de los algoritmos de ordenación es un viaje por la historia de la algoritmia. Nos enseña sobre diferentes enfoques para resolver un mismo problema (fuerza bruta, divide y vencerás) y nos obliga a pensar en los <em>trade-offs</em> fundamentales: tiempo vs. memoria, simplicidad vs. eficiencia, y el comportamiento en el mejor, peor y caso promedio.</p>
 <hr />
 <hr />
-<h2 id="algoritmos-simples-complejidad-cuadrática">Algoritmos Simples
-(Complejidad Cuadrática)</h2>
-<p>Estos algoritmos son conceptualmente sencillos y fáciles de
-implementar, pero su rendimiento de <span
-class="math inline">\(O(n^2)\)</span> los hace inviables para conjuntos
-de datos que no sean pequeños. Son, sin embargo, excelentes herramientas
-pedagógicas para entender los fundamentos de la ordenación.</p>
-<h3 id="bubble-sort-ordenación-por-burbuja">Bubble Sort (Ordenación por
-Burbuja)</h3>
+<h2 id="algoritmos-simples-complejidad-cuadrática">Algoritmos Simples (Complejidad Cuadrática)</h2>
+<p>Estos algoritmos son conceptualmente sencillos y fáciles de implementar, pero su rendimiento de <span class="math inline">\(O(n^2)\)</span> los hace inviables para conjuntos de datos que no sean pequeños. Son, sin embargo, excelentes herramientas pedagógicas para entender los fundamentos de la ordenación.</p>
+<h3 id="bubble-sort-ordenación-por-burbuja">Bubble Sort (Ordenación por Burbuja)</h3>
 <ul>
-<li><strong>Filosofía</strong>: La “fuerza bruta” paciente. Compara
-repetidamente pares de elementos adyacentes y los intercambia si están
-en el orden incorrecto. En cada pasada completa, el siguiente elemento
-más grande “burbujea” hasta su posición final.</li>
-<li><strong>Analogía</strong>: Imagina una fila de personas de
-diferentes alturas. En cada paso, miras a dos personas contiguas y, si
-la de la izquierda es más alta que la de la derecha, las intercambias.
-Si repites este proceso a lo largo de toda la fila suficientes veces, la
-gente terminará ordenada por altura.</li>
+<li><strong>Filosofía</strong>: La “fuerza bruta” paciente. Compara repetidamente pares de elementos adyacentes y los intercambia si están en el orden incorrecto. En cada pasada completa, el siguiente elemento más grande “burbujea” hasta su posición final.</li>
+<li><strong>Analogía</strong>: Imagina una fila de personas de diferentes alturas. En cada paso, miras a dos personas contiguas y, si la de la izquierda es más alta que la de la derecha, las intercambias. Si repites este proceso a lo largo de toda la fila suficientes veces, la gente terminará ordenada por altura.</li>
 </ul>
 <h4 id="pseudocódigo">Pseudocódigo</h4>
 <pre class="text"><code>procedimiento bubbleSort(lista):
@@ -249,23 +56,12 @@ gente terminará ordenada por altura.</li>
         n ← n - 1 // Optimización: el último elemento ya está en su sitio
     mientras intercambiado</code></pre>
 <ul>
-<li><strong>Análisis</strong>: Su rendimiento es pobre (<span
-class="math inline">\(O(n^2)\)</span>) porque solo mueve los elementos
-de uno en uno. Su única ventaja real es su capacidad de detectar si la
-lista ya está ordenada (terminando en una sola pasada, <span
-class="math inline">\(O(n)\)</span>).</li>
+<li><strong>Análisis</strong>: Su rendimiento es pobre (<span class="math inline">\(O(n^2)\)</span>) porque solo mueve los elementos de uno en uno. Su única ventaja real es su capacidad de detectar si la lista ya está ordenada (terminando en una sola pasada, <span class="math inline">\(O(n)\)</span>).</li>
 </ul>
-<h3 id="insertion-sort-ordenación-por-inserción">Insertion Sort
-(Ordenación por Inserción)</h3>
+<h3 id="insertion-sort-ordenación-por-inserción">Insertion Sort (Ordenación por Inserción)</h3>
 <ul>
-<li><strong>Filosofía</strong>: Construir el orden de forma incremental.
-Recorre la lista, tomando cada elemento y “deslizándolo” hacia la
-izquierda en la parte ya ordenada de la lista hasta encontrar su lugar
-correcto.</li>
-<li><strong>Analogía</strong>: Es exactamente como la mayoría de la
-gente ordena una mano de cartas. Tomas una carta a la vez y la insertas
-en la posición correcta entre las cartas que ya tienes ordenadas en la
-otra mano.</li>
+<li><strong>Filosofía</strong>: Construir el orden de forma incremental. Recorre la lista, tomando cada elemento y “deslizándolo” hacia la izquierda en la parte ya ordenada de la lista hasta encontrar su lugar correcto.</li>
+<li><strong>Analogía</strong>: Es exactamente como la mayoría de la gente ordena una mano de cartas. Tomas una carta a la vez y la insertas en la posición correcta entre las cartas que ya tienes ordenadas en la otra mano.</li>
 </ul>
 <h4 id="pseudocódigo-1">Pseudocódigo</h4>
 <pre class="text"><code>procedimiento insertionSort(lista):
@@ -278,27 +74,12 @@ otra mano.</li>
             j ← j - 1
         lista[j+1] ← clave</code></pre>
 <ul>
-<li><strong>Análisis</strong>: Aunque su peor caso sigue siendo <span
-class="math inline">\(O(n^2)\)</span>, es significativamente más
-eficiente en la práctica que Bubble Sort. Su gran ventaja es su
-rendimiento <strong>adaptativo</strong>: para listas que están
-<strong>casi ordenadas</strong>, su complejidad se acerca a <span
-class="math inline">\(O(n)\)</span>, lo que lo hace muy útil en ciertos
-escenarios.</li>
+<li><strong>Análisis</strong>: Aunque su peor caso sigue siendo <span class="math inline">\(O(n^2)\)</span>, es significativamente más eficiente en la práctica que Bubble Sort. Su gran ventaja es su rendimiento <strong>adaptativo</strong>: para listas que están <strong>casi ordenadas</strong>, su complejidad se acerca a <span class="math inline">\(O(n)\)</span>, lo que lo hace muy útil en ciertos escenarios.</li>
 </ul>
-<h3 id="selection-sort-ordenación-por-selección">Selection Sort
-(Ordenación por Selección)</h3>
+<h3 id="selection-sort-ordenación-por-selección">Selection Sort (Ordenación por Selección)</h3>
 <ul>
-<li><strong>Filosofía</strong>: El método metódico. Divide la lista en
-dos partes: una ordenada (al principio) y una desordenada (el resto). En
-cada paso, encuentra el elemento más pequeño de la parte desordenada y
-lo intercambia con el primer elemento de esa parte, expandiendo así la
-sección ordenada.</li>
-<li><strong>Analogía</strong>: Es como un director de casting que tiene
-que poner en fila a un grupo de actores por altura. Primero, busca al
-actor más bajo de todo el grupo y lo pone al principio. Luego, ignora a
-esa persona y busca al más bajo del resto, colocándolo en la segunda
-posición. Repite hasta que todos están en fila.</li>
+<li><strong>Filosofía</strong>: El método metódico. Divide la lista en dos partes: una ordenada (al principio) y una desordenada (el resto). En cada paso, encuentra el elemento más pequeño de la parte desordenada y lo intercambia con el primer elemento de esa parte, expandiendo así la sección ordenada.</li>
+<li><strong>Analogía</strong>: Es como un director de casting que tiene que poner en fila a un grupo de actores por altura. Primero, busca al actor más bajo de todo el grupo y lo pone al principio. Luego, ignora a esa persona y busca al más bajo del resto, colocándolo en la segunda posición. Repite hasta que todos están en fila.</li>
 </ul>
 <h4 id="pseudocódigo-2">Pseudocódigo</h4>
 <pre class="text"><code>procedimiento selectionSort(lista):
@@ -310,33 +91,16 @@ posición. Repite hasta que todos están en fila.</li>
                 índice_mínimo ← j
         intercambiar(lista[i], lista[índice_mínimo])</code></pre>
 <ul>
-<li><strong>Análisis</strong>: Su complejidad es
-<strong>siempre</strong> <span class="math inline">\(O(n^2)\)</span>,
-sin importar el estado inicial de la lista. Su principal característica
-es que minimiza el número de intercambios, lo que podría ser útil si la
-operación de intercambio es muy costosa.</li>
+<li><strong>Análisis</strong>: Su complejidad es <strong>siempre</strong> <span class="math inline">\(O(n^2)\)</span>, sin importar el estado inicial de la lista. Su principal característica es que minimiza el número de intercambios, lo que podría ser útil si la operación de intercambio es muy costosa.</li>
 </ul>
 <hr />
 <h2 id="algoritmos-eficientes">Algoritmos Eficientes</h2>
-<p><strong>Complejidad <span class="math inline">\(O(n \log
-n)\)</span></strong></p>
-<p>Estos algoritmos utilizan estrategias más sofisticadas, típicamente
-basadas en el paradigma <strong>“Divide y Vencerás”</strong>, para
-lograr una eficiencia muy superior. Son el estándar de oro para la
-ordenación de propósito general.</p>
-<h3 id="merge-sort-ordenación-por-mezcla">Merge Sort (Ordenación por
-Mezcla)</h3>
+<p><strong>Complejidad <span class="math inline">\(O(n \log n)\)</span></strong></p>
+<p>Estos algoritmos utilizan estrategias más sofisticadas, típicamente basadas en el paradigma <strong>“Divide y Vencerás”</strong>, para lograr una eficiencia muy superior. Son el estándar de oro para la ordenación de propósito general.</p>
+<h3 id="merge-sort-ordenación-por-mezcla">Merge Sort (Ordenación por Mezcla)</h3>
 <ul>
-<li><strong>Filosofía</strong>: La organización recursiva. La idea es
-que es trivial ordenar una lista de un solo elemento. Merge Sort divide
-recursivamente la lista a la mitad hasta que solo quedan sublistas de un
-elemento. Luego, combina (fusiona o “merge”) esas sublistas de manera
-ordenada hasta reconstruir la lista completa.</li>
-<li><strong>El paso clave</strong>: La función
-<code>fusionar(izquierda, derecha)</code> es el corazón del algoritmo.
-Toma dos sublistas ya ordenadas y las combina en una nueva lista
-ordenada en tiempo lineal <span
-class="math inline">\(O(n)\)</span>.</li>
+<li><strong>Filosofía</strong>: La organización recursiva. La idea es que es trivial ordenar una lista de un solo elemento. Merge Sort divide recursivamente la lista a la mitad hasta que solo quedan sublistas de un elemento. Luego, combina (fusiona o “merge”) esas sublistas de manera ordenada hasta reconstruir la lista completa.</li>
+<li><strong>El paso clave</strong>: La función <code>fusionar(izquierda, derecha)</code> es el corazón del algoritmo. Toma dos sublistas ya ordenadas y las combina en una nueva lista ordenada en tiempo lineal <span class="math inline">\(O(n)\)</span>.</li>
 </ul>
 <h4 id="pseudocódigo-3">Pseudocódigo</h4>
 <pre class="text"><code>función mergeSort(lista):
@@ -356,33 +120,17 @@ procedimiento fusionar(izquierda, derecha):
     // Código para combinar dos listas ordenadas en una nueva
     ...</code></pre>
 <ul>
-<li><strong>Análisis</strong>: Su complejidad es
-<strong>siempre</strong> <span class="math inline">\(O(n \log
-n)\)</span>, lo que lo hace muy predecible y fiable. Su principal
-desventaja es que requiere espacio adicional (<span
-class="math inline">\(O(n)\)</span>) para almacenar las sublistas, lo
-que puede ser un problema con memoria limitada. Es un algoritmo
-<strong>estable</strong>, lo que significa que mantiene el orden
-relativo de los elementos con claves iguales.</li>
+<li><strong>Análisis</strong>: Su complejidad es <strong>siempre</strong> <span class="math inline">\(O(n \log n)\)</span>, lo que lo hace muy predecible y fiable. Su principal desventaja es que requiere espacio adicional (<span class="math inline">\(O(n)\)</span>) para almacenar las sublistas, lo que puede ser un problema con memoria limitada. Es un algoritmo <strong>estable</strong>, lo que significa que mantiene el orden relativo de los elementos con claves iguales.</li>
 </ul>
 <h3 id="quicksort-ordenación-rápida">Quicksort (Ordenación Rápida)</h3>
 <ul>
-<li><strong>Filosofía</strong>: La partición inteligente. Es otro
-algoritmo de “Divide y Vencerás”, pero funciona de manera diferente.
+<li><strong>Filosofía</strong>: La partición inteligente. Es otro algoritmo de “Divide y Vencerás”, pero funciona de manera diferente.
 <ol type="1">
-<li><strong>Elegir un pivote</strong>: Se selecciona un elemento de la
-lista (el pivote).</li>
-<li><strong>Particionar</strong>: Se reorganiza la lista de modo que
-todos los elementos menores que el pivote queden a su izquierda, y todos
-los mayores queden a su derecha.</li>
-<li><strong>Recursión</strong>: Se aplica Quicksort recursivamente a las
-dos sublistas (la de los menores y la de los mayores).</li>
+<li><strong>Elegir un pivote</strong>: Se selecciona un elemento de la lista (el pivote).</li>
+<li><strong>Particionar</strong>: Se reorganiza la lista de modo que todos los elementos menores que el pivote queden a su izquierda, y todos los mayores queden a su derecha.</li>
+<li><strong>Recursión</strong>: Se aplica Quicksort recursivamente a las dos sublistas (la de los menores y la de los mayores).</li>
 </ol></li>
-<li><strong>El paso clave</strong>: La eficiencia de Quicksort depende
-críticamente de la elección del pivote. Un buen pivote divide la lista
-en dos mitades de tamaño similar. Un mal pivote (el menor o mayor
-elemento) puede degradar el rendimiento a <span
-class="math inline">\(O(n^2)\)</span>.</li>
+<li><strong>El paso clave</strong>: La eficiencia de Quicksort depende críticamente de la elección del pivote. Un buen pivote divide la lista en dos mitades de tamaño similar. Un mal pivote (el menor o mayor elemento) puede degradar el rendimiento a <span class="math inline">\(O(n^2)\)</span>.</li>
 </ul>
 <h4 id="pseudocódigo-conceptual">Pseudocódigo (Conceptual)</h4>
 <pre class="text"><code>función quickSort(lista):
@@ -395,18 +143,10 @@ class="math inline">\(O(n^2)\)</span>.</li>
     resultado ← concatenar(quickSort(menores), iguales, quickSort(mayores))
     devolver resultado</code></pre>
 <ul>
-<li><strong>Análisis</strong>: A pesar de su peor caso de <span
-class="math inline">\(O(n^2)\)</span>, su rendimiento
-<strong>promedio</strong> es <span class="math inline">\(O(n \log
-n)\)</span> con constantes muy bajas, lo que lo hace extremadamente
-rápido en la práctica. Funciona <em>in-place</em>, requiriendo solo
-<span class="math inline">\(O(\log n)\)</span> de espacio en la pila de
-recursión. Es el algoritmo de ordenación de propósito general más
-utilizado en las bibliotecas estándar de muchos lenguajes.</li>
+<li><strong>Análisis</strong>: A pesar de su peor caso de <span class="math inline">\(O(n^2)\)</span>, su rendimiento <strong>promedio</strong> es <span class="math inline">\(O(n \log n)\)</span> con constantes muy bajas, lo que lo hace extremadamente rápido en la práctica. Funciona <em>in-place</em>, requiriendo solo <span class="math inline">\(O(\log n)\)</span> de espacio en la pila de recursión. Es el algoritmo de ordenación de propósito general más utilizado en las bibliotecas estándar de muchos lenguajes.</li>
 </ul>
 <hr />
-<h2 id="comparación-y-criterios-de-elección">Comparación y Criterios de
-Elección</h2>
+<h2 id="comparación-y-criterios-de-elección">Comparación y Criterios de Elección</h2>
 <table style="width:100%;">
 <colgroup>
 <col style="width: 16%" />
@@ -429,136 +169,90 @@ Elección</h2>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Bubble Sort</strong></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(1)\)</span></td>
 <td style="text-align: left;">✅</td>
 <td style="text-align: left;">Solo para fines educativos.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Insertion Sort</strong></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(1)\)</span></td>
 <td style="text-align: left;">✅</td>
-<td style="text-align: left;">Eficiente en listas pequeñas o casi
-ordenadas.</td>
+<td style="text-align: left;">Eficiente en listas pequeñas o casi ordenadas.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Selection Sort</strong></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(1)\)</span></td>
 <td style="text-align: left;">❌</td>
-<td style="text-align: left;">Predecible pero lento. Minimiza
-intercambios.</td>
+<td style="text-align: left;">Predecible pero lento. Minimiza intercambios.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Merge Sort</strong></td>
-<td style="text-align: left;"><span class="math inline">\(O(n \log
-n)\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(O(n \log
-n)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n \log n)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n \log n)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n)\)</span></td>
 <td style="text-align: left;">✅</td>
-<td style="text-align: left;">Muy fiable. Ideal para ordenación
-externa.</td>
+<td style="text-align: left;">Muy fiable. Ideal para ordenación externa.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Quicksort</strong></td>
-<td style="text-align: left;"><span class="math inline">\(O(n \log
-n)\)</span></td>
-<td style="text-align: left;"><span
-class="math inline">\(O(n^2)\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(O(\log
-n)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n \log n)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(n^2)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(O(\log n)\)</span></td>
 <td style="text-align: left;">❌</td>
-<td style="text-align: left;">Generalmente el más rápido en la
-práctica.</td>
+<td style="text-align: left;">Generalmente el más rápido en la práctica.</td>
 </tr>
 </tbody>
 </table>
 <p><strong>¿Qué algoritmo elegir?</strong></p>
 <ul>
-<li>Para <strong>listas pequeñas</strong> (ej. &lt; 20 elementos),
-<strong>Insertion Sort</strong> suele ser el más rápido.</li>
-<li>Para una <strong>garantía de rendimiento</strong> y si la
-<strong>estabilidad</strong> es importante, <strong>Merge Sort</strong>
-es la elección segura.</li>
-<li>Para el <strong>máximo rendimiento promedio</strong> en memoria,
-<strong>Quicksort</strong> es el rey.</li>
-<li>Para <strong>datos masivos</strong> que no caben en memoria, una
-variante de <strong>Merge Sort</strong> (ordenación externa) es la única
-opción.</li>
+<li>Para <strong>listas pequeñas</strong> (ej. &lt; 20 elementos), <strong>Insertion Sort</strong> suele ser el más rápido.</li>
+<li>Para una <strong>garantía de rendimiento</strong> y si la <strong>estabilidad</strong> es importante, <strong>Merge Sort</strong> es la elección segura.</li>
+<li>Para el <strong>máximo rendimiento promedio</strong> en memoria, <strong>Quicksort</strong> es el rey.</li>
+<li>Para <strong>datos masivos</strong> que no caben en memoria, una variante de <strong>Merge Sort</strong> (ordenación externa) es la única opción.</li>
 </ul>
-<p><strong>¿Para qué se usan en computación y
-bioinformática?</strong></p>
+<p><strong>¿Para qué se usan en computación y bioinformática?</strong></p>
 <ul>
-<li><strong>Insertion sort</strong>: ordenar pequeñas listas (ej.
-registros temporales).</li>
-<li><strong>Merge sort</strong>: ordenación externa, como ordenar
-archivos genómicos de varios gigabytes en disco.</li>
-<li><strong>Quicksort</strong>: ordenación interna en memoria,
-ampliamente usado en librerías estándar, siendo el algoritmo por defecto
-en muchas librerías de C, Java o Python.</li>
+<li><strong>Insertion sort</strong>: ordenar pequeñas listas (ej. registros temporales).</li>
+<li><strong>Merge sort</strong>: ordenación externa, como ordenar archivos genómicos de varios gigabytes en disco.</li>
+<li><strong>Quicksort</strong>: ordenación interna en memoria, ampliamente usado en librerías estándar, siendo el algoritmo por defecto en muchas librerías de C, Java o Python.</li>
 <li><strong>Ordenación en bioinformática</strong>:
 <ul>
-<li>Clasificación de secuencias de ADN/proteínas antes de alineamientos
-masivos.</li>
-<li>Preparación de grandes matrices de expresión génica para análisis
-estadísticos.</li>
+<li>Clasificación de secuencias de ADN/proteínas antes de alineamientos masivos.</li>
+<li>Preparación de grandes matrices de expresión génica para análisis estadísticos.</li>
 <li>Preprocesamiento de datos de lecturas en secuenciación masiva.</li>
 </ul></li>
 </ul>
 <hr />
 <h2 id="conclusiones">Conclusiones</h2>
 <ul>
-<li>Los algoritmos <strong>cuadráticos</strong> son simples, útiles solo
-para listas pequeñas o fines pedagógicos.</li>
-<li><strong>Merge sort</strong> y <strong>quicksort</strong> ofrecen
-rendimiento <span class="math inline">\(O(n \log n)\)</span> y son los
-más usados en la práctica.</li>
-<li>La <strong>estabilidad</strong> y el <strong>uso de memoria</strong>
-son criterios importantes en la elección.</li>
-<li>La ordenación es clave para optimizar procesos posteriores como
-búsquedas y análisis de grandes volúmenes de datos.</li>
+<li>Los algoritmos <strong>cuadráticos</strong> son simples, útiles solo para listas pequeñas o fines pedagógicos.</li>
+<li><strong>Merge sort</strong> y <strong>quicksort</strong> ofrecen rendimiento <span class="math inline">\(O(n \log n)\)</span> y son los más usados en la práctica.</li>
+<li>La <strong>estabilidad</strong> y el <strong>uso de memoria</strong> son criterios importantes en la elección.</li>
+<li>La ordenación es clave para optimizar procesos posteriores como búsquedas y análisis de grandes volúmenes de datos.</li>
 </ul>
 <hr />
 <h2 id="ejercicios-de-autoevaluación">Ejercicios de autoevaluación</h2>
 <ol type="1">
-<li>Ordena manualmente la lista <code>[5,2,9,1,5,6]</code> con bubble
-sort, mostrando cada pasada.</li>
-<li>¿Por qué insertion sort es más eficiente que bubble sort en la
-práctica?</li>
-<li>Explica por qué merge sort es estable y selection sort no lo
-es.</li>
+<li>Ordena manualmente la lista <code>[5,2,9,1,5,6]</code> con bubble sort, mostrando cada pasada.</li>
+<li>¿Por qué insertion sort es más eficiente que bubble sort en la práctica?</li>
+<li>Explica por qué merge sort es estable y selection sort no lo es.</li>
 <li>Analiza el peor caso de quicksort. ¿Cómo puede mitigarse?</li>
-<li>Diseña un algoritmo que combine <strong>insertion sort</strong> y
-<strong>quicksort</strong> para aprovechar lo mejor de ambos.</li>
-<li>¿Qué algoritmo usarías para ordenar un archivo de 50 GB almacenado
-en disco? Justifica tu respuesta.</li>
+<li>Diseña un algoritmo que combine <strong>insertion sort</strong> y <strong>quicksort</strong> para aprovechar lo mejor de ambos.</li>
+<li>¿Qué algoritmo usarías para ordenar un archivo de 50 GB almacenado en disco? Justifica tu respuesta.</li>
 </ol>
 <hr />
 <h2 id="referencias">Referencias</h2>
 <ul>
-<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C.
-<em>Introduction to Algorithms</em>. MIT Press.</li>
-<li>Weiss, M. A. <em>Data Structures and Algorithm Analysis</em>.
-Pearson.</li>
-<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>.
-Addison-Wesley.</li>
-<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data
-Structures and Algorithms in Java</em>. Wiley.</li>
+<li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. <em>Introduction to Algorithms</em>. MIT Press.</li>
+<li>Weiss, M. A. <em>Data Structures and Algorithm Analysis</em>. Pearson.</li>
+<li>Sedgewick, R., &amp; Wayne, K. <em>Algorithms</em>. Addison-Wesley.</li>
+<li>Goodrich, M. T., Tamassia, R., &amp; Goldwasser, M. H. <em>Data Structures and Algorithms in Java</em>. Wiley.</li>
 </ul>
 </body>
 </html>
